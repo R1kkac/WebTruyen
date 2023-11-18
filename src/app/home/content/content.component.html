@@ -1,0 +1,99 @@
+<div class="container bg-dark">
+  <div class="slider-new-update bg-dark">
+    <span class="bg-dark" style="font-size: 20px; border-radius: 5px;color: rgb(255, 255, 255);">Truyện mới cập nhật</span>
+    <a type="button" class="icon-container pre" (click)="PreNewUpdate()"><i class="fa-solid fa-caret-right fa-rotate-180 fa-2xl"></i></a>
+    <div class="list-item mb-3">
+      <div *ngFor="let item of datafirstload" class="item bg-dark">
+        <img [src]="item.img" class="img-thumbnail h-100 p-0" alt="Error" appImageError>
+        <a (click)="PreNewUpdate()">
+          <span>{{item.title}}</span>
+          <span>Chap {{item.chapter}}</span>
+          <span>{{item.datetime}}</span>
+        </a>
+      </div>
+    </div>
+    <a type="button" class="icon-container next" (click)="NextNewUpdate()"><i class="fa-solid fa-caret-right fa-2xl "></i></a>
+  </div>
+  <div class="top-view-date bg-light" style="height: 1rem;">
+  </div>
+  <div class="content-data bg-dark">
+    <div class="content bg-dark">
+      <div *ngFor="let item of mangalist" class="list-manga-item card mb-3 mt-1 p-0 mx-auto rounded">
+        <div class="row g-0">
+          <div class="col-md-4 d-flex justify-content-center">
+            <img [src]="item.img" class="img-fluid" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body position-relative h-100">
+              <a class="item-name text-decoration-none text-black" href=""><h5 class="card-title fs-5 text-center"><b>{{item.title}}</b></h5></a>
+              <p class="details-manga card-text">{{item.detail}}</p>
+              <ol class="list-group">
+                <li class="list-group-item d-sm-block">Chap {{item.chapter}}</li>
+                <li class="list-group-item d-md-block d-none">Chap {{convertToNumber(item.chapter) -1}}</li>
+                <li class="list-group-item d-lg-block d-none">Chap {{convertToNumber(item.chapter) -2}}</li>
+              </ol>
+              <div class="categorys mt-2">
+                <a *ngFor="let category of listcategory" href="">{{category.name}}</a>
+              </div>
+              <p class="card-text position-absolute bottom-0 start-0 ms-3"><small class="text-body-secondary"><b><i>Last update: {{item.datetime}}</i></b></small></p>
+            </div>
+          </div>
+        </div>
+        <div class="row g-0">
+        </div>
+      </div>
+    <div class="list-paginator bg-dark">
+      <div class="paginator  bg-dark">
+        <a class="page btn">First</a>
+        <a class="page btn">{{page+1}}</a>
+        <a class="page btn">{{page+2}}</a>
+        <div class="dropup-center dropup bg-dark">
+          <button class="btn btn-secondary border-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            ...
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#" *ngFor="let index of data">{{index}}</a></li>
+          </ul>
+        </div>
+        <a class="page btn">{{page+3}}</a>
+        <a class="page btn">Last</a>
+      </div>
+    </div>
+  </div>
+  <div class="recommend m-2 bg-dark">
+    <p style="text-align: center;" class="mb-1"><b>TOP VIEW</b></p>
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+      <mat-tab label="Ngày">
+        <ul class="top-view-date list-group list-group-flush">
+          <li *ngFor="let item of Topmangabydate()" class="list-group-item">
+            <img [src]="item.img"  alt="">
+            <span>{{item.title}}</span>
+            <span>{{item.view}}</span>
+          </li>
+        </ul>
+      </mat-tab>
+      <mat-tab class="list-group-item" label="Tháng">
+        <ul class="top-view-date list-group list-group-flush">
+          <li *ngFor="let item of Topmangabydate()" class="list-group-item">
+            <img [src]="item.img"  alt="">
+            <span>{{item.title}}</span>
+            <span>{{item.view}}</span>
+          </li>
+        </ul>
+      </mat-tab>
+      <mat-tab class="list-group-item" label="Năm">
+        <ul class="top-view-date list-group list-group-flush">
+          <li *ngFor="let item of Topmangabydate()" class="list-group-item">
+            <img [src]="item.img"  alt="">
+            <span>{{item.title}}</span>
+            <span>{{item.view}}</span>
+          </li>
+        </ul>
+      </mat-tab>
+    </mat-tab-group>
+    </div>
+  </div>
+
+</div>
+
+

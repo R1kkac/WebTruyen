@@ -1,0 +1,47 @@
+*{
+    background-color: rgb(0, 0, 0);
+    font-family: 'Times New Roman', Times, serif;
+    align-items: center;
+    color: white;
+}
+.navbar-toggler{
+    border: 1px solid aqua;
+}
+.searchbtn{
+    border-end-end-radius: 25px;
+    border-start-end-radius: 25px;
+    color: rgb(0, 0, 0);
+    font-weight: 900;
+    background-color: white;
+    border: 1px solid rgb(0, 226, 242);
+}
+.searchbtn:hover{
+    background-color: rgb(0, 0, 0);
+    color: white;
+}
+.searchfrom{
+    border-start-start-radius: 25px;
+    border-end-start-radius: 25px;
+    background-color: white;
+}
+.logo{
+    width: 4em;
+    height: 4em;
+    border: none;
+}
+.login{
+    display: grid;
+    align-items: center;
+}
+.navbar-nav .nav-item{  
+   margin-left: 2em;
+}
+.login >a{
+    background-color: white;
+    color: black;
+    border: 1px solid aqua;
+}
+.login >a:hover{
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+}
