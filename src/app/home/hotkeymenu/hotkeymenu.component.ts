@@ -1,4 +1,6 @@
-import {Component, OnInit } from '@angular/core';
+import {Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Processbar } from 'src/app/Service/website-service.service';
 
 
 @Component({
@@ -6,14 +8,16 @@ import {Component, OnInit } from '@angular/core';
   templateUrl: './hotkeymenu.component.html',
   styleUrls: ['./hotkeymenu.component.scss']
 })
-export class HotkeymenuComponent implements OnInit{
-  bufferValue=10;
+export class HotkeymenuComponent implements OnInit, OnChanges{
   MoveEnter=false;
   leaveTimer: any;
   count=0;
   temporary=0;
   ex=false;
   listCategory: any[]=[]
+  private processbar !: Subscription;
+  ProcessValue=0;
+
 
   Categorys=[
       {type: 'Hành động'},
@@ -25,18 +29,28 @@ export class HotkeymenuComponent implements OnInit{
       {type: 'Chuyển sinh'},
       {type: 'Thể thao'},
       {type: 'Harem'},
-      {type: 'Trinh thám'},
       {type: 'Đời Thường'},
       {type: 'Ecchi'},
       {type: 'Khoa học viễn tưởng'},
       {type: 'Thám hiểm'}
   ]
+  constructor(private bar: Processbar){}
   ngOnInit(): void {
     for(let i=0;i<4;i++){
       const items=this.DevideCategory();
       this.listCategory.push(items);
     }
-    console.error(this.listCategory);
+    this.processbar= this.bar.dataProcessbar$.subscribe((percent: any)=>{
+      this.ProcessValue = (percent.curPro / percent.lengthPro) *100 +5;
+    })
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+      if(this.processbar){
+        this.processbar.unsubscribe();
+      }
+      this.processbar= this.bar.dataProcessbar$.subscribe((percent: any)=>{
+        this.ProcessValue = (percent.curPro / percent.lengthPro) *100 +5;
+      })
   }
   Enter(){
     this.MoveEnter=true;
@@ -58,12 +72,16 @@ export class HotkeymenuComponent implements OnInit{
     if(count2 !== 0 && this.temporary === 0 && this.ex ===false){
       this.temporary = count2 - 1;
       this.ex = true
-      return this.Categorys.slice(precount,this.count + 1);
+      const temp= this.count;
+      this.count +=1;
+      return this.Categorys.slice(precount,temp + 1);
     }
     //load từ lần 2 trở di và temporary vẫn còn giá trị
     else if(count2 !== 0 && this.temporary !== 0 ){
       this.temporary = this.temporary - 1;
-      return this.Categorys.slice(precount,this.count + 1);
+      const temp= this.count;
+      this.count +=1;
+      return this.Categorys.slice(precount,temp + 1);
     }
     //không có hoặc không còn temporary
     return this.Categorys.slice(precount,this.count);

@@ -1,0 +1,194 @@
+a{
+    text-decoration: none;
+}
+li{
+    list-style-type: none;
+}
+ul{
+    padding: 0px;
+    margin: 0px;
+}
+.container{
+    display: grid;
+    padding: 0;
+    grid-template-columns: 3fr 1fr;
+}
+.info-manga
+{
+    background-color: rgb(255, 255, 255);
+}
+.list-manga{
+    display: grid;
+    background-color: rgb(255, 255, 255);
+    border-left: 1px solid black;
+}
+.breadcrumbs{
+    display: inline-flex;
+    align-items: center;
+
+}
+.simple-chapter{
+    border-bottom: 1px dashed rgb(205, 205, 205);
+    margin: 0px;
+    padding: 0px;
+}
+.action-chapter{
+    border-bottom: 1px dashed rgb(205, 205, 205);
+    margin: 0px;
+    padding: 0px;
+}
+.list-data{
+    font-size: 1rem;
+    font-weight: 1000;
+}
+nav{
+    border-radius: 5px; 
+    border-color: black;
+}
+nav >ul>li>div >a{
+    color: black;
+}
+nav >ul>li>div >a:hover{
+    color: rgb(9, 213, 236);
+}
+.user{
+    display: grid;
+    grid-template-columns: 1.5fr 8.5fr;
+}
+.user-avatar{
+    display: grid;
+    justify-content: center;
+}
+.user-avatar >img{
+    width: 50px;
+    height: 50px;
+    padding: 0px;
+}
+.user-avatar >button{
+    width: 50px;
+    height: 20px;
+    padding: 0px;
+    font-size: .8rem;
+}
+.user-comment{
+    display: grid;
+    border: 1px solid rgb(154, 153, 153);
+    padding: 0px;
+}
+.user-comment .user-info{
+    border-bottom: 1px solid rgb(154, 153, 153);
+    max-height: 25px;
+}
+.user-comment .user-info >span{
+    display: inline;
+    background-color: green;
+    margin: 5px;
+    border: 1px solid rgb(251, 3, 3);
+}
+.chat-data {
+    margin: 0px;
+}
+.chat-data .data{
+    max-width: 50rem;
+    display: block;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+.chat-data .data{
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.manga-detail{
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.more-manga-detail{
+    font-size: larger;
+    text-decoration: underline;
+}
+.more-manga-detail:hover{
+    color: rgb(252, 78, 78);
+}
+.page-comment{
+    display: flex;
+    justify-content: right;
+    text-align: center;
+}
+.page-comment >a{
+    width: 30px;
+    height: 25px;
+    background-color: rgb(211, 210, 210);
+    margin: .2rem;
+    border-radius: 2px;
+    color: rgb(123, 123, 123);
+}
+.page-comment >a:hover{
+    color: rgb(0, 0, 0);
+}
+.detail-info .row .img-thumbnail{
+    max-width: 20rem;
+    max-height: 22rem;
+}
+.view-more-chapter{
+    color: gray;
+    height: 2rem;
+    align-items: center;
+    font-style: italic;
+}
+.view-more-chapter:hover{
+   background-color: rgb(222, 220, 220, .3);
+   color: rgb(0, 17, 255);
+}
+@media (max-width: 360px){
+    .chat-data .data{
+        max-width: 170px;
+    }
+    .list-manga{
+        visibility: hidden;
+        height: 0;
+        overflow: hidden;
+    }
+    .container{
+        grid-template-columns: 1fr;
+    }
+    .chat-data .data{
+        -webkit-line-clamp: 2;
+    }
+}
+@media (min-width: 360px) and (max-width: 767px){
+    .chat-data .data{
+        max-width: 15rem;
+    }
+    .list-manga{
+        visibility: hidden;
+        height: 0;
+        overflow: hidden;
+    }
+    .container{
+        grid-template-columns: 1fr;
+    }
+    .chat-data .data{
+        -webkit-line-clamp: 3;
+    }
+}
+@media (min-width: 768px) and (max-width:1199px){
+    .chat-data .data{
+        max-width: 30rem;
+    }
+    .detail-info .row .img-thumbnail{
+        max-width: 10rem;
+        max-height: 15rem;
+    }
+    .container{
+        grid-template-columns: 1fr;
+    }
+    .list-manga{
+        visibility: hidden;
+        height: 0;
+        overflow: hidden;
+    }
+}

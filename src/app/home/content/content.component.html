@@ -3,9 +3,9 @@
     <span class="bg-dark" style="font-size: 20px; border-radius: 5px;color: rgb(255, 255, 255);">Truyện mới cập nhật</span>
     <a type="button" class="icon-container pre" (click)="PreNewUpdate()"><i class="fa-solid fa-caret-right fa-rotate-180 fa-2xl"></i></a>
     <div class="list-item mb-3">
-      <div *ngFor="let item of datafirstload" class="item bg-dark">
+      <div [routerLink]="getUrl(item)" *ngFor="let item of datafirstload" class="item bg-dark">
         <img [src]="item.img" class="img-thumbnail h-100 p-0" alt="Error" appImageError>
-        <a (click)="PreNewUpdate()">
+        <a [routerLink]="getUrl(item)" style="text-decoration: none;">
           <span>{{item.title}}</span>
           <span>Chap {{item.chapter}}</span>
           <span>{{item.datetime}}</span>
@@ -25,12 +25,12 @@
           </div>
           <div class="col-md-8">
             <div class="card-body position-relative h-100">
-              <a class="item-name text-decoration-none text-black" href=""><h5 class="card-title fs-5 text-center"><b>{{item.title}}</b></h5></a>
+              <a [routerLink]="getUrl(item)" class="item-name text-decoration-none text-black" href=""><h5 class="card-title fs-5 text-center"><b>{{item.title}}</b></h5></a>
               <p class="details-manga card-text">{{item.detail}}</p>
               <ol class="list-group">
-                <li class="list-group-item d-sm-block">Chap {{item.chapter}}</li>
-                <li class="list-group-item d-md-block d-none">Chap {{convertToNumber(item.chapter) -1}}</li>
-                <li class="list-group-item d-lg-block d-none">Chap {{convertToNumber(item.chapter) -2}}</li>
+                <li [routerLink]="readchapter(chapter, item)" *ngFor="let chapter of item.listchapter" 
+                  [ngClass]="ClassChapter(chapter, item.listchapter)">Chap {{chapter.chapter}}
+                </li>
               </ol>
               <div class="categorys mt-2">
                 <a *ngFor="let category of listcategory" href="">{{category.name}}</a>
@@ -61,37 +61,7 @@
     </div>
   </div>
   <div class="recommend m-2 bg-dark">
-    <p style="text-align: center;" class="mb-1"><b>TOP VIEW</b></p>
-    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
-      <mat-tab label="Ngày">
-        <ul class="top-view-date list-group list-group-flush">
-          <li *ngFor="let item of Topmangabydate()" class="list-group-item">
-            <img [src]="item.img"  alt="">
-            <span>{{item.title}}</span>
-            <span>{{item.view}}</span>
-          </li>
-        </ul>
-      </mat-tab>
-      <mat-tab class="list-group-item" label="Tháng">
-        <ul class="top-view-date list-group list-group-flush">
-          <li *ngFor="let item of Topmangabydate()" class="list-group-item">
-            <img [src]="item.img"  alt="">
-            <span>{{item.title}}</span>
-            <span>{{item.view}}</span>
-          </li>
-        </ul>
-      </mat-tab>
-      <mat-tab class="list-group-item" label="Năm">
-        <ul class="top-view-date list-group list-group-flush">
-          <li *ngFor="let item of Topmangabydate()" class="list-group-item">
-            <img [src]="item.img"  alt="">
-            <span>{{item.title}}</span>
-            <span>{{item.view}}</span>
-          </li>
-        </ul>
-      </mat-tab>
-    </mat-tab-group>
-    </div>
+    <app-slidebar></app-slidebar>
   </div>
 
 </div>

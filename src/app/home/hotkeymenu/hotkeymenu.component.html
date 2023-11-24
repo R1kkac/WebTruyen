@@ -18,13 +18,13 @@
            
             <li> <a href="">Top truyện</a></li>
             <li> <a href="">Danh sách</a></li>
-            <li> <a href="">Tìm nâng cao</a></li>
+            <li> <a href="/Tim-kiem-nang-cao" target="_self" class="advanced-search">Tìm nâng cao</a></li>
             <li> <a href="">Lịch sử</a></li>
             <li> <a href="">Theo dõi</a></li>
             <li> <a href="">Liên hệ</a></li>
         </ul>
     </div>
-    <mat-progress-bar *ngIf="this.bufferValue != 0" mode="determinate" [value]="this.bufferValue" color="accent"></mat-progress-bar>
+    <mat-progress-bar *ngIf="this.ProcessValue !== 0 && this.ProcessValue > 0 " mode="determinate" [value]="this.ProcessValue" color="accent"></mat-progress-bar>
 </div>
 
 

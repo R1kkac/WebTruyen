@@ -34,7 +34,7 @@
 }
 .item > a:hover,
 .item > a:hover :nth-child(n) {
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(0, 0, 0, 0.5);
     opacity: 1;
     color: aqua; /* Màu mới khi hover */
 }
@@ -83,11 +83,6 @@
 .item >img:hover {
     opacity: .5;
 }
-//Top view
-
-
-
-
 //Content
 .content{
     display: grid;
@@ -172,22 +167,26 @@
 .list-manga-item .card-body .item-name >h5:hover{
     color: rgb(0, 171, 171);
 }
-.top-view-date .list-group-item{
+.top-view-date .list-group-item,
+.history .list-group-item{
    display: grid;
    grid-template-columns: 1fr 1fr 1fr;
    justify-content: center;
    align-items: center;
 }
-.top-view-date .list-group-item >img{
+.top-view-date .list-group-item >img,
+.history .list-group-item >img{
     width: 50px;
     height: 50px;
     border: none;
     padding: none;
 }
-.top-view-date .list-group-item >span:nth-child(2){
+.top-view-date .list-group-item >span:nth-child(2),
+.history .list-group-item >span:nth-child(2){
     color: black;
 }
-.top-view-date .list-group-item >span:nth-child(3){
+.top-view-date .list-group-item >span:nth-child(3),
+.history .list-group-item >span:nth-child(3){
     text-align: end;
     background-color: transparent;
 }

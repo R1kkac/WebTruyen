@@ -1,0 +1,166 @@
+<div class="container">
+    <div class="info-manga">
+        <ul class="breadcrumbs">
+            <li class="ms-1"><a href=""><i class="fa-solid fa-house"></i>Trang chủ</a></li>
+            <span><i class="fa-solid fa-angles-right"></i></span>
+            <li class="ms-1"><a href="">Hành động</a></li>
+            <span><i class="fa-solid fa-angles-right"></i></span>
+            <li class="ms-1"><a href="">Hài hước</a></li>
+            <span><i class="fa-solid fa-angles-right"></i></span>
+            <li class="ms-1"><a href="">Phiêu lưu</a></li>
+        </ul>
+        <div class="detail-manga">
+            <h1 class="title-manga text-center">{{manga.name}}</h1>
+            <h5 class="text-center"><b>Cập nhật lúc {{manga.update}}</b></h5>
+
+            <div class="detail-info text-center">
+                <div class="row">
+                  <div class="col-md-4 col-sm-12"><img [src]="manga.image" class="img-thumbnail" alt=""></div>
+                  <div class="col-md-8 col-sm-12 text-start">
+                    <ul class="list-info-manga">
+                        <li class="row author pt-2 pb-2 ms-1">
+                            <p class="col-4 col-sm-4">Tác giả</p>
+                            <p class="col-8 col-sm-8">{{manga.author}}</p>
+                        </li>
+                        <li class="row status pt-2 pb-2 ms-1">
+                            <p class="col-4 col-sm-4">Tình trạng</p>
+                            <p class="col-8 col-sm-8">{{manga.status}}</p>
+                        </li>
+                        <li class="row categories pt-2 pb-2 ms-1">
+                            <p class="col-4 col-sm-4">Thể loại</p>
+                            <p class="col-8 col-sm-8">
+                                <a *ngFor="let categori of manga.categories" href="">{{categori.name}}<span> - </span></a>
+                            </p>
+                        </li>
+                        <li class="row view pt-2 pb-2 ms-1">
+                            <p class="col-4 col-sm-4">Lượt xem</p>
+                            <p class="col-8 col-sm-8">{{manga.view}}</p>
+                        </li>
+                    </ul>
+                  </div>
+                </div>
+            </div>
+            <div class="manga-content container-sm">
+                <h3 class="border-bottom border-danger"><i class="fa-solid fa-book"></i> Nội dung</h3>
+                <p #detail class="manga-detail m-0">{{manga.content}}
+                </p>
+                <a class="more-manga-detail" (click)="seemoredetail()">Xem thêm</a>
+            </div>
+            <div class="list-chapter container-sm mt-2">
+                <h2 class="border-bottom border-danger"><i class="fa-solid fa-list"></i> Danh sách chương</h2>
+                <div class="row list-data">
+                    <div class="col ms-2">Số chương</div>
+                    <div class="col">Ngày cập nhật</div>
+                    <div class="col">Đã xem</div>
+                </div>
+                <nav class="border">
+                    <ul #listdatachapter class="list-data-chapter">
+                        <li *ngFor="let item of chapterlist$ | async" class="simple-chapter row pt-2 pb-2">
+                            <div class="col"><a [href]="readchapter(item)">Chương {{item.chapter}}</a></div>
+                            <div class="col"><i>{{item.date}}</i></div>
+                            <div [ngStyle]="{'color': item.status === 'chưa xem qua' ? '' : 'rgba(128, 128, 128, 0.5)'}" class="col">
+                                <i>{{item.status}}</i>
+                            </div>
+                        </li>
+                        <li *ngIf="isLastChapter=== false" class="action-chapter row"><a (click)="morechapter()" class="view-more-chapter d-flex justify-content-center"><i>+</i>Xem thêm</a></li>
+                        <li *ngIf="isLastChapter === true"  class="action-chapter row"><a (click)="hidechapter()" class="view-more-chapter d-flex justify-content-center">Ẩn bớt<i>--</i></a></li>
+
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="manga-comment container-sm mt-5 border-top border-dark">
+            <h2><b>Bình luận</b></h2>
+            <div class="row comment-field ">
+                <div class="mb-3">
+                    <textarea class="form-control" rows="3" placeholder="Nhập gì đó để bình luận"></textarea>
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-info">Bình luận</button>
+                    </div>
+                </div>
+            </div>
+            <div class="hiwtory-comment mb-4">
+                <ul>
+                    <li class="user row mt-2">
+                        <div class="user-avatar">
+                            <img class="img-thumbnail" src="../assets/onepunchman.jpg" alt="">
+                            <button type="button" class="btn btn-info">Trả lời</button>
+                        </div>
+                        <div class="user-comment">
+                           <div class="user-info">
+                                <span>Hải</span>
+                                <span>Chap 11</span>
+                                <span>7 Ngày trước</span>
+                           </div>
+                           <div class="row chat-data">
+                                <div class="data m-1">asdasdasdasdsadasdasddsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdsdsssssssssssssssssssssssssssssssssssssssssssssssssssss
+                                </div>
+                           </div>
+                        </div>
+                    </li>
+                    <li class="user row mt-2">
+                        <div class="user-avatar">
+                            <img class="img-thumbnail" src="../assets/onepunchman.jpg" alt="">
+                            <button type="button" class="btn btn-info">Trả lời</button>
+                        </div>
+                        <div class="user-comment">
+                           <div class="user-info">
+                                <span>Hải</span>
+                                <span>Chap 11</span>
+                                <span>7 Ngày trước</span>
+                           </div>
+                           <div class="row chat-data">
+                                <div class="data m-1">asdasdasdasdsadasdasddsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdsdsssssssssssssssssssssssssssssssssssssssssssssssssssss
+                                </div>
+                           </div>
+                        </div>
+                    </li>   
+                    <li class="user row mt-2">
+                        <div class="user-avatar">
+                            <img class="img-thumbnail" src="../assets/onepunchman.jpg" alt="">
+                            <button type="button" class="btn btn-info">Trả lời</button>
+                        </div>
+                        <div class="user-comment">
+                           <div class="user-info">
+                                <span>Hải</span>
+                                <span>Chap 11</span>
+                                <span>7 Ngày trước</span>
+                           </div>
+                           <div class="row chat-data">
+                                <div class="data m-1">asdasdasdasdsadasdasddsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdsdsssssssssssssssssssssssssssssssssssssssssssssssssssss
+                                </div>
+                           </div>
+                        </div>
+                    </li>   
+                    <li class="user row mt-2">
+                        <div class="user-avatar">
+                            <img class="img-thumbnail" src="../assets/onepunchman.jpg" alt="">
+                            <button type="button" class="btn btn-info">Trả lời</button>
+                        </div>
+                        <div class="user-comment">
+                           <div class="user-info">
+                                <span>Hải</span>
+                                <span>Chap 11</span>
+                                <span>7 Ngày trước</span>
+                           </div>
+                           <div class="row chat-data">
+                                <div class="data m-1">asdasdasdasdsadasdasddsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdsdsssssssssssssssssssssssssssssssssssssssssssssssssssss
+                                </div>
+                           </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="page-comment">
+                    <a href="">1</a>
+                    <a href="">2</a>
+                    <a href="">...</a>
+                    <a href="">4</a>
+                    <a href="">5</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="list-manga">
+        <app-slidebar></app-slidebar>
+    </div>
+</div>

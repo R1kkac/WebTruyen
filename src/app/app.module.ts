@@ -10,6 +10,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModulo } from './material.module';
 import { HotkeymenuComponent } from './home/hotkeymenu/hotkeymenu.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MangadetailComponent } from './manga/mangadetail/mangadetail.component';
+import { ReadmangaComponent } from './manga/readmanga/readmanga.component';
+import { NotfoundComponent } from './Service/servicecomponent/notfound/notfound.component';
+import { SlidebarComponent } from './home/slidebar/slidebar.component';
+import { ImageErrorDirective } from './Service/image-error.directive';
+import { AdsearchComponent } from './Tool/adsearch/adsearch.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,14 +24,21 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     HeaderComponent,
     FooterComponent,
     ContentComponent,
-    HotkeymenuComponent
+    HotkeymenuComponent,
+    MangadetailComponent,
+    ReadmangaComponent,
+    NotfoundComponent,
+    SlidebarComponent,
+    ImageErrorDirective,
+    AdsearchComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModulo,
-    FontAwesomeModule
+    FontAwesomeModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

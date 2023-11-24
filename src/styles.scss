@@ -4,5 +4,15 @@
 
 
 
-html, body { height: 100%; }
+html, body {
+    height: 100%; 
+ }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.containner-fluid{
+    background-color: rgb(215, 215, 215, .5);
+}
+app-root {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }

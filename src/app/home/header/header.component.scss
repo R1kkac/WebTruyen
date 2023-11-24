@@ -1,11 +1,65 @@
+@import "~@fortawesome/fontawesome-free/css/all.css";
 *{
     background-color: rgb(0, 0, 0);
     font-family: 'Times New Roman', Times, serif;
     align-items: center;
     color: white;
 }
+ul{
+    font-size: 16px;
+}
+.navbar{
+    display: flex;
+    max-height: 4rem;
+}
 .navbar-toggler{
     border: 1px solid aqua;
+}
+.adsearch{
+    text-decoration: none;
+}
+.home{
+    height: 100%;
+    display: grid;
+    justify-content: center;
+}
+.home >a:hover{
+   color: aqua;
+}
+.adsearch:hover{
+    color: aqua;
+}
+.notification{
+    height: 2rem;
+    width: 2rem;
+}
+.message{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.message >i{
+    position: absolute;
+    transform: scale(1.5);
+}
+.message:hover{
+    i{
+        opacity: .5;
+    }
+    span{
+        color: rgb(255, 0, 0);
+        background-color: white;
+    }
+}
+.message >span{
+    padding: 1.5px;
+    text-align: center;
+    color: rgb(255, 255, 255);
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+    top: -25%;
+    right: 0; /* Đặt right: 0 để đẩy nó về góc phải */
 }
 .searchbtn{
     border-end-end-radius: 25px;
@@ -30,18 +84,64 @@
     border: none;
 }
 .login{
-    display: grid;
+    display: flex;
     align-items: center;
+    justify-content: center;
 }
 .navbar-nav .nav-item{  
    margin-left: 2em;
 }
 .login >a{
+    height: 2rem;
+    width: 6rem;
     background-color: white;
     color: black;
-    border: 1px solid aqua;
+    border: 1px solid rgb(0, 0, 0);
+    display: flex;
+    font-size: 14px;
 }
 .login >a:hover{
-    background-color: rgb(0, 0, 0);
-    color: rgb(255, 255, 255);
+    display: flex;
+    background-color: rgba(224, 223, 223, 0.9);
+    color: rgb(249, 9, 9);
+}
+.searchfrom{
+    width: 20rem;
+}
+@media (max-width: 360px){
+    .searchfrom{
+        width: 10rem;
+    }
+    .notification{
+        visibility: hidden;
+        height: 0;
+        overflow: hidden;
+    }
+    .login{
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+    }
+}
+@media (min-width: 360px) and (max-width: 767px){
+    .searchfrom{
+        width: 15rem;
+    }
+    .notification{
+        visibility: hidden;
+        height: 0;
+        overflow: hidden;
+    }
+    .login{
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+    }
+}
+@media (min-width: 768px) and (max-width:1199px){
+    .searchfrom{
+        width: 30rem;
+    }
+    .login{
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+    }
 }
