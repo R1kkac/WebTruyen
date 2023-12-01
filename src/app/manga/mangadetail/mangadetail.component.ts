@@ -1,7 +1,9 @@
 import { ThisReceiver } from '@angular/compiler';
 import { AfterViewInit, Component,ElementRef, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
 import { BehaviorSubject, map } from 'rxjs';
+import { MangaDefault, MangaService } from 'src/app/Service/manga.service';
+import { WebsiteServiceService } from 'src/app/Service/website-service.service';
 
 @Component({
   selector: 'app-mangadetail',
@@ -27,69 +29,198 @@ datachapter=[
   {id:'12', chapter:'10', date: '13/09/2023', status: 'đã xem qua'},
   {id:'13', chapter:'11', date: '13/09/2023', status: 'đã xem qua'}
 ]
-manga={
-  id: '119067',
-  name: 'Hyouka', update: '12:12 18/11/2023', author: 'Hajime', status: 'Đang tiến hành', categories: [
-    {id: '1' , name: 'Hành động'},
-    {id: '2' , name: 'Hài hước'},
-    {id: '3' , name: 'Đời thường'},
-    {id: '4' , name: 'Lãng mạng'},
-    {id: '5' , name: 'Tình cảm'},
-  ],
-  view: '1199067',
-  content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Morbi non arcu risus quis varius quam quisque id diam. Quis commodo odio aenean sed adipiscing diam donec adipiscing. Mauris pellentesque pulvinar pellentesque habitant morbi tristique senectus. Dolor sit amet consectetur adipiscing elit. At imperdiet dui accumsan sit amet nulla facilisi morbi. Sed viverra tellus in hac habitasse platea dictumst vestibulum rhoncus. Urna neque viverra justo nec ultrices dui sapien eget. Luctus accumsan tortor posuere ac. Ut faucibus pulvinar elementum integer enim neque volutpat ac tincidunt. Pharetra vel turpis nunc eget lorem dolor sed. Ultrices gravida dictum fusce ut placerat orci nulla. Pulvinar mattis nunc sed blandit. Blandit volutpat maecenas volutpat blandit. Massa massa ultricies mi quis hendrerit. Ornare suspendisse sed nisi lacus sed viverra tellus in. Proin libero nunc consequat interdum. Pulvinar sapien et ligula ullamcorper. Semper eget duis at tellus at urna condimentum mattis.',
-  image: '../assets/hyouka.jpg'
-}
+  manga:any;
   private chapterlistSubject = new BehaviorSubject<any[]>([]);
   chapterlist$ = this.chapterlistSubject.asObservable();
   isLastChapter= false;
-
-  constructor(private router:Router){}
+  rate: number[]=[];
+  constructor(private route:ActivatedRoute, private webService: WebsiteServiceService, private mangaService: MangaService,
+    private mangaDefault: MangaDefault){}
   ngOnInit(): void {
-    this.chapterlistSubject.next(this.getListSort(0,5));
+    this.route.paramMap.subscribe((item: ParamMap)=>{
+      const Id= item.get('id');
+      this.mangaDefault.MangaData$.subscribe(item=>{
+        const index= item.findIndex(x=> x.mangaId == Id);
+        if(index != -1){
+           this.manga= item.find(x=> x.mangaId == Id);
+           this.mangaService.GetListChapterByManga(this.manga.mangaId).subscribe(item=>{
+            this.manga.listChaper = item;
+           });
+        }else
+        {
+          this.mangaService.GetMangaInfo(Id!).subscribe({
+            next: (item:any)=>{
+              this.manga=item;
+            },
+            complete: ()=>{
+              setTimeout(() => {
+                if(this.manga.listChaper.length <=5){
+                  this.chapterlistSubject.next(this.getListSort(0,this.manga.listChaper.length, this.manga.listChaper));
+                }
+                else{
+                  this.chapterlistSubject.next(this.getListSort(0,5, this.manga.listChaper));
+                }
+              }, 0);
+            }
+          })
+        }
+      })
+    });
+    if(this.manga.listChaper.length <=5){
+      this.chapterlistSubject.next(this.getListSort(0,this.manga.listChaper.length, this.manga.listChaper));
+    }
+    else{
+      this.chapterlistSubject.next(this.getListSort(0,5, this.manga.listChaper));
+    }
+  }
+  formatview(input: any){
+    return this.webService.formatView(input);
   }
   seemoredetail(){
     const element= this.detail.nativeElement;
+    const seemore= document.getElementsByClassName('more-manga-detail')[0] as HTMLElement;
     if(this.isClamped === false){
       element.style.webkitLineClamp ='unset'
       this.isClamped = true;
+      seemore.textContent = 'Ẩn bớt';
     }
     else{
       element.style.webkitLineClamp ='3'
       this.isClamped= false;
+      seemore.textContent = 'Xem thêm';
     }
   }
   morechapter(){
     let element= this.listchapter.nativeElement;
-    if(this.isLastChapter === false)
+    if(this.isLastChapter === false && this.manga.listChaper.length >5)
     {
       element.style.maxHeight ='300px';
       element.style.overflowY ='auto';
-      const result = this.getListSort(5 , this.datachapter.length) ;
-      this.chapterlistSubject.next([...this.chapterlistSubject.value, ...result]);
+      const data = this.manga.listChaper.slice().sort((a: any, b: any) => {
+        const xa = this.extractChapterNumber(a.chapterName);
+        const xb = this.extractChapterNumber(b.chapterName);
+        
+        // Sắp xếp theo số chương
+        return xb - xa;
+      });
+      this.chapterlistSubject.next(data);
+      // const result = this.getListSort(5 , this.datachapter.length, this.manga.listChaper) ;
+      // this.chapterlistSubject.next([...this.chapterlistSubject.value, ...result]);
       this.isLastChapter = true;
     }
   }
+  extractChapterNumber = (chapterName: string): number => {
+    // Sử dụng regular expression để trích xuất số từ tên chương
+    const match = chapterName.match(/(\d+)/);
+  
+    // Nếu có một số được tìm thấy, trả về nó; ngược lại, trả về 0
+    return match ? parseInt(match[0], 10) : 0;
+  };
   hidechapter()
   {
     let element= this.listchapter.nativeElement;
     if(this.isLastChapter=== true){
       element.style.maxHeight ='';
       element.style.overflowY ='unset';
-      this.chapterlistSubject.next(this.getListSort(0,5));
+      const data = this.manga.listChaper.slice().sort((a: any, b: any) => {
+        const xa = this.extractChapterNumber(a.chapterName);
+        const xb = this.extractChapterNumber(b.chapterName);
+        
+        // Sắp xếp theo số chương
+        return xb - xa;
+      }).slice(0,3);
+      this.chapterlistSubject.next(data);
+      // if(this.manga.listChaper.length <=5){
+      //   this.chapterlistSubject.next(this.getListSort(0,this.manga.listChaper.length, this.manga.listChaper));
+      // }else{
+      //   this.chapterlistSubject.next(this.getListSort(0,5, this.manga.listChaper));
+      // }
       this.isLastChapter = false;     
     }
   }
-  getListSort(start: number, end: number){
-    return this.datachapter.slice().sort((a: any,b: any)=> b.chapter - a.chapter).slice(start,end);
+  getListSort(start: number, end: number, data: any){
+    return data.slice().sort((a: any,b: any)=> b.chapterName - a.chapterName).slice(start,end);
   }
   readchapter(chapter: any){
-    let manganame= this.manga.name.replace(/ /g, '-');
-    let chaptername= this.manga.name.replace(/ /g, '-');
-    const url= `/Manga/${this.manga.id}/${manganame}/${chapter.id}/${chaptername}`;
+    let manganame= this.manga.mangaName.replace(/ /g, '-');
+    let chaptername= chapter.chapterName.replace(/ /g, '-');
+    const url= `/Manga/${this.manga.mangaId}/${manganame}/${chapter.chapterId}/${chaptername}`;
     return url;
   }
   ngOnDestroy(): void {
     this.chapterlistSubject.unsubscribe();
+  }
+  rating(){
+    this.webService.showAndHideDisplayElement('.rate'); 
+  }
+  check(input: any, index: number){
+    const imgs= document.querySelectorAll('.star-icon') as NodeListOf<HTMLImageElement>;
+    const imgsArray = Array.from(imgs);
+
+    const img = input.target as HTMLImageElement;
+    //lấy vị trí của element
+    const boundingRect = img.getBoundingClientRect();
+    //lấy độ dài cuối cùng của thẻ trên trang trừ cho vị trí trỏ vào thẻ {vị trí cuối là nởi kết thúc thẻ right:0 } 
+    const mouseX = boundingRect.right- input.clientX;
+    //chia với để xác định 2 nửa theo chiều ngang của thẻ
+    const halfWidth = boundingRect.width / 2;
+
+   
+    const x= Math.abs(input.clientX - boundingRect.left);
+    // nếu vị trí trỏ chuột nhỏ hơn điểm đầu của ngôi sao trên màn hình 
+    if(input.clientX - boundingRect.left <1){
+      for(let i=imgs.length -1; i> index; i--){
+          imgsArray[i].src ='../assets/star-empty-svgrepo-com.svg';
+      }
+      for(let j=0 ; j<= index; j++){
+        imgsArray[j].src ='../assets/star-svgrepo-com.svg';
+      }
+    }
+    // nếu nhỏ hơn một nửa độ dài ngôi sao
+    if (mouseX >= halfWidth) {
+      // Trỏ chuột ở nửa đầu
+      //console.log('Nửa đầu');
+      for(let i=imgs.length -1; i> index; i--){
+        imgsArray[i].src ='../assets/star-empty-svgrepo-com.svg';
+      }
+      for(let j=0 ; j< index; j++){
+        imgsArray[j].src ='../assets/star-svgrepo-com.svg';
+      }
+      img.src ='../assets/half-star-svgrepo-com.svg';
+    } 
+    //nếu lớn hơn một nửa
+    else if(mouseX < halfWidth){
+      // Trỏ chuột ở nửa cuối
+      //console.log('Nửa cuối');
+      for(let i=imgs.length -1; i> index; i--){
+        imgsArray[i].src ='../assets/star-empty-svgrepo-com.svg';
+      }
+      for(let j=0 ; j<= index; j++){
+        imgsArray[j].src ='../assets/star-svgrepo-com.svg';
+      }
+      img.src ='../assets/star-svgrepo-com.svg';
+    }
+  }
+  //lấy số sao người dùng đánh giá
+  review(){
+    var count=0;
+    const imgs= document.querySelectorAll('.star-icon') as NodeListOf<HTMLImageElement>;
+    const stara='star-svgrepo-com.svg';
+    const starb='half-star-svgrepo-com.svg';
+    imgs.forEach((item: HTMLImageElement)=>{
+      const url= item.src.split('/');
+      const src = url[url.length - 1];
+      if(src == stara){
+        count +=1;
+      }
+      if(src == starb){
+        count += 0.5;
+      }
+    })
+    alert('Bạn đã đánh giá bộ truyện này '+ count.toString() +'sao');
+    this.webService.showAndHideDisplayElement('.rate'); 
+  }
+  follow(item: any){
+    alert("Đã theo dõi thành công");
   }
 }

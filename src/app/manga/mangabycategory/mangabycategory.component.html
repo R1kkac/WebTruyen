@@ -1,0 +1,47 @@
+<section class="result-category">
+    <h2 class="title"><mat-icon>view_headline</mat-icon><span>{{category.genresIdName}}</span></h2>
+    <h3 class="ms-2">{{category.info}}</h3>
+    <div class="hf">
+        <article>
+            <div class="data-result">
+                <div class="row d-flex justify-content-start">
+                    <div *ngFor=" let item of listManga" class="data col-5 col-lg-3 m-2">
+                        <div class="image">
+                            <img [routerLink]="getUrl(item)" [src]="item.mangaImage" [alt]="item.mangaName" appImageError>
+                            <a [routerLink]="getUrl(item)">{{item.mangaName}}</a>
+                        </div>
+                        <div class="info">
+                            <div class="list-chapter">
+                                <a *ngFor="let chap of item.listChaper" class="ms-1 d-block" [routerLink]="readchapter(chap, item)">{{chap.chapterName}}<span class="ms-1"><mat-icon>query_builder</mat-icon>
+                                    {{chap.chapterDate | date: 'h:mm a - d/M/y'}}</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pagination">
+                <ul class="d-flex justify-content-end p-2">
+                    <li><a href="">1</a></li>
+                    <li><a href="">2</a></li>
+                    <li><a href="">3</a></li>
+                    <li><a href="">4</a></li>
+                    <li><a href="">5</a></li>
+                </ul>
+                </div>
+        </article>
+        <aside class="slidebar">
+            <h2>Danh mục</h2>
+            <ul class="list-group d-none d-lg-block">
+                <li class="list-group-item" *ngFor="let item of Categorys">
+                    <a (click)="getManga(item.genreId)">{{item.genresIdName}}</a>
+                </li>
+            </ul>
+            <ul class="pagination-categories d-flex justify-content-end">
+                <li *ngFor="let i of [].constructor(page); let j = index">
+                    <a (click)="changeCategories(j)">{{j+1}}</a>
+                </li>
+            </ul>
+        </aside>
+    </div>
+</section>

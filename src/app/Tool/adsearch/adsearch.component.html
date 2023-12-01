@@ -1,7 +1,7 @@
 <div class="container">
     <div class="search-field">
-        <h2 class="d-flex justify-content-center m-3 m-0 p-0">Tìm nâng cao</h2>
-        <h2 class="m-0 p-0 ms-2">Danh sách thể loại</h2>
+        <h2 class="search-title d-flex justify-content-center m-3 m-0 p-0">Tìm nâng cao</h2>
+        <h2 class="categories-title m-0 p-0 ms-3">Danh sách thể loại</h2>
         <div class="calegories row m-0 p-0" style="background-color: white;">
             <form (submit)="search()" class="p-0">
                 <div class="row mb-5 p-1 ms-2">
@@ -9,8 +9,8 @@
                         <div class="col-md-4 col-sm-6 col-lg-3">
                             <ng-container *ngFor="let item of items">
                                 <div class="category d-flex justify-content-left p-1">
-                                    <input type="checkbox" id="{{item.id}}" [(ngModel)]="item.selected" name="categories" value="{{ item.id }}">
-                                    <label class="ms-2" for="{{item.id}}">{{item.name}}</label><br>
+                                    <input (change)="listChecked(item)" type="checkbox" id="{{item.genreId}}" name="categories" value="{{ item.genreId }}">
+                                    <label class="ms-2" for="{{item.genreId}}">{{item.genresIdName}}</label><br>
                                 </div>
                             </ng-container>         
                         </div>
@@ -23,8 +23,9 @@
         </div>
     </div>
     <div class="result-field">
-        <h2 class="border border-info d-flex justify-content-center m-2">Result</h2>
-        <div class="row  d-flex justify-content-center">
+        <h2 class="border border-info d-flex justify-content-center m-2">Kết quả</h2>
+        <router-outlet ></router-outlet>
+        <!-- <div class="row  d-flex justify-content-center">
             <div class="result-item col-sm-2 col-4 m-2">
                 <div class="result-info d-grid justify-content-center text-center">
                     <img src="../assets/hyouka.jpg" alt="" class="img-thumbnail m-0 p-0">
@@ -102,7 +103,7 @@
                     <a href="">Chương 3</a>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
 

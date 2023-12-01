@@ -108,10 +108,12 @@ nav >ul>li>div >a:hover{
 }
 .more-manga-detail{
     font-size: larger;
-    text-decoration: underline;
+    text-decoration: none;
+    cursor: pointer;
 }
 .more-manga-detail:hover{
     color: rgb(252, 78, 78);
+    text-decoration: underline;
 }
 .page-comment{
     display: flex;
@@ -138,10 +140,28 @@ nav >ul>li>div >a:hover{
     height: 2rem;
     align-items: center;
     font-style: italic;
+    cursor: pointer;
 }
 .view-more-chapter:hover{
    background-color: rgb(222, 220, 220, .3);
    color: rgb(0, 17, 255);
+}
+.rate{
+    font-size: 1.2rem;
+    display: none;
+    i{
+        cursor: pointer;
+    }
+}
+.rate-submit:hover{
+    color: rgb(248, 46, 46);
+    background-color: rgb(12, 107, 250, .8);
+    border: 1px solid rgb(12, 107, 250, .8);
+    box-shadow: 0 0 2px black;
+}
+.star >img{
+    width: 20px;
+    height: 20px;
 }
 @media (max-width: 360px){
     .chat-data .data{
@@ -158,6 +178,9 @@ nav >ul>li>div >a:hover{
     .chat-data .data{
         -webkit-line-clamp: 2;
     }
+}
+.list-category >a:not(:last-child)::after{
+    content: ' - ';
 }
 @media (min-width: 360px) and (max-width: 767px){
     .chat-data .data{

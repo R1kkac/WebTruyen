@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -17,7 +17,28 @@ import { SlidebarComponent } from './home/slidebar/slidebar.component';
 import { ImageErrorDirective } from './Service/image-error.directive';
 import { AdsearchComponent } from './Tool/adsearch/adsearch.component';
 import { FormsModule } from '@angular/forms';
+import { TopmangaComponent } from './manga/topmanga/topmanga.component';
+import { LoginComponent } from './user/login/login.component';
+import { RegisterComponent } from './user/register/register.component';
+import { ListmangaComponent } from './manga/listmanga/listmanga.component';
+import { ResulttoppmangaComponent } from './manga/resulttoppmanga/resulttoppmanga.component';
+import { ResultsearchComponent } from './Tool/resultsearch/resultsearch.component';
+import { MangabycategoryComponent } from './manga/mangabycategory/mangabycategory.component';
+import { HttpClientModule } from '@angular/common/http';
+import { MangaService } from './Service/manga.service';
 
+
+
+export function MangaDefault(Mangas: MangaService) {
+  return () => Mangas.GetMangaDefault(); // Gọi hàm initialize của service khi ứng dụng bắt đầu chạy
+}
+export function CategoriesDefault(Mangas: MangaService) {
+  return () => Mangas.GetListCategories(); // Gọi hàm initialize của service khi ứng dụng bắt đầu chạy
+}
+
+export function GetPageNumber(Mangas: MangaService) {
+  return () => Mangas.GetPageNumber(); // Gọi hàm initialize của service khi ứng dụng bắt đầu chạy
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +51,14 @@ import { FormsModule } from '@angular/forms';
     NotfoundComponent,
     SlidebarComponent,
     ImageErrorDirective,
-    AdsearchComponent
+    AdsearchComponent,
+    TopmangaComponent,
+    LoginComponent,
+    RegisterComponent,
+    ListmangaComponent,
+    ResulttoppmangaComponent,
+    ResultsearchComponent,
+    MangabycategoryComponent
   ],
   imports: [
     BrowserModule,
@@ -38,9 +66,30 @@ import { FormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     MaterialModulo,
     FontAwesomeModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    MangaService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: MangaDefault,
+      multi: true,
+      deps: [MangaService]
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: CategoriesDefault,
+      multi: true,
+      deps: [MangaService]
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: GetPageNumber,
+      multi: true,
+      deps: [MangaService]
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -2,13 +2,13 @@
   <div class="slider-new-update bg-dark">
     <span class="bg-dark" style="font-size: 20px; border-radius: 5px;color: rgb(255, 255, 255);">Truyện mới cập nhật</span>
     <a type="button" class="icon-container pre" (click)="PreNewUpdate()"><i class="fa-solid fa-caret-right fa-rotate-180 fa-2xl"></i></a>
-    <div class="list-item mb-3">
-      <div [routerLink]="getUrl(item)" *ngFor="let item of datafirstload" class="item bg-dark">
-        <img [src]="item.img" class="img-thumbnail h-100 p-0" alt="Error" appImageError>
+    <div class="row list-item mb-3 bg-dark m-0">
+      <div [routerLink]="getUrl(item)" *ngFor="let item of datafirstload" class="col-sm-2 item bg-dark">
+        <img [src]="item.mangaImage" class="img-thumbnail h-100 w-100 p-0" alt="Error" appImageError>
         <a [routerLink]="getUrl(item)" style="text-decoration: none;">
-          <span>{{item.title}}</span>
-          <span>Chap {{item.chapter}}</span>
-          <span>{{item.datetime}}</span>
+          <span>{{item.mangaName}}</span>
+          <span>{{item.listChaper?.[0]?.chapterName || "N/A"}}</span>
+          <span>{{item.dateupdate}}</span>
         </a>
       </div>
     </div>
@@ -21,21 +21,21 @@
       <div *ngFor="let item of mangalist" class="list-manga-item card mb-3 mt-1 p-0 mx-auto rounded">
         <div class="row g-0">
           <div class="col-md-4 d-flex justify-content-center">
-            <img [src]="item.img" class="img-fluid" alt="...">
+            <img [src]="item.mangaImage" class="img-fluid" [alt]="item.mangaName">
           </div>
           <div class="col-md-8">
             <div class="card-body position-relative h-100">
-              <a [routerLink]="getUrl(item)" class="item-name text-decoration-none text-black" href=""><h5 class="card-title fs-5 text-center"><b>{{item.title}}</b></h5></a>
-              <p class="details-manga card-text">{{item.detail}}</p>
+              <a [routerLink]="getUrl(item)" class="item-name text-decoration-none text-black" href=""><h5 class="card-title fs-5 text-center"><b>{{item.mangaName}}</b></h5></a>
+              <p class="details-manga card-text">{{item.mangaDetails}}</p>
               <ol class="list-group">
-                <li [routerLink]="readchapter(chapter, item)" *ngFor="let chapter of item.listchapter" 
-                  [ngClass]="ClassChapter(chapter, item.listchapter)">Chap {{chapter.chapter}}
+                <li style="cursor: pointer;" [routerLink]="readchapter(chapter, item)" *ngFor="let chapter of item.listChaper" 
+                  [ngClass]="ClassChapter(chapter, item.listChaper)">{{chapter.chapterName}}
                 </li>
               </ol>
               <div class="categorys mt-2">
-                <a *ngFor="let category of listcategory" href="">{{category.name}}</a>
+                <a [title]="category.info" *ngFor="let category of item.listcategory" [routerLink]="['/The-loai', category.genreId]">{{category.genresIdName}}</a>
               </div>
-              <p class="card-text position-absolute bottom-0 start-0 ms-3"><small class="text-body-secondary"><b><i>Last update: {{item.datetime}}</i></b></small></p>
+              <p class="card-text position-absolute bottom-0 start-0 ms-3"><small class="text-body-secondary"><b><i>Last update: {{item.dateupdate | date: 'h:mm a - d/M/y'}}</i></b></small></p>
             </div>
           </div>
         </div>
@@ -52,7 +52,7 @@
             ...
           </button>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#" *ngFor="let index of data">{{index}}</a></li>
+            <li><a class="dropdown-item" href="#" *ngFor="let index of data2">{{index}}</a></li>
           </ul>
         </div>
         <a class="page btn">{{page+3}}</a>

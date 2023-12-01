@@ -1,6 +1,7 @@
 import {Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Processbar } from 'src/app/Service/website-service.service';
+import { DataCategories } from 'src/app/Service/manga.service';
+import { Processbar, WebsiteServiceService } from 'src/app/Service/website-service.service';
 
 
 @Component({
@@ -20,24 +21,28 @@ export class HotkeymenuComponent implements OnInit, OnChanges{
 
 
   Categorys=[
-      {type: 'Hành động'},
-      {type: 'Trinh thám'},
-      {type: 'Hài hước'},
-      {type: 'Lãng mạng'},
-      {type: 'Phiêu lưu'},
-      {type: 'Huyền bí'},
-      {type: 'Chuyển sinh'},
-      {type: 'Thể thao'},
-      {type: 'Harem'},
-      {type: 'Đời Thường'},
-      {type: 'Ecchi'},
-      {type: 'Khoa học viễn tưởng'},
-      {type: 'Thám hiểm'}
+      {id: '1', type: 'Hành động', title:'Thể loại hành động'},
+      {id: '2', type: 'Trinh thám', title:'Thể loại hành động'},
+      {id: '3', type: 'Hài hước', title:'Thể loại hành động'},
+      {id: '4', type: 'Lãng mạng', title:'Thể loại hành động'},
+      {id: '5', type: 'Phiêu lưu', title:'Thể loại hành động'},
+      {id: '6', type: 'Huyền bí', title:'Thể loại hành động'},
+      {id: '7', type: 'Chuyển sinh', title:'Thể loại hành động'},
+      {id: '8', type: 'Thể thao', title:'Thể loại hành động'},
+      {id: '9', type: 'Harem', title:'Thể loại hành động'},
+      {id: '10', type: 'Đời Thường', title:'Thể loại hành động'},
+      {id: '11', type: 'Ecchi', title:'Thể loại hành động'},
+      {id: '12', type: 'Khoa học viễn tưởng', title:'Thể loại hành động'},
+      {id: '13', type: 'Thám hiểm', title:'Thể loại hành động'}
   ]
-  constructor(private bar: Processbar){}
+  Categories2: any[]=[];
+  constructor(private bar: Processbar, private CategoriesService: DataCategories){}
   ngOnInit(): void {
+    const Categories= this.CategoriesService.CategoriesData$.subscribe(item=>{
+      this.Categories2=item;
+    })
     for(let i=0;i<4;i++){
-      const items=this.DevideCategory();
+      const items=this.DevideCategory(this.Categories2);
       this.listCategory.push(items);
     }
     this.processbar= this.bar.dataProcessbar$.subscribe((percent: any)=>{
@@ -62,10 +67,10 @@ export class HotkeymenuComponent implements OnInit, OnChanges{
     }, 100);
   }
   //hàm để phân chia dữ liệu cho các cột của category
-  DevideCategory(){
+  DevideCategory(Categories: any){
     const precount= this.count;
-    const count=Math.floor(this.Categorys.length / 4);
-    const count2= this.Categorys.length % 4;
+    const count=Math.floor(Categories.length / 4);
+    const count2= Categories.length % 4;
     this.count= this.count + count;
     // nếu danh sách không chia hết cho 4 thì sẽ lấy phần dư phân bổ ra từng cột {load lần đầu vì temporary = 0, biến tạm ex để xác định}
     // là đã từng chia rồi tránh trường hợp temporary sau khi trừ còn 0 thì gọi lại lần nữa
@@ -74,16 +79,16 @@ export class HotkeymenuComponent implements OnInit, OnChanges{
       this.ex = true
       const temp= this.count;
       this.count +=1;
-      return this.Categorys.slice(precount,temp + 1);
+      return Categories.slice(precount,temp + 1);
     }
     //load từ lần 2 trở di và temporary vẫn còn giá trị
     else if(count2 !== 0 && this.temporary !== 0 ){
       this.temporary = this.temporary - 1;
       const temp= this.count;
       this.count +=1;
-      return this.Categorys.slice(precount,temp + 1);
+      return Categories.slice(precount,temp + 1);
     }
     //không có hoặc không còn temporary
-    return this.Categorys.slice(precount,this.count);
+    return Categories.slice(precount,this.count);
   }
 }

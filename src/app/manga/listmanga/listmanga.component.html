@@ -1,0 +1,72 @@
+<div class="list-all-manga">
+    <section class="content">
+        <h2 class="list-manga-title d-flex justify-content-center">Danh sách truyện</h2>
+        <div class="list-data">
+            <ul>Sắp xếp theo:
+                <li>A-Z</li>
+                <li>Tình trạng</li>
+                <li>Ngày cập nhật</li>
+                <li>Số chương</li>
+                <li>Lượt xem</li>
+                <li>Đánh giá</li>
+            </ul>
+            <div class="result-list">
+                <h2>Có tổng 5503 truyện</h2>
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col" class="title col-2">Thứ tự</th>
+                        <th scope="col" class="title col-6">Tên</th>
+                        <th scope="col" class="title col-2">Số chương</th>
+                        <th scope="col" class="title col-2">Tình trạng</th>
+                      </tr>
+                    </thead>
+                    <tbody class="data">
+                      <tr [routerLink]="UrlLink(item.id, item.name)" class="items" *ngFor="let item of listmanga">
+                        <th scope="row">1</th>
+                        <td class="manga-name" (mouseenter)="hovermanga($event)" (mouseleave)="unhovermanga($event)">{{item.name}}
+                            <div class="manga-hover">
+                                <div class="manga-hover-data">
+                                    <div class="info">
+                                        <div class="image">
+                                            <img src="../assets/hyouka.jpg" alt="">
+                                        </div>
+                                        <div class="info-detail p-2">
+                                            <p>{{item.name}}</p>
+                                            <div class="author mb-2"><b>Tác giả:</b><span class="ms-1">{{item.info.author}}</span></div>
+                                            <div class="artist mb-2"><b>Họa sĩ:</b> <span class="ms-1">{{item.info.artist}}</span></div>
+                                            <div class="category mb-2"><b>Thể loại:&nbsp;</b>
+                                                <span *ngFor="let a of item.info.categories">{{a.name}}</span>
+                                            </div>
+                                            <div class="rating mb-2"><b>Đánh giá:</b><span class="ms-1"><i class="fa-solid fa-star p-1" style="color: rgb(249, 249, 4);"></i> 9.08</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="content">
+                                        <p class="p-2"><b>Nội dung:</b><span>
+                                            {{item.title}}
+                                        </span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>{{item.info.chapter}}</td>
+                        <td>{{item.status}}</td>
+                      </tr>                 
+                    </tbody>
+                </table>
+                <div class="pagination-list-manga">
+                    <ul>
+                        <li>1</li>
+                        <li>2</li>
+                        <li>...</li>
+                        <li>4</li>
+                        <li>5</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <aside class="slidebar">
+        <router-outlet></router-outlet>
+    </aside>
+</div>

@@ -1,14 +1,14 @@
 <div class="hotkey-field">
     <div class="hotkey container">
         <ul>
-            <li> <a href="">Home</a></li>
-            <li> <a (mouseenter)="Enter()" (mouseleave)="Leave()" href="">Thể loại</a>
+            <li> <a href="">Trang chủ</a></li>
+            <li> <a (mouseenter)="Enter()" (mouseleave)="Leave()" href="Tim-kiem-nang-cao">Thể loại</a>
                 <ul class="dropdown-menu" (mouseenter)="Enter()" (mouseleave)="Leave()" *ngIf="this.MoveEnter ==true">
                     <li class="list-category">
                         <div *ngFor="let items of listCategory" class="col-sm-3">
                             <ul>
                                 <li *ngFor="let item of items">
-                                    <a href="">{{item.type}}</a>
+                                    <a [routerLink]="['/The-loai', item.genreId]" [title]="item?.info || 'N/A'">{{item.genresIdName}}</a>
                                 </li>
                             </ul>
                         </div>
@@ -16,8 +16,8 @@
                 </ul>
             </li>
            
-            <li> <a href="">Top truyện</a></li>
-            <li> <a href="">Danh sách</a></li>
+            <li> <a href="/Top-manga">Top truyện</a></li>
+            <li> <a href="/Manga/All">Danh sách</a></li>
             <li> <a href="/Tim-kiem-nang-cao" target="_self" class="advanced-search">Tìm nâng cao</a></li>
             <li> <a href="">Lịch sử</a></li>
             <li> <a href="">Theo dõi</a></li>
