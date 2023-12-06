@@ -20,21 +20,7 @@ export class HotkeymenuComponent implements OnInit, OnChanges{
   ProcessValue=0;
 
 
-  Categorys=[
-      {id: '1', type: 'Hành động', title:'Thể loại hành động'},
-      {id: '2', type: 'Trinh thám', title:'Thể loại hành động'},
-      {id: '3', type: 'Hài hước', title:'Thể loại hành động'},
-      {id: '4', type: 'Lãng mạng', title:'Thể loại hành động'},
-      {id: '5', type: 'Phiêu lưu', title:'Thể loại hành động'},
-      {id: '6', type: 'Huyền bí', title:'Thể loại hành động'},
-      {id: '7', type: 'Chuyển sinh', title:'Thể loại hành động'},
-      {id: '8', type: 'Thể thao', title:'Thể loại hành động'},
-      {id: '9', type: 'Harem', title:'Thể loại hành động'},
-      {id: '10', type: 'Đời Thường', title:'Thể loại hành động'},
-      {id: '11', type: 'Ecchi', title:'Thể loại hành động'},
-      {id: '12', type: 'Khoa học viễn tưởng', title:'Thể loại hành động'},
-      {id: '13', type: 'Thám hiểm', title:'Thể loại hành động'}
-  ]
+
   Categories2: any[]=[];
   constructor(private bar: Processbar, private CategoriesService: DataCategories){}
   ngOnInit(): void {
@@ -46,7 +32,7 @@ export class HotkeymenuComponent implements OnInit, OnChanges{
       this.listCategory.push(items);
     }
     this.processbar= this.bar.dataProcessbar$.subscribe((percent: any)=>{
-      this.ProcessValue = (percent.curPro / percent.lengthPro) *100 +5;
+      this.ProcessValue = (percent.curPro / percent.lengthPro) *100 +10;
     })
   }
   ngOnChanges(changes: SimpleChanges): void {

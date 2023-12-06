@@ -16,7 +16,7 @@ import { NotfoundComponent } from './Service/servicecomponent/notfound/notfound.
 import { SlidebarComponent } from './home/slidebar/slidebar.component';
 import { ImageErrorDirective } from './Service/image-error.directive';
 import { AdsearchComponent } from './Tool/adsearch/adsearch.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TopmangaComponent } from './manga/topmanga/topmanga.component';
 import { LoginComponent } from './user/login/login.component';
 import { RegisterComponent } from './user/register/register.component';
@@ -26,6 +26,10 @@ import { ResultsearchComponent } from './Tool/resultsearch/resultsearch.componen
 import { MangabycategoryComponent } from './manga/mangabycategory/mangabycategory.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MangaService } from './Service/manga.service';
+import { HomeComponent } from './home/home/home.component';
+import { ForgotpasswordComponent } from './user/forgotpassword/forgotpassword.component';
+import { UserpageComponent } from './user/userpage/userpage.component';
+import { ToastrModule } from 'ngx-toastr';
 
 
 
@@ -58,7 +62,10 @@ export function GetPageNumber(Mangas: MangaService) {
     ListmangaComponent,
     ResulttoppmangaComponent,
     ResultsearchComponent,
-    MangabycategoryComponent
+    MangabycategoryComponent,
+    HomeComponent,
+    ForgotpasswordComponent,
+    UserpageComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +74,17 @@ export function GetPageNumber(Mangas: MangaService) {
     MaterialModulo,
     FontAwesomeModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    ToastrModule.forRoot({
+      progressBar: true,
+      progressAnimation: 'decreasing',
+      timeOut: 3000,
+      extendedTimeOut: 1000,
+      disableTimeOut: false,
+      tapToDismiss: true,
+      closeButton: true,
+    }),
   ],
   providers: [
     MangaService,

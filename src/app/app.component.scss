@@ -1,43 +1,4 @@
-
-.header{
-    width: 100%;
-    display: grid;
-    z-index: 9999;
-}
-.hotkey{
-    height: 3rem;
-    background-color: rgb(231, 227, 227);
-    width: 100%;
+.container{
     display: flex;
-    position:  relative;
-    z-index: 2000; 
+    flex-direction: column;
 }
-.at-top {
-    height: 3rem;
-    background-color: rgb(231, 227, 227);
-    display: flex;
-    position: fixed;
-    top: 0;
-  }
-.content{
-    margin-top: 2em; 
-    margin-bottom: 1em; 
-    display: grid;
-    width: 100%;
-    height: auto;
-    grid-template-columns: 1;
-}
-@media (max-width: 360px) {
-    .hotkey{
-        display: none;
-    }
-}
-@media (min-width: 361px) and (max-width: 768px){
-    .hotkey{
-        display: none;
-    }
-}
-// <app-header></app-header>
-// <app-carousel></app-carousel>
-// <app-content></app-content>
-// <app-footer></app-footer>

@@ -14,27 +14,36 @@ import { ResulttoppmangaComponent } from './manga/resulttoppmanga/resulttoppmang
 import { ResultsearchComponent } from './Tool/resultsearch/resultsearch.component';
 import { SlidebarComponent } from './home/slidebar/slidebar.component';
 import { MangabycategoryComponent } from './manga/mangabycategory/mangabycategory.component';
+import { HomeComponent } from './home/home/home.component';
+import { UserpageComponent } from './user/userpage/userpage.component';
+import { ForgotpasswordComponent } from './user/forgotpassword/forgotpassword.component';
 
 const routes: Routes = [
-  {path: '' , component: ContentComponent},
-  {path: 'Login' , component: LoginComponent},
-  {path: 'Register' , component: RegisterComponent},
-  {path: 'Manga/:id/:name' , component: MangadetailComponent},
-  {path: 'Manga/:id/:name/:idchapter/:chaptername' , component: ReadmangaComponent},
-  {path: 'The-loai/:idcategory', component: MangabycategoryComponent},
-  {path: 'Tim-kiem-nang-cao', component: AdsearchComponent, children:[
-    { path: '', component: ResultsearchComponent},
-    { path: 'Ket-Qua', component: ResultsearchComponent}
+  {path: '' , component: HomeComponent, children:[
+    {path: '' , component: ContentComponent},
+    {path: 'Manga/:id/:name' , component: MangadetailComponent},
+    {path: 'Manga/:id/:name/:idchapter/:chaptername' , component: ReadmangaComponent},
+    {path: 'The-loai/:idcategory', component: MangabycategoryComponent},
+    {path: 'Tim-kiem-nang-cao', component: AdsearchComponent, children:[
+      { path: '', component: ResultsearchComponent},
+      { path: 'Ket-Qua', component: ResultsearchComponent}
+    ]},
+    {path: 'Top-manga', component: TopmangaComponent, children:[
+      { 
+        path: '',
+        redirectTo: 'All',
+        pathMatch: 'full'
+      },
+      { path: ':nametype', component: ResulttoppmangaComponent, data:{nametype: 'All'}}]},
+    {path: 'Manga/All' , component: ListmangaComponent, children: [{path: '', component: SlidebarComponent}]},
   ]},
-  {path: 'Top-manga', component: TopmangaComponent, children:[
-    { 
-      path: '',
-      redirectTo: 'All',
-      pathMatch: 'full'
-    },
-    { path: ':nametype', component: ResulttoppmangaComponent, data:{nametype: 'All'}}]},
-  {path: 'Manga/All' , component: ListmangaComponent, children: [{path: '', component: SlidebarComponent}]},
+  {path: 'user', component: UserpageComponent, children:[
+    {path: 'login' , component: LoginComponent},
+    {path: 'register' , component: RegisterComponent},
+    {path: 'forgotpassword' , component: ForgotpasswordComponent},
+  ]},
   {path: '**' , component: NotfoundComponent},
+
 ];
 
 @NgModule({

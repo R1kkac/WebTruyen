@@ -1,0 +1,32 @@
+.container{
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+}
+input{
+    min-width: 18rem;
+}
+h1{
+  text-align: center;
+  font-weight: 500;
+}
+p {
+    font-family: Lato;
+  }
+  .error-message ,.error{
+    color: red;
+  }
+  input.ng-touched.ng-invalid {
+    border: 1px solid red;
+  }
+  .back{
+    display: grid;
+    a{
+        text-decoration: none;
+        padding: .5rem;
+    }
+    a:hover{
+        text-decoration: underline;
+        color: red;
+    }
+}
