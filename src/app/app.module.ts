@@ -30,6 +30,8 @@ import { HomeComponent } from './home/home/home.component';
 import { ForgotpasswordComponent } from './user/forgotpassword/forgotpassword.component';
 import { UserpageComponent } from './user/userpage/userpage.component';
 import { ToastrModule } from 'ngx-toastr';
+import { ResetpasswordComponent } from './user/resetpassword/resetpassword.component';
+import { MangapageComponent } from './manga/mangapage/mangapage.component';
 
 
 
@@ -65,7 +67,9 @@ export function GetPageNumber(Mangas: MangaService) {
     MangabycategoryComponent,
     HomeComponent,
     ForgotpasswordComponent,
-    UserpageComponent
+    UserpageComponent,
+    ResetpasswordComponent,
+    MangapageComponent
   ],
   imports: [
     BrowserModule,

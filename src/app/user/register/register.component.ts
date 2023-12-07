@@ -1,14 +1,17 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { UserService } from 'src/app/Service/user.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent {
+export class RegisterComponent{
   registerform: FormGroup;
-
+  isRegister= false;
   error_messages = {
     'name': [
       { type: 'required', message: 'Yêu cầu*' },
@@ -30,11 +33,9 @@ export class RegisterComponent {
     ],
   }
 
-  constructor(
-    public formBuilder: FormBuilder
-  ) {
+  constructor(public formBuilder: FormBuilder, private userService: UserService, private toastr: ToastrService, private router: Router) {
     this.registerform = this.formBuilder.group({
-      name: new FormControl('', Validators.compose([
+      username: new FormControl('', Validators.compose([
         Validators.required
       ])),
       email: new FormControl('', Validators.compose([
@@ -56,9 +57,6 @@ export class RegisterComponent {
     });
   }
 
-  ngOnInit() {
-  }
-
   password(formGroup: FormGroup) {
     const { value: password } = formGroup.get('password')!;
     const { value: confirmPassword } = formGroup.get('confirmpassword')!;
@@ -66,5 +64,26 @@ export class RegisterComponent {
       return password === confirmPassword ? null : { passwordNotMatch: true };
     }
     return null;
+  }
+  register(){
+    const username= this.registerform.get('username')?.value;
+    const password= this.registerform.get('password')?.value == this.registerform.get('confirmpassword')?.value
+     ?this.registerform.get('password')?.value: null;
+    const email= this.registerform.get('email')?.value;
+    if(password !==null){
+      this.userService.register(username,password,email).subscribe({
+        next: (result: any)=>{
+          if(result.status === 'Success' && result.message){
+            this.toastr.success(result.message);
+            this.isRegister= true;
+          }
+        },
+        error: (error:any)=>{
+          if(error.status === 400){
+            this.toastr.error('Tạo user thất bại');
+          }
+        }
+      })
+    }
   }
 }

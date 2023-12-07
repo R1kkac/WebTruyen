@@ -68,6 +68,10 @@ export class MangaService {
      const url= `${this.ApiUrl}/GetMangaByCategories`;
      return this.http.get(url,{params: params})
   }
+  GetmangaByPage(page: any): Observable<any>{
+    const url = `${this.ApiUrl}/GetAllManga/${page}`;
+    return this.http.get(url);
+  }
 }
 
 

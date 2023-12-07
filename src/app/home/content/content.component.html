@@ -18,7 +18,8 @@
   </div>
   <div class="content-data bg-dark">
     <div class="content bg-dark">
-      <div *ngFor="let item of mangalist" class="list-manga-item card mb-3 mt-1 p-0 mx-auto rounded">
+      <router-outlet></router-outlet>
+      <!-- <div *ngFor="let item of mangalist" class="list-manga-item card mb-3 mt-1 p-0 mx-auto rounded">
         <div class="row g-0">
           <div class="col-md-4 d-flex justify-content-center">
             <img [src]="item.mangaImage" class="img-fluid" [alt]="item.mangaName">
@@ -41,18 +42,18 @@
         </div>
         <div class="row g-0">
         </div>
-      </div>
+      </div> -->
     <div class="list-paginator bg-dark">
       <div class="paginator  bg-dark">
         <a class="page btn">First</a>
         <a class="page btn">{{page+1}}</a>
-        <a class="page btn">{{page+2}}</a>
+        <a [routerLink]="['page', page]" class="page btn">{{page+2}}</a>
         <div class="dropup-center dropup bg-dark">
           <button class="btn btn-secondary border-light " type="button" data-bs-toggle="dropdown" aria-expanded="false">
             ...
           </button>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#" *ngFor="let index of data2">{{index}}</a></li>
+            <li><a class="dropdown-item"  [routerLink]="['page', index]" *ngFor="let index of data2">{{index}}</a></li>
           </ul>
         </div>
         <a class="page btn">{{page+3}}</a>

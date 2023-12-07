@@ -17,10 +17,15 @@ import { MangabycategoryComponent } from './manga/mangabycategory/mangabycategor
 import { HomeComponent } from './home/home/home.component';
 import { UserpageComponent } from './user/userpage/userpage.component';
 import { ForgotpasswordComponent } from './user/forgotpassword/forgotpassword.component';
+import { ResetpasswordComponent } from './user/resetpassword/resetpassword.component';
+import { MangapageComponent } from './manga/mangapage/mangapage.component';
 
 const routes: Routes = [
   {path: '' , component: HomeComponent, children:[
-    {path: '' , component: ContentComponent},
+    {path: '' , component: ContentComponent, children: [
+      {path: '' , component: MangapageComponent},
+      {path: 'page/:page' , component: MangapageComponent}
+    ]},
     {path: 'Manga/:id/:name' , component: MangadetailComponent},
     {path: 'Manga/:id/:name/:idchapter/:chaptername' , component: ReadmangaComponent},
     {path: 'The-loai/:idcategory', component: MangabycategoryComponent},
@@ -41,6 +46,7 @@ const routes: Routes = [
     {path: 'login' , component: LoginComponent},
     {path: 'register' , component: RegisterComponent},
     {path: 'forgotpassword' , component: ForgotpasswordComponent},
+    {path: 'resetpassword', component: ResetpasswordComponent}
   ]},
   {path: '**' , component: NotfoundComponent},
 

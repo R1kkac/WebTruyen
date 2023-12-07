@@ -24,7 +24,7 @@ export class MangapageComponent implements OnInit{
             document.body.scrollIntoView({ behavior: 'instant', block: 'start'});
           }, 0);
         })
-      }else if(a == null || a== undefined){
+      }else{
         if(this.Mangas){
           this.Mangas.unsubscribe();
         }
