@@ -23,8 +23,15 @@
         <button class="searchbtn btn btn-outline-warning" type="submit">Tìm</button>
       </form>
       <div class="nav-item login p-2">
-        <a  class="login btn btn-primary" href="/user/login" tabindex="-1" aria-disabled="true">Đăng nhập</a>
-        <a  class="login btn btn-primary" href="/user/register" tabindex="-1" aria-disabled="true">Đăng ký</a>
+        <ng-container *ngIf="hasLogin === false">
+          <a  class="login btn btn-primary" href="/oAuth/login" tabindex="-1" aria-disabled="true">Đăng nhập</a>
+          <a  class="login btn btn-primary" href="/oAuth/register" tabindex="-1" aria-disabled="true">Đăng ký</a>
+        </ng-container>
+        <ng-container *ngIf="hasLogin === true">
+          <div class="user">
+            <app-userheader [user]="user" (hasLogin)="islogout($event)"></app-userheader>
+          </div>
+        </ng-container>
       </div>
     </div>
   </div>

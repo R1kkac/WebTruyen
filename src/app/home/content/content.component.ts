@@ -37,7 +37,6 @@ export class ContentComponent implements OnInit, OnDestroy{
     this.data2 = (() => Array.from({length: this.page}, (_, i) => i + 1))();
 
     this.Mangas= this.mangaDefault.MangaData$.subscribe((item:any)=>{2
-      console.log(item);
       this.mangalist= item;
     })
      this.datafirstload = this.mangalist.slice(0,6);

@@ -87,6 +87,7 @@
 //Content
 .content{
     display: grid;
+    position: relative;
     column-gap: 5px;
     row-gap: 5px; 
 }
@@ -102,7 +103,8 @@
 }
 .list-paginator .paginator{
     display: flex;
-    margin-right: 2.4rem;
+    margin-top: .5rem;
+
 }
 .list-paginator .paginator >a, .btn-secondary{
     background-color: rgb(244, 243, 243);
@@ -175,6 +177,8 @@
     position: absolute;
     bottom: 0;
     right: 0;
+    background-color: black;
+
 }
 @media (max-width: 360px){
     .card {
@@ -193,9 +197,6 @@
     }
     .content-data{
        grid-template-columns: 1fr; 
-    }
-    .list-paginator{
-        margin-left: 1rem;
     }
     .details-manga{
         display: none;
@@ -219,9 +220,6 @@
     }
     .content-data{
        grid-template-columns: 1fr; 
-    }
-    .list-paginator{
-      margin-left: 1.5rem;
     }
     .list-paginator .paginator{
         justify-content: center;
@@ -248,8 +246,5 @@
     .card {
         width: 25%;
         padding: 0 7px;
-    }
-    .list-paginator {
-        margin-right: 0.5rem;
     }
 }

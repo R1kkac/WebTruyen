@@ -13,6 +13,7 @@ html, body {
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .containner-fluid{
     background-color: rgb(215, 215, 215, .5);
+    position: relative;
 }
 app-root {
     width: 100%;

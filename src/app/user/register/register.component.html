@@ -1,5 +1,5 @@
 <div class="container">
-	<ng-container *ngIf="isRegister === true">
+	<ng-container *ngIf="isRegister === false">
 		<div class="form-register m-3">
 			<h1 class="ion-text-center">Đăng ký tài khoản</h1>
 	
@@ -61,15 +61,15 @@
 				</div>
 			</form>
 			<div class="back pt-2">
-				<a href="/user/login">Đăng nhập</a>
-				<a href="">Quay về trang chủ</a>
+				<a href="/oAuth/login">Đăng nhập</a>
+				<a href="/">Quay về trang chủ</a>
 			  </div>
 		</div>
 	</ng-container>
-	<ng-container *ngIf="isRegister === false">
+	<ng-container *ngIf="isRegister === true">
 		<div class="resutlt">
 			<h1>Bạn đã tạo tài khoản thành công</h1>
-			<button class="btn"><a href="/user/login">Đăng nhập</a></button>
+			<button class="btn"><a href="/oAuth/login">Đăng nhập</a></button>
 			<a href="/">Quay về trang chủ</a>
 		</div>
 	</ng-container>

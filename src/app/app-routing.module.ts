@@ -19,6 +19,7 @@ import { UserpageComponent } from './user/userpage/userpage.component';
 import { ForgotpasswordComponent } from './user/forgotpassword/forgotpassword.component';
 import { ResetpasswordComponent } from './user/resetpassword/resetpassword.component';
 import { MangapageComponent } from './manga/mangapage/mangapage.component';
+import { InfouserComponent } from './user/infouser/infouser.component';
 
 const routes: Routes = [
   {path: '' , component: HomeComponent, children:[
@@ -41,8 +42,11 @@ const routes: Routes = [
       },
       { path: ':nametype', component: ResulttoppmangaComponent, data:{nametype: 'All'}}]},
     {path: 'Manga/All' , component: ListmangaComponent, children: [{path: '', component: SlidebarComponent}]},
+    {path: 'user/:userid/:usernam', component: InfouserComponent, children: [
+      
+    ]}
   ]},
-  {path: 'user', component: UserpageComponent, children:[
+  {path: 'oAuth', component: UserpageComponent, children:[
     {path: 'login' , component: LoginComponent},
     {path: 'register' , component: RegisterComponent},
     {path: 'forgotpassword' , component: ForgotpasswordComponent},

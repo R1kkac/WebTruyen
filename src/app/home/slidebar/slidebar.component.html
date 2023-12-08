@@ -4,32 +4,33 @@
       <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" class="border-top border-danger">
         <mat-tab label="Ngày">
           <ul class="top-view-date list-group list-group-flush">
-            <li [routerLink]="getUrl(item)" *ngFor="let item of Topmangabydate()" class="list-group-item">
-              <a [href]="getUrl(item)">
-                <img [src]="item.img"  alt="">
-                <span>{{item.title}}</span>
-                <span>{{item.view}}</span>
+            <li [routerLink]="getUrl(item)" *ngFor="let item of date" class="list-group-item">
+              <a>
+                <img [src]="item.mangaImage"  [alt]="item.mangaName">
+                <span>{{item.mangaName}}</span>
+                <span>{{Format(item.view)}}</span>
               </a>
             </li>
           </ul>
         </mat-tab>
         <mat-tab class="list-group-item" label="Tháng">
           <ul class="top-view-date list-group list-group-flush">
-            <li [routerLink]="getUrl(item)" *ngFor="let item of Topmangabydate()" class="list-group-item">
-             <a [href]="getUrl(item)">
-              <img [src]="item.img"  alt="">
-              <span>{{item.title}}</span>
-              <span>{{item.view}}</span>
+            <li [routerLink]="getUrl(item)" *ngFor="let item of month" class="list-group-item">
+             <a>
+              <img [src]="item.mangaImage"  [alt]="item.mangaName">
+              <span>{{item.mangaName}}</span>
+              <span>{{Format(item.view)}}</span>
              </a>
             </li>
           </ul>
         </mat-tab>
         <mat-tab class="list-group-item" label="Năm">
           <ul class="top-view-date list-group list-group-flush">
-            <li [routerLink]="getUrl(item)" *ngFor="let item of Topmangabydate()" class="list-group-item">
-              <a [href]="getUrl(item)"><img [src]="item.img"  alt="">
-                <span>{{item.title}}</span>
-                <span>{{item.view}}</span>
+            <li [routerLink]="getUrl(item)" *ngFor="let item of year" class="list-group-item">
+              <a>
+                <img [src]="item.mangaImage"  [alt]="item.mangaName">
+                <span>{{item.mangaName}}</span>
+                <span>{{Format(item.view)}}</span>
               </a>
             </li>
           </ul>
@@ -40,11 +41,10 @@
       <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" class="border-top border-danger">
         <mat-tab label="Lịch sử đọc">
           <ul class="history list-group list-group-flush">
-            <li [routerLink]="getUrl(item)" *ngFor="let item of Topmangabydate()" class="list-group-item">
-              <a [href]="getUrl(item)">
-                <img [src]="item.img"  alt="">
-                <span>{{item.title}}</span>
-                <span>{{item.datetime}}</span>
+            <li [routerLink]="getUrl(item)" *ngFor="let item of date" class="list-group-item">
+              <a>
+                <img [src]="item.mangaImage"  alt="">
+                <span>{{item.mangaName}}</span>
               </a>
             </li>
           </ul>
@@ -54,10 +54,10 @@
     <div class="following-manga mt-1">
       <h3 class="text-center border border-danger fw-bold">Truyện theo dõi</h3>
           <ul class="following list-group list-group-flush">
-            <li [routerLink]="getUrl(item)" *ngFor="let item of mangalist">
-              <a [href]="getUrl(item)" class="list-following p-1">
-                <img [src]="item.img"  alt="">
-                <span>{{item.title}}</span>
+            <li [routerLink]="getUrl(item)" *ngFor="let item of date">
+              <a class="list-following p-1">
+                <img [src]="item.mangaImage"  alt="">
+                <span>{{item.mangaName}}</span>
               </a>
             </li>
           </ul>

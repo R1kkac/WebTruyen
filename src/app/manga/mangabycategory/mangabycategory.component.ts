@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Params } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { DataCategories, MangaService } from 'src/app/Service/manga.service';
+import { WebsiteServiceService } from 'src/app/Service/website-service.service';
 export interface Section {
   name: string;
   updated: Date;
@@ -18,18 +19,20 @@ export class MangabycategoryComponent implements OnInit{
   Categorys: any[]=[]
   page=0;
   idcategories:any;
-  category: any;
-  constructor(private route: ActivatedRoute, private mangaService: MangaService, private categoriesService: DataCategories){}
+  curcategory: any;
+  private subcription!: Subscription;
+  constructor(private route: ActivatedRoute, private mangaService: MangaService, private categoriesService: DataCategories,
+    private websiteService: WebsiteServiceService){}
   ngOnInit(): void {
     this.categoriesService.CategoriesData$.subscribe(item=>{
       this.CategorysSource= item;
     })
     this.Categorys = this.CategorysSource.slice(0, 15);
-
     this.page = Math.ceil(this.CategorysSource.length / 15);
     this.route.paramMap.subscribe((item: ParamMap)=>{
       const id= item.get('idcategory');
       this.idcategories= id;
+      this.curcategory= this.CategorysSource.find(item=> item.genreId == id);
       this.getManga(this.idcategories);
     });
   }
@@ -44,9 +47,12 @@ export class MangabycategoryComponent implements OnInit{
     }
   }
   getManga(id: any){
-    this.mangaService.GetMangaByCategories(id).subscribe(item=>{
+    if(this.subcription){
+      this.subcription.unsubscribe()
+    }
+    this.subcription = this.mangaService.GetMangaByCategories(id).subscribe(item=>{
       const ca= this.CategorysSource.find(item=> item.genreId == id);
-      this.category= ca;
+      this.curcategory= ca;
       this.listManga = item;
     })
   }
@@ -60,5 +66,9 @@ export class MangabycategoryComponent implements OnInit{
     const id= item.mangaId;
     const name= item.mangaName.replace(/ /g, '-');
       return `/Manga/${id}/${name}`;
+  }
+  formatdate(date: any){
+    const type= 'dd/MM/yyyy';
+    return this.websiteService.formatDate(date, type);
   }
 }

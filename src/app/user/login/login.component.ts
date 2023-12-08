@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/Service/user.service';
+import { WebsiteServiceService } from 'src/app/Service/website-service.service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +14,8 @@ export class LoginComponent {
   loginform: FormGroup;
   status: boolean = false; // Biến để lưu trạng thái lỗi
 
-  constructor(public formBuilder: FormBuilder, private userService: UserService, private toastr: ToastrService) {
+  constructor(public formBuilder: FormBuilder, private userService: UserService, private toastr: ToastrService, private router:Router
+    ,private websiteService: WebsiteServiceService) {
     this.loginform = this.formBuilder.group({
       username: new FormControl('', Validators.compose([
         Validators.required
@@ -33,6 +36,11 @@ export class LoginComponent {
         const user= result.userdata;
         if(token.length> 0 && user){
           this.toastr.success('Đăng nhập thành công');
+          this.websiteService.SetCookie(token, user);
+          this.websiteService.Getcookie();
+          setTimeout(() => {
+            this.router.navigate(['']);
+          }, 0);
         }
       },
       error:(err: any)=> {

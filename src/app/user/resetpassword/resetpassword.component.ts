@@ -26,11 +26,13 @@ export class ResetpasswordComponent implements OnInit, AfterViewInit{
       { type: 'required', message: 'Yêu cầu*' },
       { type: 'minlength', message: 'Tối thiểu 6 ký tự*' },
       { type: 'maxlength', message: 'Tối đa 30 ký tự*' },
+      { type: 'pattern', message: 'Mật khẩu phải bao gồm chữ thường,chữ hoa, chữ số và kí tự đặt biệt*' },
     ],
     'confirmpassword': [
       { type: 'required', message: 'Yêu cầu*' },
       { type: 'minlength', message: 'Tối thiểu 6 ký tự*' },
       { type: 'maxlength', message: 'Tối đa 30 ký tự*' },
+      { type: 'pattern', message: 'Mật khẩu phải bao gồm chữ thường,chữ hoa, chữ số và kí tự đặt biệt*' },
     ],
   }
   constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private userService: UserService,
@@ -41,12 +43,14 @@ export class ResetpasswordComponent implements OnInit, AfterViewInit{
       password: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(6),
-        Validators.maxLength(30)
+        Validators.maxLength(30),
+        Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,30}$')
       ])),
       confirmpassword: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(6),
-        Validators.maxLength(30)
+        Validators.maxLength(30),
+        Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,30}$')
       ])),
     }, { 
       validators: this.password.bind(this)
@@ -99,10 +103,20 @@ export class ResetpasswordComponent implements OnInit, AfterViewInit{
     const password= this.resetpasswordform.get('password')?.value;
     const confirmPassword= this.resetpasswordform.get('confirmpassword')?.value;
     if(password === confirmPassword){
-      this.userService.resetpassword(this.email, this.token, password).subscribe((result: any)=>{
-        console.warn(result);
-        if(result.status === 'Success'){
-          this.toastr.success('Đã đặt lại mật khẩu thành công');
+      this.userService.resetpassword(this.email, this.token, password).subscribe({
+        next: (result: any)=>{
+          console.warn(result);
+            if(result.status === 'Success'){
+              this.toastr.success('Đã đặt lại mật khẩu thành công');
+              this.isResetpassword= true;
+            }
+        },
+        error: (error:any)=>{
+          if(error.status === 400){
+            this.toastr.error('Thất bại')
+          }else if( error. status === 0){
+            this.toastr.warning('Mất kết nối tới máy chủ');
+          }
         }
       });
     }

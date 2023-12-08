@@ -25,13 +25,17 @@ import { ResulttoppmangaComponent } from './manga/resulttoppmanga/resulttoppmang
 import { ResultsearchComponent } from './Tool/resultsearch/resultsearch.component';
 import { MangabycategoryComponent } from './manga/mangabycategory/mangabycategory.component';
 import { HttpClientModule } from '@angular/common/http';
-import { MangaService } from './Service/manga.service';
+import { MangaService, Topmangadefault } from './Service/manga.service';
 import { HomeComponent } from './home/home/home.component';
 import { ForgotpasswordComponent } from './user/forgotpassword/forgotpassword.component';
 import { UserpageComponent } from './user/userpage/userpage.component';
 import { ToastrModule } from 'ngx-toastr';
 import { ResetpasswordComponent } from './user/resetpassword/resetpassword.component';
 import { MangapageComponent } from './manga/mangapage/mangapage.component';
+import { PopupMessageService, WebsiteServiceService, isLogin } from './Service/website-service.service';
+import { UserheaderComponent } from './user/userheader/userheader.component';
+import { InfouserComponent } from './user/infouser/infouser.component';
+import { PopupmessageComponent } from './Tool/popupmessage/popupmessage.component';
 
 
 
@@ -45,6 +49,13 @@ export function CategoriesDefault(Mangas: MangaService) {
 export function GetPageNumber(Mangas: MangaService) {
   return () => Mangas.GetPageNumber(); // Gọi hàm initialize của service khi ứng dụng bắt đầu chạy
 }
+export function IsLogin(webSite: WebsiteServiceService) {
+  return () => webSite.Getcookie(); // Gọi hàm initialize của service khi ứng dụng bắt đầu chạy
+}
+export function Topmanga(Manga: MangaService) {
+  return () => Manga.GetTopMangaDefault(); // Gọi hàm initialize của service khi ứng dụng bắt đầu chạy
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,7 +80,10 @@ export function GetPageNumber(Mangas: MangaService) {
     ForgotpasswordComponent,
     UserpageComponent,
     ResetpasswordComponent,
-    MangapageComponent
+    MangapageComponent,
+    UserheaderComponent,
+    InfouserComponent,
+    PopupmessageComponent
   ],
   imports: [
     BrowserModule,
@@ -91,7 +105,7 @@ export function GetPageNumber(Mangas: MangaService) {
     }),
   ],
   providers: [
-    MangaService,
+    MangaService,WebsiteServiceService,PopupMessageService,
     {
       provide: APP_INITIALIZER,
       useFactory: MangaDefault,
@@ -107,6 +121,18 @@ export function GetPageNumber(Mangas: MangaService) {
     {
       provide: APP_INITIALIZER,
       useFactory: GetPageNumber,
+      multi: true,
+      deps: [MangaService]
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: IsLogin,
+      multi: true,
+      deps: [WebsiteServiceService]
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: Topmanga,
       multi: true,
       deps: [MangaService]
     },

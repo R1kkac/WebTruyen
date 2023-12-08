@@ -1,7 +1,8 @@
 import {Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DataCategories } from 'src/app/Service/manga.service';
-import { Processbar, WebsiteServiceService } from 'src/app/Service/website-service.service';
+import { PopupMessageService, Processbar, WebsiteServiceService, isLogin } from 'src/app/Service/website-service.service';
 
 
 @Component({
@@ -22,7 +23,8 @@ export class HotkeymenuComponent implements OnInit, OnChanges{
 
 
   Categories2: any[]=[];
-  constructor(private bar: Processbar, private CategoriesService: DataCategories){}
+  constructor(private bar: Processbar, private CategoriesService: DataCategories, private popUpService: PopupMessageService,
+    private isLogin: isLogin, private router: Router){}
   ngOnInit(): void {
     const Categories= this.CategoriesService.CategoriesData$.subscribe(item=>{
       this.Categories2=item;
@@ -76,5 +78,29 @@ export class HotkeymenuComponent implements OnInit, OnChanges{
     }
     //không có hoặc không còn temporary
     return Categories.slice(precount,this.count);
+  }
+  history(){
+    this.isLogin.isLogin$.subscribe((result: any)=>{
+      const a= result.status;
+      if(a === false){
+        this.popUpService.showMessage('Bạn cần phải đăng nhập để sử dụng chức năng này!');
+      }
+      if(a ===true){
+        const user= JSON.parse(result.user);
+        this.router.navigate([`user/${user.id}/${user.name}`]);
+      }
+    });
+  }
+  following(){
+    this.isLogin.isLogin$.subscribe((result: any)=>{
+      const a= result.status;
+      if(a === false){
+        this.popUpService.showMessage('Bạn cần phải đăng nhập để sử dụng chức năng này!');
+      }
+      if(a ===true){
+        const user= JSON.parse(result.user);
+        this.router.navigate([`user/${user.id}/${user.name}`]);
+      }
+    });
   }
 }

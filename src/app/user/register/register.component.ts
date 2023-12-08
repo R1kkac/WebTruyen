@@ -15,6 +15,7 @@ export class RegisterComponent{
   error_messages = {
     'name': [
       { type: 'required', message: 'Yêu cầu*' },
+      { type: 'pattern', message: 'Tên đăng nhập không được chứa khoảng trắng*' },
     ],
     'email': [
       { type: 'required', message: 'Yêu cầu*' },
@@ -25,32 +26,37 @@ export class RegisterComponent{
       { type: 'required', message: 'Yêu cầu' },
       { type: 'minlength', message: 'Tối thiểu 6 ký tự*' },
       { type: 'maxlength', message: 'Tối đa 30 ký tự*' },
+      { type: 'pattern', message: 'Mật khẩu phải bao gồm chữ thường,chữ hoa, chữ số và kí tự đặt biệt*' },
     ],
     'confirmpassword': [
       { type: 'required', message: 'password is required.' },
       { type: 'minlength', message: 'Tối thiểu 6 ký tự*' },
       { type: 'maxlength', message: 'Tối đa 30 ký tự*' },
+      { type: 'pattern', message: 'Mật khẩu phải bao gồm chữ thường,chữ hoa, chữ số và kí tự đặt biệt*' },
     ],
   }
 
   constructor(public formBuilder: FormBuilder, private userService: UserService, private toastr: ToastrService, private router: Router) {
     this.registerform = this.formBuilder.group({
       username: new FormControl('', Validators.compose([
-        Validators.required
+        Validators.required,
+        Validators.pattern(/^[^\s]+.*[^\s]+$/),
       ])),
       email: new FormControl('', Validators.compose([
         Validators.required,
-        Validators.email
+        Validators.email,
       ])),
       password: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(6),
-        Validators.maxLength(30)
+        Validators.maxLength(30),
+        Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,30}$')
       ])),
       confirmpassword: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(6),
-        Validators.maxLength(30)
+        Validators.maxLength(30),
+        Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,30}$')
       ])),
     }, { 
       validators: this.password.bind(this)

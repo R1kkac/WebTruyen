@@ -1,0 +1,43 @@
+.content{
+    display: grid;
+    grid-template-columns:  1fr 3fr;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+.tool-bav{
+    border: 1px solid black;
+    display: grid;
+    ol{
+        padding: 0;
+    }
+    ol> li{
+        cursor: pointer;
+        list-style-type: none;
+        display: flex;
+        padding: 1rem;
+        border: 1px solid black;
+        justify-content: start;
+        align-items: center;
+    }
+    ol> li:hover{
+        background-color: aqua;
+        box-shadow: 0 .5rem .5rem rgb(127, 127, 127);
+        border: 1px solid red;
+        a{
+            color: red;
+        }
+    }
+    a{
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: 700;
+        text-shadow: 1px 1px 1px black;
+    }
+    a:hover{
+        color: red;
+    }
+}
+.data{
+    border: 1px solid aqua;
+}

@@ -1,19 +1,19 @@
 <section class="result-category">
-    <h2 class="title"><mat-icon>view_headline</mat-icon><span>{{category.genresIdName}}</span></h2>
-    <h3 class="ms-2">{{category.info}}</h3>
+    <h2 class="title"><mat-icon>view_headline</mat-icon><span>{{curcategory.genresIdName}}</span></h2>
+    <h3 class="ms-2">{{curcategory.info}}</h3>
     <div class="hf">
         <article>
             <div class="data-result">
                 <div class="row d-flex justify-content-start">
                     <div *ngFor=" let item of listManga" class="data col-5 col-lg-3 m-2">
                         <div class="image">
-                            <img [routerLink]="getUrl(item)" [src]="item.mangaImage" [alt]="item.mangaName" appImageError>
+                            <img [routerLink]="getUrl(item)" [src]="item.mangaImage" [alt]="item.mangaName" appImageError loading="lazy">
                             <a [routerLink]="getUrl(item)">{{item.mangaName}}</a>
                         </div>
                         <div class="info">
                             <div class="list-chapter">
                                 <a *ngFor="let chap of item.listChaper" class="ms-1 d-block" [routerLink]="readchapter(chap, item)">{{chap.chapterName}}<span class="ms-1"><mat-icon>query_builder</mat-icon>
-                                    {{chap.chapterDate | date: 'h:mm a - d/M/y'}}</span>
+                                    {{chap.chapterDate}}</span>
                                 </a>
                             </div>
                         </div>

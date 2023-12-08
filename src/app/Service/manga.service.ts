@@ -9,7 +9,7 @@ export class MangaService {
 
   private ApiUrl='https://localhost:7132/Truyen-tranh';
   constructor(private http: HttpClient, private mangadefault: MangaDefault, private CategoriesService: DataCategories,
-     private Page: PageNumber) { }
+     private Page: PageNumber, private Topmanga: Topmangadefault) { }
 
   GetMangaDefault(): Observable<any>{
     const url= `${this.ApiUrl}/GetAllManga/1`;
@@ -18,6 +18,12 @@ export class MangaService {
     }),catchError((error: any)=>{
       throw error;
     }));
+  }
+  GetTopMangaDefault(){
+    const url= `${this.ApiUrl}/Topmanga`;
+    this.http.get(url).subscribe((item: any)=>{
+      this.Topmanga.sendData(item);
+    })
   }
   async GetListCategories(): Promise<any>{
     const url = `${this.ApiUrl}/Category/Getall`;
@@ -112,3 +118,16 @@ export class PageNumber {
     this.PageNumberSubject.next(item);
   }
 }
+@Injectable({
+  providedIn: 'root'
+})
+export class Topmangadefault {
+
+  private TopMangaSubject= new BehaviorSubject<number>(0);
+  TopmangaData$ = this.TopMangaSubject.asObservable();
+
+    sendData(item: number){
+    this.TopMangaSubject.next(item);
+  }
+}
+

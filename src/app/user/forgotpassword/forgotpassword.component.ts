@@ -10,6 +10,7 @@ import { UserService } from 'src/app/Service/user.service';
 })
 export class ForgotpasswordComponent {
   forgotpasswordform: FormGroup;
+  isSuccess: boolean = false;
   constructor(private formbuider: FormBuilder, private userService: UserService, private toastr: ToastrService){
     this.forgotpasswordform = this.formbuider.group({
       email: new FormControl('', Validators.email)
@@ -18,12 +19,13 @@ export class ForgotpasswordComponent {
 
   forgotpassword(){
     const email= this.forgotpasswordform.get('email')?.value;
-    console.log(email);
+    //console.log(email);
     if(email!= null){
       this.userService.forgotpassword(email).subscribe({
         next: (result: any)=>{
           if(result.status === 'Success'){
             this.toastr.success(result.message);
+            this.isSuccess= true;
           }
         },
         error: (error: any)=>{
