@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { PopupMessageService } from 'src/app/Service/website-service.service';
 
 @Component({
@@ -9,10 +10,14 @@ import { PopupMessageService } from 'src/app/Service/website-service.service';
 export class PopupmessageComponent implements OnInit{
   message: string | null = null;
 
+  private Subscription!: Subscription;
   constructor(private popupMessageService: PopupMessageService) { }
 
   ngOnInit(): void {
-    this.popupMessageService.message$.subscribe((message) => {
+    if(this.Subscription){
+      this.Subscription.unsubscribe();
+    }
+    this.Subscription = this.popupMessageService.message$.subscribe((message) => {
       this.message = message;
       setTimeout(() => {
         this.message = null;

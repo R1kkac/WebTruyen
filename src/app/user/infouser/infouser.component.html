@@ -1,23 +1,12 @@
-<div class="content">
+<div class="content container d-grid d-sm-flex">
     <div class="tool-bav">
-        <ol>
-            <li>
-                <a href="">Thông tin tài khoản</a>
-            </li>
-            <li>
-                <a href="">Danh sách truyện theo dõi</a>
-            </li>
-            <li>
-                <a href="">Lịch sử đọc truyện</a>
-            </li>
-            <li>
-                <a href="">Đắng ký trở thành dịch giả</a>
-            </li>
-            <li>
-                <a href="">Đăng ký làm người quản lý</a>
-            </li>
+        <div (click)="showandhidemenu($event)" class="menu"><i class="fa-solid" [ngClass]="menuIconClass"></i>&nbsp;&nbsp;Menu</div>
+        <ol [@expandCollapse]="menuState">
+          <li *ngFor="let item of items" [@stagger] (click)="routerlink(item.id)">
+            <a class="fs-6">{{ item.name }}</a>
+          </li>
         </ol>
-    </div>
+      </div>
     <div class="data">
         <router-outlet></router-outlet>
     </div>

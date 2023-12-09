@@ -34,7 +34,12 @@ export class HotkeymenuComponent implements OnInit, OnChanges{
       this.listCategory.push(items);
     }
     this.processbar= this.bar.dataProcessbar$.subscribe((percent: any)=>{
-      this.ProcessValue = (percent.curPro / percent.lengthPro) *100 +10;
+      var data: any;
+      if((percent.curPro +1) === percent.lengthPro){
+        data = percent.curPro+1;
+      }
+      const value= ((data?? percent.curPro) / percent.lengthPro) *100 +10;
+      this.ProcessValue = value;
     })
   }
   ngOnChanges(changes: SimpleChanges): void {
@@ -42,7 +47,12 @@ export class HotkeymenuComponent implements OnInit, OnChanges{
         this.processbar.unsubscribe();
       }
       this.processbar= this.bar.dataProcessbar$.subscribe((percent: any)=>{
-        this.ProcessValue = (percent.curPro / percent.lengthPro) *100 +5;
+      var data: any;
+      if((percent.curPro +1) === percent.lengthPro){
+        data = percent.curPro+1;
+      }
+      const value= ((data?? percent.curPro) / percent.lengthPro) *100 +10;
+      this.ProcessValue = value;
       })
   }
   Enter(){
@@ -81,11 +91,10 @@ export class HotkeymenuComponent implements OnInit, OnChanges{
   }
   history(){
     this.isLogin.isLogin$.subscribe((result: any)=>{
-      const a= result.status;
-      if(a === false){
+      if(result.status === false && result.isLogout === false){
         this.popUpService.showMessage('Bạn cần phải đăng nhập để sử dụng chức năng này!');
       }
-      if(a ===true){
+      if(result.status ===true && result.isLogout=== false){
         const user= JSON.parse(result.user);
         this.router.navigate([`user/${user.id}/${user.name}`]);
       }
@@ -93,11 +102,10 @@ export class HotkeymenuComponent implements OnInit, OnChanges{
   }
   following(){
     this.isLogin.isLogin$.subscribe((result: any)=>{
-      const a= result.status;
-      if(a === false){
+      if(result.status === false && result.isLogout === false){
         this.popUpService.showMessage('Bạn cần phải đăng nhập để sử dụng chức năng này!');
       }
-      if(a ===true){
+      if(result.status ===true && result.isLogout=== false){
         const user= JSON.parse(result.user);
         this.router.navigate([`user/${user.id}/${user.name}`]);
       }

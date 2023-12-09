@@ -65,6 +65,7 @@ export class WebsiteServiceService {
     if(token .length >0 && user.length> 0){
       const cookievalue : cookie={
         status: true,
+        isLogout: false,
         token: token,
         user: user
       }
@@ -86,6 +87,30 @@ export class WebsiteServiceService {
     };
     this.CookieService.set(this.JWTCookie, this.encrypt(token),cookieOptions); // Tạo cookie với dữ liệu mã hóa
     this.CookieService.set(this.UserCookie, this.encrypt(JSON.stringify(infouser)), cookieOptions); // Tạo cookie với dữ liệu mã hóa
+  }
+  avatar(input: any){
+    const check=this.checkExitstImage(input.avatar);
+    if(check === true ){
+      return input.avatar;
+    }else{
+      return `https://ui-avatars.com/api/?name=${input.name}&background=random`;
+    }
+  }
+  reverseString(input : string): string{
+    const a= input.split('').reverse().join('');
+    return a;
+  }
+  //kiểm tra xem đầu vào có phai hình ảnh không 
+  checkExitstImage(input: string): boolean{
+    const image= ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp', 'ico'];
+    //biểu thức chính quy {chatGPT}
+    const isImage = new RegExp(`\\.(${image.join('|')})$`, 'i').test(input);
+
+    if (isImage) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
 //thanh process bar
@@ -125,7 +150,7 @@ export class SearchbyCategories {
   providedIn: 'root'
 })
 export class isLogin{
-  private isLoginSubject= new BehaviorSubject<cookie>({status : false, token :'', user:''});
+  private isLoginSubject= new BehaviorSubject<cookie>({status : false,isLogout: false, token :'', user:''});
   isLogin$ = this.isLoginSubject.asObservable();
 
   sendData(input: any){
@@ -152,6 +177,7 @@ export interface user{
 }
 export interface cookie{
   status: boolean;
+  isLogout: boolean;
   token: string;
   user: string;
 }

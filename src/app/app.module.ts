@@ -36,6 +36,9 @@ import { PopupMessageService, WebsiteServiceService, isLogin } from './Service/w
 import { UserheaderComponent } from './user/userheader/userheader.component';
 import { InfouserComponent } from './user/infouser/infouser.component';
 import { PopupmessageComponent } from './Tool/popupmessage/popupmessage.component';
+import { InfouserDetailsComponent } from './user/infouser-details/infouser-details.component';
+import { InfouserReadhistoryComponent } from './user/infouser-readhistory/infouser-readhistory.component';
+import { InfouserFollowingComponent } from './user/infouser-following/infouser-following.component';
 
 
 
@@ -83,7 +86,10 @@ export function Topmanga(Manga: MangaService) {
     MangapageComponent,
     UserheaderComponent,
     InfouserComponent,
-    PopupmessageComponent
+    PopupmessageComponent,
+    InfouserDetailsComponent,
+    InfouserReadhistoryComponent,
+    InfouserFollowingComponent
   ],
   imports: [
     BrowserModule,

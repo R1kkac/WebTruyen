@@ -24,7 +24,11 @@ export class UserService {
   logout(){
     this.cookie.delete(this.websiteService.JWTCookie, '/');
     this.cookie.delete(this.websiteService.UserCookie, '/');
-    this.isLogin.sendData({status: false, token:'', user: ''});
+    this.isLogin.sendData({status: false, isLogout: true, token:'', user: ''});
+  }
+  infouser(id : any): Observable<any>{
+    const url= `${this.ApiUrlUser}/Infouser/${id}`;
+    return this.http.get(url);
   }
   register(username: any, password: any,email: any): Observable<any>{
     const url= `${this.ApiUrlUser}/Register`;
