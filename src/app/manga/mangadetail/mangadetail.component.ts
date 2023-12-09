@@ -14,21 +14,6 @@ export class MangadetailComponent implements OnInit, OnDestroy{
   isClamped: boolean = false;
   @ViewChild('detail') detail!: ElementRef;
   @ViewChild('listdatachapter') listchapter!: ElementRef;
-datachapter=[
-  {id:'1', chapter:'1', date: '12/12/2022', status: 'đã xem qua'},
-  {id:'2', chapter:'2', date: '13/12/2022', status: 'chưa xem qua'},
-  {id:'3', chapter:'22', date: '13/09/2023', status: 'chưa xem qua'},
-  {id:'4', chapter:'21', date: '13/09/2023', status: 'chưa xem qua'},
-  {id:'5', chapter:'3', date: '16/12/2022', status: 'chưa xem qua'},
-  {id:'6', chapter:'4', date: '20/12/2022', status: 'đã xem qua'},
-  {id:'7', chapter:'5', date: '23/12/2022', status: 'đã xem qua'},
-  {id:'8', chapter:'6', date: '29/12/2022', status: 'chưa xem qua'},
-  {id:'9', chapter:'7', date: '31/12/2022', status: 'chưa xem qua'},
-  {id:'10', chapter:'8', date: '01/01/2023', status: 'đã xem qua'},
-  {id:'11', chapter:'9', date: '13/06/2023', status: 'đã xem qua'},
-  {id:'12', chapter:'10', date: '13/09/2023', status: 'đã xem qua'},
-  {id:'13', chapter:'11', date: '13/09/2023', status: 'đã xem qua'}
-]
   manga:any;
   private chapterlistSubject = new BehaviorSubject<any[]>([]);
   chapterlist$ = this.chapterlistSubject.asObservable();
@@ -46,8 +31,10 @@ datachapter=[
            this.mangaService.GetListChapterByManga(this.manga.mangaId).subscribe(item=>{
             this.manga.listChaper = item;
            });
-        }else
-        {
+           setTimeout(() => {
+            document.body.scrollIntoView({ behavior: 'instant', block: 'start'});
+          }, 0);
+        }else{
           this.mangaService.GetMangaInfo(Id!).subscribe({
             next: (item:any)=>{
               this.manga=item;
@@ -60,6 +47,9 @@ datachapter=[
                 else{
                   this.chapterlistSubject.next(this.getListSort(0,5, this.manga.listChaper));
                 }
+              }, 0);
+              setTimeout(() => {
+                document.body.scrollIntoView({ behavior: 'instant', block: 'start'});
               }, 0);
             }
           })

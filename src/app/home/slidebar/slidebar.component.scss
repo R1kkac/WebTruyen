@@ -12,13 +12,18 @@ li{
 .recommend{
     border: 1px solid rgb(255, 255, 255);
 }
-.top-view-date .list-group-item>a,
-.history .list-group-item>a{
+.top-view-date .list-group-item>a{
    display: grid;
    grid-template-columns: 1fr 1fr 1fr;
    justify-content: center;
    align-items: center;
 }
+.history .list-group-item>a{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    justify-content: center;
+    align-items: center;
+ }
 .top-view-date .list-group-item >a>img,
 .history .list-group-item >a>img{
     width: 50px;

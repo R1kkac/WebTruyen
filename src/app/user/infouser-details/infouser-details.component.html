@@ -4,40 +4,34 @@
             <ul class="row">
                 <li class="row">
                     <div class="media col-sm-4 col-6 "><b>Tên User:</b></div>
-                    <div class="media-data col-sm-8 col-6 ">HaiLe</div>
+                    <div class="media-data col-sm-8 col-6 ">{{user?.name}}</div>
                 </li>
                 <li class="row">
                     <div class="media col-sm-4 col-6 "><b>Tên đăng nhập:</b></div>
-                    <div class="media-data col-sm-8 col-6 ">haileds939</div>
+                    <div class="media-data col-sm-8 col-6 ">{{user?.userName}}</div>
                 </li>
                 <li class="row">
                     <div class="media col-sm-4 col-4 "><b>Email:</b></div>
-                    <div class="media-data col-sm-8 col-8 ">haileds939@gmail.com</div>
+                    <div class="media-data col-sm-8 col-8 ">{{user?.email}}</div>
                 </li><li class="row">
                     <div class="media col-sm-4 col-6 "><b>Số điện thoại:</b></div>
-                    <div class="media-number-data col-sm-8 col-6 ">0384539162</div>
-                </li>
-                <li class="row">
-                    <div class="media col-sm-4 col-6 "><b>Giới tính:</b></div>
-                    <div class="media-data col-sm-8 col-6 ">Nam</div>
-                </li>
-                <li class="row">
-                    <div class="media col-sm-4 col-6 "><b>Ngày sinh:</b></div>
-                    <div class="media-data col-sm-8 col-6 ">11/11/1111</div>
+                    <div class="media-number-data col-sm-8 col-6 ">{{user?.phoneNumber}}</div>
                 </li>
                 <li class="row">
                     <div class="media col-sm-4 col-6 "><b>Ngày đăng ký:</b></div>
-                    <div class="media-data col-sm-8 col-6 ">23/12/2022</div>
+                    <div class="media-data col-sm-8 col-6 ">{{user?.joinDate ?? 'N/A'}}</div>
                 </li>
                 <li class="row">
-                    <div class="media col-sm-4 col-6 "><b>Cấp bật:</b></div>
-                    <div class="media-data col-sm-8 col-6 ">User</div>
+                    <div class="media col-sm-4 col-6 "><b>Cấp bậc:</b></div>
+                    <div class="media-data col-sm-8 col-6 ">
+                        <a class="role-user" *ngFor="let role of user?.role">{{role}}</a>
+                    </div>
                 </li>
             </ul>
         </div>
         <div class="col-12 col-md-4">
             <div class="avatar row ">
-                <img src="../assets/hyouka.jpg" class="img-fluid" alt="">
+                <img [src]="user?.avatar" class="img-fluid" [alt]="user?.userName">
             </div>
         </div>
     </div>

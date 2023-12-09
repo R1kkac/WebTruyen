@@ -72,12 +72,7 @@ export class WebsiteServiceService {
       this.isLogin.sendData(cookievalue);
     }  
   }
-  //Xóa cookie {dùng làm đăng xuất}
-  async DeleteCookie(){
-    this.cookie.deleteAll(); 
-    //this.user.updateUserInfo('','','','');
-    return await true;
-  }
+
   //Tạo cookie chứa thông tin
   SetCookie(token: any, infouser: any){
     const cookieOptions = {
@@ -110,6 +105,19 @@ export class WebsiteServiceService {
       return true;
     } else {
       return false;
+    }
+  }
+  addtoreadhistory(input : any){
+    const a= 'history';
+    var data= localStorage.getItem(a);
+    if(data !== null){
+      var history: any[]= JSON.parse(data);
+      history.push(input);
+      localStorage.setItem(a, JSON.stringify(history));
+    }else{
+      var history: any[]=[];
+      history.push(input);
+      localStorage.setItem(a,JSON.stringify(history));
     }
   }
 }

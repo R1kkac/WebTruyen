@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Topmangadefault } from 'src/app/Service/manga.service';
+import { UserService } from 'src/app/Service/user.service';
+import { isLogin } from 'src/app/Service/website-service.service';
 
 @Component({
   selector: 'app-slidebar',
@@ -12,12 +14,23 @@ export class SlidebarComponent implements OnInit{
   date: any[]=[];
   month: any[]=[];
   year: any[]=[];
-  constructor(private Topmanga: Topmangadefault){}
+  hasLogin: any;
+  Id: any;
+  mangafollowing: any[]= [];
+  constructor(private Topmanga: Topmangadefault, private isLogin: isLogin, private userService: UserService){}
   ngOnInit(): void {
     this.Topmanga.TopmangaData$.subscribe((item: any)=>{
       this.date = item.filter((x: any)=> x.typetop === '1');
       this.month = item.filter((x: any)=> x.typetop ==='2');
       this.year = item.filter((x: any)=> x.typetop ==='3');
+    })
+    this.isLogin.isLogin$.subscribe((result: any)=>{
+      this.hasLogin = result.status;
+      const user= JSON.parse(result.user);
+      this.Id = user.id;
+    })
+    this.userService.danhSachTruyenTheoDoi(this.Id).subscribe((item: any)=>{
+      this.mangafollowing = item;
     })
   }
   Format(view :number): string{

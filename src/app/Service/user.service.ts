@@ -64,7 +64,7 @@ export class UserService {
   //Lấy danh sách truyện đã theo dõi
   danhSachTruyenTheoDoi(id: string): Observable<any>{
     const url= `${this.ApiUrlService}/DanhsachTheoDoi/${id}`;
-    return this.http.get<any>(url);
+    return this.http.get(url);
   }
   //Thoe dõi truyện
   taoTheoDoiTruyen(IdUser: string, IdManga: string): Observable<any>{

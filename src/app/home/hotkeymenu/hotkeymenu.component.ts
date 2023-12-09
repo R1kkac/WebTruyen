@@ -107,7 +107,7 @@ export class HotkeymenuComponent implements OnInit, OnChanges{
       }
       if(result.status ===true && result.isLogout=== false){
         const user= JSON.parse(result.user);
-        this.router.navigate([`user/${user.id}/${user.name}`]);
+        this.router.navigate([`user/${user.id}/${user.name}/following`]);
       }
     });
   }
