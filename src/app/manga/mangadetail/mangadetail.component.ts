@@ -31,6 +31,12 @@ export class MangadetailComponent implements OnInit, OnDestroy{
            this.mangaService.GetListChapterByManga(this.manga.mangaId).subscribe(item=>{
             this.manga.listChaper = item;
            });
+           if(this.manga.listChaper.length <=5){
+            this.chapterlistSubject.next(this.getListSort(0,this.manga.listChaper.length, this.manga.listChaper));
+            }
+            else{
+              this.chapterlistSubject.next(this.getListSort(0,5, this.manga.listChaper));
+            }
            setTimeout(() => {
             document.body.scrollIntoView({ behavior: 'instant', block: 'start'});
           }, 0);
@@ -56,12 +62,6 @@ export class MangadetailComponent implements OnInit, OnDestroy{
         }
       })
     });
-    if(this.manga.listChaper.length <=5){
-      this.chapterlistSubject.next(this.getListSort(0,this.manga.listChaper.length, this.manga.listChaper));
-    }
-    else{
-      this.chapterlistSubject.next(this.getListSort(0,5, this.manga.listChaper));
-    }
   }
   formatview(input: any){
     return this.webService.formatView(input);
@@ -87,11 +87,13 @@ export class MangadetailComponent implements OnInit, OnDestroy{
       element.style.maxHeight ='300px';
       element.style.overflowY ='auto';
       const data = this.manga.listChaper.slice().sort((a: any, b: any) => {
-        const xa = this.extractChapterNumber(a.chapterName);
-        const xb = this.extractChapterNumber(b.chapterName);
+        // const xa = this.extractChapterNumber(a.chapterName);
+        // const xb = this.extractChapterNumber(b.chapterName);
         
         // Sắp xếp theo số chương
-        return xb - xa;
+        // return xb - xa;
+        return b.chapterIndex - a.chapterIndex;
+
       });
       this.chapterlistSubject.next(data);
       // const result = this.getListSort(5 , this.datachapter.length, this.manga.listChaper) ;
@@ -99,13 +101,13 @@ export class MangadetailComponent implements OnInit, OnDestroy{
       this.isLastChapter = true;
     }
   }
-  extractChapterNumber = (chapterName: string): number => {
-    // Sử dụng regular expression để trích xuất số từ tên chương
-    const match = chapterName.match(/(\d+)/);
+  // extractChapterNumber = (chapterName: string): number => {
+  //   // Sử dụng regular expression để trích xuất số từ tên chương
+  //   const match = chapterName.match(/(\d+)/);
   
-    // Nếu có một số được tìm thấy, trả về nó; ngược lại, trả về 0
-    return match ? parseInt(match[0], 10) : 0;
-  };
+  //   // Nếu có một số được tìm thấy, trả về nó; ngược lại, trả về 0
+  //   return match ? parseInt(match[0], 10) : 0;
+  // };
   hidechapter()
   {
     let element= this.listchapter.nativeElement;
@@ -113,11 +115,11 @@ export class MangadetailComponent implements OnInit, OnDestroy{
       element.style.maxHeight ='';
       element.style.overflowY ='unset';
       const data = this.manga.listChaper.slice().sort((a: any, b: any) => {
-        const xa = this.extractChapterNumber(a.chapterName);
-        const xb = this.extractChapterNumber(b.chapterName);
+        // const xa = this.extractChapterNumber(a.chapterName);
+        // const xb = this.extractChapterNumber(b.chapterName);
         
         // Sắp xếp theo số chương
-        return xb - xa;
+        return b.chapterIndex - a.chapterIndex;
       }).slice(0,3);
       this.chapterlistSubject.next(data);
       // if(this.manga.listChaper.length <=5){
@@ -129,7 +131,8 @@ export class MangadetailComponent implements OnInit, OnDestroy{
     }
   }
   getListSort(start: number, end: number, data: any){
-    return data.slice().sort((a: any,b: any)=> b.chapterName - a.chapterName).slice(start,end);
+    // return data.slice().sort((a: any,b: any)=> b.chapterName - a.chapterName).slice(start,end);
+    return data.slice().sort((a: any,b: any)=> b.chapterIndex - a.chapterIndex).slice(start,end);
   }
   readchapter(chapter: any){
     let manganame= this.manga.mangaName.replace(/ /g, '-');

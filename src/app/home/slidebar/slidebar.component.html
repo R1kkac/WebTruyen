@@ -6,9 +6,9 @@
           <ul class="top-view-date list-group list-group-flush">
             <li [routerLink]="getUrl(item)" *ngFor="let item of date" class="list-group-item">
               <a>
-                <img [src]="item.mangaImage"  [alt]="item.mangaName">
-                <span>{{item.mangaName}}</span>
-                <span>{{Format(item.view)}}</span>
+                <img [src]="item?.mangaImage"  [alt]="item?.mangaName" appImageError>
+                <span>{{item?.mangaName}}</span>
+                <span>{{Format(item?.view)}}</span>
               </a>
             </li>
           </ul>
@@ -17,9 +17,9 @@
           <ul class="top-view-date list-group list-group-flush">
             <li [routerLink]="getUrl(item)" *ngFor="let item of month" class="list-group-item">
              <a>
-              <img [src]="item.mangaImage"  [alt]="item.mangaName">
-              <span>{{item.mangaName}}</span>
-              <span>{{Format(item.view)}}</span>
+              <img [src]="item?.mangaImage"  [alt]="item.mangaName" appImageError>
+              <span>{{item?.mangaName}}</span>
+              <span>{{Format(item?.view)}}</span>
              </a>
             </li>
           </ul>
@@ -28,9 +28,9 @@
           <ul class="top-view-date list-group list-group-flush">
             <li [routerLink]="getUrl(item)" *ngFor="let item of year" class="list-group-item">
               <a>
-                <img [src]="item.mangaImage"  [alt]="item.mangaName">
-                <span>{{item.mangaName}}</span>
-                <span>{{Format(item.view)}}</span>
+                <img [src]="item?.mangaImage"  [alt]="item?.mangaName" appImageError>
+                <span>{{item?.mangaName}}</span>
+                <span>{{Format(item?.view)}}</span>
               </a>
             </li>
           </ul>
@@ -43,8 +43,8 @@
           <ul class="history list-group list-group-flush">
             <li [routerLink]="getUrl(item)" *ngFor="let item of date" class="list-group-item">
               <a>
-                <img [src]="item.mangaImage"  alt="">
-                <span>{{item.mangaName}}</span>
+                <img [src]="item?.mangaImage"  [alt]="item?.mangaName" appImageError>
+                <span>{{item?.mangaName}}</span>
               </a>
             </li>
           </ul>
@@ -57,8 +57,8 @@
             <ul class="following list-group list-group-flush">
               <li *ngFor="let item of mangafollowing" [routerLink]="getUrl(item)">
                 <a class="list-following p-1">
-                  <img [src]="item.mangaImage"  alt="">
-                  <span>{{item.mangaName}}</span>
+                  <img [src]="item?.mangaImage"  [alt]="item?.mangaName" appImageError>
+                  <span>{{item?.mangaName}}</span>
                 </a>
               </li>
             </ul>

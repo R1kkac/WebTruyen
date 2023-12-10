@@ -11,6 +11,8 @@ ul{
 .navbar{
     display: flex;
     max-height: 4rem;
+    position: relative;
+    z-index: 119067;
 }
 .navbar-toggler{
     border: 1px solid aqua;

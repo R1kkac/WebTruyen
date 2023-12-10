@@ -1,8 +1,8 @@
-import { Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, Renderer2, ViewChild, ViewChildren } from '@angular/core';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { MangaService } from 'src/app/Service/manga.service';
-import { Processbar } from 'src/app/Service/website-service.service';
+import { PopupMessageService, Processbar } from 'src/app/Service/website-service.service';
 
 @Component({
   selector: 'app-readmanga',
@@ -12,11 +12,17 @@ import { Processbar } from 'src/app/Service/website-service.service';
 export class ReadmangaComponent implements OnInit,OnDestroy{
 
   @ViewChildren('item') listitem!: QueryList<ElementRef>;
+  @ViewChild('listchapter') chaptermenu!: ElementRef;
   private listdataSubject = new BehaviorSubject<any[]>([]);
   listdata$ = this.listdataSubject.asObservable();
   count=5;
   listurl: any[]=[];
-  constructor(private processBar: Processbar, private mangaService: MangaService, private route: ActivatedRoute){}
+  isShowChapter: boolean = false;
+  curindex=0;
+  listChapter: any[] =[];
+  info: info = {mangaid: '', manganame: '', chapterId: '', chapterIndex: ''};
+  constructor(private processBar: Processbar, private mangaService: MangaService, private route: ActivatedRoute,private renderer: Renderer2,
+    private router: Router, private popUpmessage: PopupMessageService){}
   ngOnInit(): void {
     const aaad=this.route.url;
     console.log(window.location.href.replace(/ /g, '-'));
@@ -26,9 +32,18 @@ export class ReadmangaComponent implements OnInit,OnDestroy{
     this.route.paramMap.subscribe((item: ParamMap)=>{
       const Mangaid= item.get('id');
       const ChapterId= item.get('idchapter');
+      this.info= {
+        mangaid: item.get('id')|| '',
+        manganame: item.get('name') || '',
+        chapterId: item.get('idchapter')|| '',
+        chapterIndex: item.get('chapterIndex')|| '',
+      }
       this.mangaService.GetdataChapter(Mangaid, ChapterId).subscribe((item:any)=>{
         this.listurl = item;
         this.listdataSubject.next(item.slice(0,5));
+      });
+      this.mangaService.GetListChapterByManga(this.info.mangaid).subscribe((item: any)=>{
+        this.listChapter = item.sort((a: any, b: any)=> a.chapterIndex - b.chapterIndex);
       })
     })
     // this.listdataSubject.next(this.listurl.slice(0,5));
@@ -42,6 +57,7 @@ export class ReadmangaComponent implements OnInit,OnDestroy{
       //Nếu phần tử ở giữa màn hình thì index= phần tử đó
       if (rect.top <= centerY && rect.bottom >= centerY) {
         //processbar
+        this.curindex= (index / this.listurl.length) *100 +10
         this.processBar.sendData(index,this.listurl.length);
         // Phần tử ở giữa màn hình
         if((index+1) === this.count && (index + 1)< this.listurl.length){
@@ -70,7 +86,47 @@ export class ReadmangaComponent implements OnInit,OnDestroy{
       document.body.scrollIntoView({ behavior: 'instant', block: 'start'});
     }, 0);
   }
+  prechapter(){
+    const prechap: any= this.listChapter.find(x=> x.chapterIndex === Number(this.info.chapterIndex)-1) ?? 0;
+    if(prechap === 0){
+      this.popUpmessage.showMessage('Bạn đang ở chương đầu của bộ truyện');
+    }
+    else{
+      this.router.navigate([`Manga/${this.info.mangaid}/${this.info.manganame}/${prechap.chapterId}/${prechap.chapterIndex}`])
+    }
+  }
+  nextchapter(){
+    const prechap: any= this.listChapter.find(x=> x.chapterIndex === Number(this.info.chapterIndex)+1) ?? 999999;
+    if(prechap === 999999){
+      this.popUpmessage.showMessage('Bạn đang ở chương cuối của bộ truyện');
+    }
+    else{
+      this.router.navigate([`Manga/${this.info.mangaid}/${this.info.manganame}/${prechap.chapterId}/${prechap.chapterIndex}`])
+    } 
+  }
+  readchapter(input : any){
+    this.router.navigate([`Manga/${this.info.mangaid}/${this.info.manganame}/${input.chapterId}/${input.chapterIndex}`]);
+  }
+  mangadetails(){
+    this.router.navigate([`Manga/${this.info.mangaid}/${this.info.manganame}`]);
+  }
+  showchapter(){
+    const element= this.chaptermenu.nativeElement;
+    this.isShowChapter = !this.isShowChapter;
+    if(this.isShowChapter === true){
+      this.renderer.setStyle(element , 'display', 'block');
+    }
+    else{
+      this.renderer.setStyle(element , 'display', 'none');
+    }
+  }
   ngOnDestroy(): void { 
     this.listdataSubject.unsubscribe();
   }
+}
+export interface info{
+  mangaid: string;
+  manganame: string;
+  chapterId: string;
+  chapterIndex: string;
 }

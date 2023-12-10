@@ -1,11 +1,10 @@
-<router-outlet name="ListManga"></router-outlet>
-<div class="container">
+<div class="container p-0">
     <div class="info-manga">
         <ul class="breadcrumbs">
             <li class="ms-1"><a href="/"><i class="fa-solid fa-house"></i>Trang chủ</a></li>
             <ng-container *ngFor="let category of manga.listcategory">
-                <span><i class="fa-solid fa-angles-right"></i></span>
-                <li class="ms-1"><a [routerLink]="['/The-loai', category.genreId]">{{category.genresIdName}}</a></li>
+                <!-- <span><i class="fa-solid fa-angles-right"></i></span> -->
+                <li class=" ms-1"><a [routerLink]="['/The-loai', category.genreId]">{{category.genresIdName}}</a></li>
             </ng-container>
         </ul>
         <div class="detail-manga">
@@ -14,8 +13,8 @@
 
             <div class="detail-info text-center">
                 <div class="row">
-                  <div class="col-md-4 col-sm-12"><img [src]="manga.mangaImage" [alt]="manga.mangaData"></div>
-                  <div class="col-md-8 col-sm-12 text-start">
+                  <div class="manga-image col-md-4 col-sm-12"><img [src]="manga.mangaImage" [alt]="manga.mangaData"></div>
+                  <div class="card-info-manga col-md-8 col-sm-12 text-start">
                     <ul class="list-info-manga">
                         <li class="row author pt-2 pb-2 ms-1">
                             <p class="col-4 col-sm-4"><b>Tác giả</b></p>
@@ -51,7 +50,7 @@
                         </li>
                         <li class="view pt-2 pb-2 ms-1">
                             <div>
-                                <a (click)="follow(manga)" class="btn btn-danger" type="button">Theo dõi</a>
+                                <a (click)="follow(manga)" class="btn btn-danger ms-1" type="button">Theo dõi</a>
                                 <a (click)="rating()" class="btn btn-primary ms-2" type="button">Đánh giá</a>
                             </div>
                         </li>

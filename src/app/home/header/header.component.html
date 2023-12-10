@@ -1,8 +1,8 @@
-<nav class="navbar navbar-expand-lg ">
+<nav class="navbar navbar-expand-lg">
   <div class="container-fluid">
     <img class="logo img-thumbnail" src="/assets/logo.png" alt="error">
     <a class="navbar-brand" href="#">Yahallo</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+    <button (click)="showAndHideToggle()" #toggler  class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
       <i class="fa-solid fa-bars" style="color: #ffffff;"></i>
     </button>
     <div class="collapse navbar-collapse" id="navbarScroll">

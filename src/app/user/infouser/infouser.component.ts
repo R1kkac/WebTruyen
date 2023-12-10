@@ -73,7 +73,6 @@ export class InfouserComponent  implements OnInit{
     this.router.navigate([`user/${this.Id}/${this.Name}/${input}`]);
   }
   showandhidemenu(input: any){
-    console.log(input);
     this.menu = !this.menu;
     this.menuState = this.menu ? 'expanded' : 'collapsed';
     this.menuIconClass = this.menu ? 'fa-caret-down' : 'fa-caret-right';

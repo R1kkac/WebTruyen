@@ -13,6 +13,10 @@ ul{
     padding: 0;
     grid-template-columns: 3fr 1fr;
 }
+.detail-info .row{
+    padding-right: 0;
+    margin-right: 0;
+}
 .info-manga
 {
     background-color: rgb(255, 255, 255);
@@ -22,10 +26,15 @@ ul{
     background-color: rgb(255, 255, 255);
     border-left: 1px solid black;
 }
+.breadcrumbs >li:not(:last-child)::after{
+    content: ' - ';
+}
 .breadcrumbs{
     display: inline-flex;
     align-items: center;
-
+    flex-wrap: wrap; /* Cho phép các mục xuống hàng khi không đủ không gian */
+    overflow-wrap: break-word;
+    word-wrap: break-word;
 }
 .simple-chapter{
     border-bottom: 1px dashed rgb(205, 205, 205);
