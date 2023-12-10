@@ -63,8 +63,7 @@ export class MangapageComponent implements OnInit{
   }
   readchapter(chapter: any, manga: any){
     let manganame= manga.mangaName.replace(/ /g, '-');
-    let chaptername= chapter.chapterName.replace(/ /g, '-');
-    const url= `/Manga/${manga.mangaId}/${manganame}/${chapter.chapterId}/${chaptername}`;
+    const url= `/Manga/${manga.mangaId}/${manganame}/${chapter.chapterId}/${chapter.chapterIndex}`;
     return url;
   }
 }

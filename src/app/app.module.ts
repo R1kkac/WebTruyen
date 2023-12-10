@@ -39,6 +39,8 @@ import { PopupmessageComponent } from './Tool/popupmessage/popupmessage.componen
 import { InfouserDetailsComponent } from './user/infouser-details/infouser-details.component';
 import { InfouserReadhistoryComponent } from './user/infouser-readhistory/infouser-readhistory.component';
 import { InfouserFollowingComponent } from './user/infouser-following/infouser-following.component';
+import { CommentComponent } from './manga/comment/comment.component';
+import { ReplycommentComponent } from './manga/replycomment/replycomment.component';
 
 
 
@@ -89,7 +91,9 @@ export function Topmanga(Manga: MangaService) {
     PopupmessageComponent,
     InfouserDetailsComponent,
     InfouserReadhistoryComponent,
-    InfouserFollowingComponent
+    InfouserFollowingComponent,
+    CommentComponent,
+    ReplycommentComponent
   ],
   imports: [
     BrowserModule,

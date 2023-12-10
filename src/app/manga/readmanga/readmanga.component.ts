@@ -18,6 +18,11 @@ export class ReadmangaComponent implements OnInit,OnDestroy{
   listurl: any[]=[];
   constructor(private processBar: Processbar, private mangaService: MangaService, private route: ActivatedRoute){}
   ngOnInit(): void {
+    const aaad=this.route.url;
+    console.log(window.location.href.replace(/ /g, '-'));
+
+
+    console.log(aaad);
     this.route.paramMap.subscribe((item: ParamMap)=>{
       const Mangaid= item.get('id');
       const ChapterId= item.get('idchapter');
@@ -59,6 +64,11 @@ export class ReadmangaComponent implements OnInit,OnDestroy{
   }
   updateimage(index: any, data: number){
     return this.listurl.slice(index, index+5);
+  }
+  gohead(){
+    setTimeout(() => {
+      document.body.scrollIntoView({ behavior: 'instant', block: 'start'});
+    }, 0);
   }
   ngOnDestroy(): void { 
     this.listdataSubject.unsubscribe();

@@ -23,6 +23,8 @@ import { InfouserComponent } from './user/infouser/infouser.component';
 import { InfouserDetailsComponent } from './user/infouser-details/infouser-details.component';
 import { InfouserReadhistoryComponent } from './user/infouser-readhistory/infouser-readhistory.component';
 import { InfouserFollowingComponent } from './user/infouser-following/infouser-following.component';
+import { CommentComponent } from './manga/comment/comment.component';
+import { ReplycommentComponent } from './manga/replycomment/replycomment.component';
 
 const routes: Routes = [
   {path: '' , component: HomeComponent, children:[
@@ -31,7 +33,9 @@ const routes: Routes = [
       {path: 'page/:page' , component: MangapageComponent}
     ]},
     {path: 'Manga/:id/:name' , component: MangadetailComponent},
-    {path: 'Manga/:id/:name/:idchapter/:chaptername' , component: ReadmangaComponent},
+    {path: 'Manga/:id/:name/:idchapter/:chapterIndex' , component: ReadmangaComponent, children:[
+      {path: '', component : CommentComponent}
+    ]},
     {path: 'The-loai/:idcategory', component: MangabycategoryComponent},
     {path: 'Tim-kiem-nang-cao', component: AdsearchComponent, children:[
       { path: '', component: ResultsearchComponent},

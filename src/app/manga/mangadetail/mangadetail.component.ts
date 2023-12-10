@@ -133,8 +133,7 @@ export class MangadetailComponent implements OnInit, OnDestroy{
   }
   readchapter(chapter: any){
     let manganame= this.manga.mangaName.replace(/ /g, '-');
-    let chaptername= chapter.chapterName.replace(/ /g, '-');
-    const url= `/Manga/${this.manga.mangaId}/${manganame}/${chapter.chapterId}/${chaptername}`;
+    const url= `/Manga/${this.manga.mangaId}/${manganame}/${chapter.chapterId}/${chapter.chapterIndex}`;
     return url;
   }
   ngOnDestroy(): void {

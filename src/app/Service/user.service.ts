@@ -94,7 +94,7 @@ export class UserService {
     fromdata.append("CommentData", message);
     return this.http.post(url, fromdata);
   }
-  layDanhSachBiinhLuan(IdChapter: string): Observable<any>{
+  layDanhSachBinhLuan(IdChapter: string): Observable<any>{
     const url=`${this.ApiUrlService}/GetListComment/${IdChapter}`;
     return this.http.get(url);
   }
