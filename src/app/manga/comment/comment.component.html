@@ -18,7 +18,7 @@
                 <div class="comment-item row m-0">
                     <div class="comment-item-left col-2 d-flex justify-content-start">
                         <div class="avatar-comment d-flex justify-content-center">
-                            <img [src]="comment.userAvatar" class="comment-avatar img-thumbnail p-0" alt="Error">
+                            <img [src]="comment.userAvatar" class="comment-avatar img-thumbnail p-0" [alt]="comment.userName" appAvatarError>
                         </div>
                         <div class="comment-action d-flex justify-content-center">
                             <span (click)="ReplyComment(comment.idComment)" class="comment-reply"><i class="fa-solid fa-reply"></i></span>

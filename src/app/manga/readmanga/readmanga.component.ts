@@ -2,7 +2,7 @@ import { Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, Rend
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { MangaService } from 'src/app/Service/manga.service';
-import { PopupMessageService, Processbar } from 'src/app/Service/website-service.service';
+import { PopupMessageService, Processbar, WebsiteServiceService } from 'src/app/Service/website-service.service';
 
 @Component({
   selector: 'app-readmanga',
@@ -22,7 +22,8 @@ export class ReadmangaComponent implements OnInit,OnDestroy{
   listChapter: any[] =[];
   info: info = {mangaid: '', manganame: '', chapterId: '', chapterIndex: ''};
   constructor(private processBar: Processbar, private mangaService: MangaService, private route: ActivatedRoute,private renderer: Renderer2,
-    private router: Router, private popUpmessage: PopupMessageService){}
+    private router: Router, private popUpmessage: PopupMessageService,private el: ElementRef, private websiteService: WebsiteServiceService){
+    }
   ngOnInit(): void {
     const aaad=this.route.url;
     console.log(window.location.href.replace(/ /g, '-'));
@@ -57,7 +58,8 @@ export class ReadmangaComponent implements OnInit,OnDestroy{
       //Nếu phần tử ở giữa màn hình thì index= phần tử đó
       if (rect.top <= centerY && rect.bottom >= centerY) {
         //processbar
-        this.curindex= (index / this.listurl.length) *100 +10
+        this.curindex= (index +1 === this.listurl.length) ? 100 : (index / this.listurl.length) *100 +10;
+
         this.processBar.sendData(index,this.listurl.length);
         // Phần tử ở giữa màn hình
         if((index+1) === this.count && (index + 1)< this.listurl.length){
@@ -92,6 +94,7 @@ export class ReadmangaComponent implements OnInit,OnDestroy{
       this.popUpmessage.showMessage('Bạn đang ở chương đầu của bộ truyện');
     }
     else{
+      this.websiteService.scrolltoTop();
       this.router.navigate([`Manga/${this.info.mangaid}/${this.info.manganame}/${prechap.chapterId}/${prechap.chapterIndex}`])
     }
   }
@@ -101,10 +104,12 @@ export class ReadmangaComponent implements OnInit,OnDestroy{
       this.popUpmessage.showMessage('Bạn đang ở chương cuối của bộ truyện');
     }
     else{
+      this.websiteService.scrolltoTop();
       this.router.navigate([`Manga/${this.info.mangaid}/${this.info.manganame}/${prechap.chapterId}/${prechap.chapterIndex}`])
     } 
   }
   readchapter(input : any){
+    this.websiteService.scrolltoTop();
     this.router.navigate([`Manga/${this.info.mangaid}/${this.info.manganame}/${input.chapterId}/${input.chapterIndex}`]);
   }
   mangadetails(){
@@ -123,6 +128,19 @@ export class ReadmangaComponent implements OnInit,OnDestroy{
   ngOnDestroy(): void { 
     this.listdataSubject.unsubscribe();
   }
+  // như tên dùng để làm lazyloading cho image
+  removewhenimageloaded(index: number){
+    //thẻ loading
+    const elementToRemove = document.getElementById(`${index}`);
+    // thẻ content
+    const curelement = document.getElementById(`${index}-image`);
+    if (elementToRemove) {
+      this.renderer.removeChild(this.el.nativeElement, elementToRemove);
+      this.renderer.setStyle(curelement , 'width', 'auto');
+      this.renderer.setStyle(curelement , 'height', 'auto');
+      this.renderer.setStyle(curelement , 'visibility', 'visible');
+    }
+  }
 }
 export interface info{
   mangaid: string;
@@ -130,3 +148,4 @@ export interface info{
   chapterId: string;
   chapterIndex: string;
 }
+

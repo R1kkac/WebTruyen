@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/Service/user.service';
-import { PopupMessageService, isLogin } from 'src/app/Service/website-service.service';
+import { PopupMessageService, WebsiteServiceService, isLogin } from 'src/app/Service/website-service.service';
 import { PopupmessageComponent } from 'src/app/Tool/popupmessage/popupmessage.component';
 
 @Component({
@@ -18,7 +18,8 @@ export class CommentComponent implements OnInit{
   idComment = "";
   isComment= false;
   hasLogin=false;
-  constructor(private route: ActivatedRoute, private userService: UserService, private isLogin: isLogin, private popUpmessage: PopupMessageService){
+  constructor(private route: ActivatedRoute, private userService: UserService, private isLogin: isLogin, private popUpmessage: PopupMessageService,
+    ){
   }
   ngOnInit(): void {
     this.route.paramMap.subscribe(route=>{

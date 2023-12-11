@@ -20,7 +20,6 @@ export class InfouserFollowingComponent implements OnInit{
     })
     this.userService.danhSachTruyenTheoDoi(this.Id).subscribe((item: any)=>{
       this.listmanga = item;
-      console.log(item);
     })
   }
   infomanga(input: any){

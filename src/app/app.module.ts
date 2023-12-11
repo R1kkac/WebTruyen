@@ -41,6 +41,7 @@ import { InfouserReadhistoryComponent } from './user/infouser-readhistory/infous
 import { InfouserFollowingComponent } from './user/infouser-following/infouser-following.component';
 import { CommentComponent } from './manga/comment/comment.component';
 import { ReplycommentComponent } from './manga/replycomment/replycomment.component';
+import { AvatarErrorService } from './Service/avatar-error.service';
 
 
 
@@ -93,7 +94,8 @@ export function Topmanga(Manga: MangaService) {
     InfouserReadhistoryComponent,
     InfouserFollowingComponent,
     CommentComponent,
-    ReplycommentComponent
+    ReplycommentComponent,
+    AvatarErrorService
   ],
   imports: [
     BrowserModule,

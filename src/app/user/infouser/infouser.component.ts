@@ -48,6 +48,7 @@ export class InfouserComponent  implements OnInit{
   items = [{id:'', name:'Thông tin tài khoản'}
   ,{id:'following', name: 'Danh sách truyện theo dõi'}
   ,{id:'history', name: 'Lịch sử đọc truyện'}
+  ,{id:'', name: 'Thông báo'}
   ,{id:'', name: 'Lịch sử bình luận'}
   ,{id:'', name: 'Đăng ký trở thành dịch giả'}
   ,{id:'', name: 'Đăng xuất'}];

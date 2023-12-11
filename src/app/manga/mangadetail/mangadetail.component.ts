@@ -1,9 +1,11 @@
 import { ThisReceiver } from '@angular/compiler';
 import { AfterViewInit, Component,ElementRef, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, map } from 'rxjs';
 import { MangaDefault, MangaService } from 'src/app/Service/manga.service';
-import { WebsiteServiceService } from 'src/app/Service/website-service.service';
+import { UserService } from 'src/app/Service/user.service';
+import { PopupMessageService, WebsiteServiceService, isLogin } from 'src/app/Service/website-service.service';
 
 @Component({
   selector: 'app-mangadetail',
@@ -20,7 +22,8 @@ export class MangadetailComponent implements OnInit, OnDestroy{
   isLastChapter= false;
   rate: number[]=[];
   constructor(private route:ActivatedRoute, private webService: WebsiteServiceService, private mangaService: MangaService,
-    private mangaDefault: MangaDefault){}
+    private mangaDefault: MangaDefault, private userService: UserService, private toastr: ToastrService, private isLogin: isLogin,
+    private popupService: PopupMessageService){}
   ngOnInit(): void {
     this.route.paramMap.subscribe((item: ParamMap)=>{
       const Id= item.get('id');
@@ -213,6 +216,32 @@ export class MangadetailComponent implements OnInit, OnDestroy{
     this.webService.showAndHideDisplayElement('.rate'); 
   }
   follow(item: any){
-    alert("Đã theo dõi thành công");
+    var Id: any;
+    var isLogin: Boolean = false;
+    this.isLogin.isLogin$.subscribe((result: any)=>{
+      isLogin = result.status;
+      const user = JSON.parse(result.user);
+      Id= user.id;
+    })
+    if(isLogin === true){
+      this.userService.taoTheoDoiTruyen(Id, item.mangaId).subscribe({
+        next: (result: any)=>{
+          if(result.status =='Success'){
+            this.toastr.success(`Đã theo dõi truyện`);
+          }
+        },
+        error: (err: any)=>{
+          if(err.status === 403){
+            this.toastr.error(`Đã theo dõi truyện này rồi`);
+          }
+          if(err.status === 0){
+            this.toastr.warning(`Đã xảy ra lỗi`);
+          }
+        }
+      });
+    }else{
+      this.popupService.showMessage('Vui long đăng nhập để sử dụng chức năng này');
+    }
+    
   }
 }

@@ -14,7 +14,7 @@ export class WebsiteServiceService {
   public JWTCookie='SSID'; //token user
   public UserCookie='SSUSER'; //current user
 
-  constructor(private cookie: CookieService, private http: HttpClient, private route: Router,private CookieService: CookieService,
+  constructor(private cookie: CookieService, private http: HttpClient,private CookieService: CookieService,
     private isLogin: isLogin) { }
   returnMangaUrl(idManga: any, nameManga:any){
     const name= nameManga.replace(/ /g, '-');
@@ -119,6 +119,9 @@ export class WebsiteServiceService {
       history.push(input);
       localStorage.setItem(a,JSON.stringify(history));
     }
+  }
+  scrolltoTop(){
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }
 }
 //thanh process bar
