@@ -11,9 +11,17 @@
           <a class="nav-link active" aria-current="page" href="#">Trang chủ</a>
         </li>
         <li class="notification nav-item">
-          <a class="message nav-link" href="#">
-              <i class="fa-regular fa-envelope"></i>
-              <span>18</span>
+          <a class="message nav-link" (click)="notificationunseen()">
+              <i class="message-icon fa-regular fa-envelope"></i>
+              <span class="message-span" *ngIf="Notification?.length !==0">{{Notification?.length}}</span>
+              <ul *ngIf="isShownotification === true">
+                <li *ngFor="let item of Notification" class="d-grid">
+                  <a (click)="moreinfo(item)" class="item-notification">
+                    <img [src]="item.imagerarget" [alt]="item.nametarget" appImageError>
+                    <span class="d-block">{{item.message}}</span>
+                  </a>
+                </li>
+              </ul>
           </a>
         </li>
         <li><a class="adsearch nav-item" href="/Tim-kiem-nang-cao">Tìm nâng cao</a></li>

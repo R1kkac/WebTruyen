@@ -39,22 +39,70 @@ ul{
     position: relative;
     width: 100%;
     height: 100%;
+    cursor: pointer;
+    ul{
+        background-color: white;
+        display: block;
+        position: absolute;
+        top: 100%;
+        padding: 0;
+        li{
+            list-style-type: none;
+        }
+    }
+}
+.item-notification{
+    background-color: rgb(238, 234, 234);
+    width: 12rem;
+    display: flex;
+    text-decoration: none;
+    border: 1px solid rgb(185, 183, 183);
+    img{
+        max-width: 2rem;
+    }
+    span{
+        background-color: rgb(238, 234, 234);
+        width: 9rem;
+        padding: .25rem;
+        color: black;
+        font-weight: 600;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+}
+.item-notification:has(span:hover,img:hover),
+.item-notification:hover {
+    background-color: rgb(255, 255, 255);
+    border: 1px solid aqua;
+    span{
+        background-color: rgb(255, 255, 255);
+        color: red;
+    }
+    img{
+        opacity: .5;
+    }
 }
 .message >i{
     position: absolute;
     transform: scale(1.5);
 }
 .message:hover{
-    i{
+    .message-icon{
         opacity: .5;
+        color: red;
     }
-    span{
+    .message-span{
         color: rgb(255, 0, 0);
         background-color: white;
     }
 }
 .message >span{
-    padding: 1.5px;
+    padding: .125rem;
+    padding-left: .25rem;
+    padding-right: .25rem;
     text-align: center;
     color: rgb(255, 255, 255);
     background-color: red;

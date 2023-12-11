@@ -211,9 +211,29 @@ export class MangadetailComponent implements OnInit, OnDestroy{
       if(src == starb){
         count += 0.5;
       }
+    });
+    this.isLogin.isLogin$.subscribe((result: any)=>{
+      if(result.status === true){
+        this.userService.danhGiaTruyen(this.manga.mangaId, count.toString()).subscribe({
+          next: (result: any)=>{
+            if(result === true){
+              this.toastr.success('Đã đánh giá thành công');
+            }
+            else{
+              this.toastr.error('Đánh giá tất bại');
+            }
+          },
+          error: (err: any)=>{
+            this.toastr.error('đã xảy ra lỗi')
+          }
+        })
+      }
+      else{
+        this.popupService.showMessage('Vui lòng đăng nhập để sử dụng tính năng này');
+      }
     })
-    alert('Bạn đã đánh giá bộ truyện này '+ count.toString() +'sao');
-    this.webService.showAndHideDisplayElement('.rate'); 
+    // alert('Bạn đã đánh giá bộ truyện này '+ count.toString() +'sao');
+    // this.webService.showAndHideDisplayElement('.rate'); 
   }
   follow(item: any){
     var Id: any;
@@ -240,7 +260,7 @@ export class MangadetailComponent implements OnInit, OnDestroy{
         }
       });
     }else{
-      this.popupService.showMessage('Vui long đăng nhập để sử dụng chức năng này');
+      this.popupService.showMessage('Vui lòng đăng nhập để sử dụng chức năng này');
     }
     
   }

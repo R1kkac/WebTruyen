@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
@@ -107,9 +107,22 @@ export class UserService {
     fromdata.append("ReplyData", data);
     return this.http.post(url, fromdata);
   }
-    layDanhSachPhanHoiBinhLuan(idComment: string): Observable<any[]>{
+  layDanhSachPhanHoiBinhLuan(idComment: string): Observable<any[]>{
     const url=`${this.ApiUrlService}/ListReply/${idComment}`
     return this.http.get<any[]>(url);
+  }
+  danhGiaTruyen(Mangaid: any, start : any): Observable<any>{
+    const url= `${this.ApiUrlService}/rating`;
+    var fromdata= new FormData;
+    fromdata.append('MangaId', Mangaid);
+    fromdata.append('star', start);
+    return this.http.post(url, fromdata);
+  }
+  ViewManga(MangaId: any): Observable<any> {
+    const url = `${this.ApiUrlService}/CapNhatView/${MangaId}`;
+    const fromdata= new FormData;
+    fromdata.append('MangaId', MangaId);
+    return this.http.post(url, fromdata);
   }
 }
 export interface userlogin{

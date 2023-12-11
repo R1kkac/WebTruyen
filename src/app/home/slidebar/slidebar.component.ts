@@ -25,9 +25,11 @@ export class SlidebarComponent implements OnInit{
       this.year = item.filter((x: any)=> x.typetop ==='3') ?? null;
     })
     this.isLogin.isLogin$.subscribe((result: any)=>{
-      this.hasLogin = result.status;
-      const user= JSON.parse(result.user);
-      this.Id = user.id;
+      if(result.status === true){
+        this.hasLogin = result.status;
+        const user= JSON.parse(result.user);
+        this.Id = user.id;
+      }
     })
     this.userService.danhSachTruyenTheoDoi(this.Id).subscribe((item: any)=>{
       this.mangafollowing = item;

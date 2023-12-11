@@ -2,6 +2,7 @@ import { Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, Rend
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { MangaService } from 'src/app/Service/manga.service';
+import { UserService } from 'src/app/Service/user.service';
 import { PopupMessageService, Processbar, WebsiteServiceService } from 'src/app/Service/website-service.service';
 
 @Component({
@@ -13,6 +14,9 @@ export class ReadmangaComponent implements OnInit,OnDestroy{
 
   @ViewChildren('item') listitem!: QueryList<ElementRef>;
   @ViewChild('listchapter') chaptermenu!: ElementRef;
+  private subscription!: Subscription;
+  private subscription2!: Subscription;
+
   private listdataSubject = new BehaviorSubject<any[]>([]);
   listdata$ = this.listdataSubject.asObservable();
   count=5;
@@ -22,9 +26,16 @@ export class ReadmangaComponent implements OnInit,OnDestroy{
   listChapter: any[] =[];
   info: info = {mangaid: '', manganame: '', chapterId: '', chapterIndex: ''};
   constructor(private processBar: Processbar, private mangaService: MangaService, private route: ActivatedRoute,private renderer: Renderer2,
-    private router: Router, private popUpmessage: PopupMessageService,private el: ElementRef, private websiteService: WebsiteServiceService){
+    private router: Router, private popUpmessage: PopupMessageService,private el: ElementRef, private websiteService: WebsiteServiceService,
+    private userService: UserService){
     }
   ngOnInit(): void {
+    if(this.subscription){
+      this.subscription.unsubscribe();
+    }
+    if(this.subscription2){
+      this.subscription2.unsubscribe();
+    }
     const aaad=this.route.url;
     console.log(window.location.href.replace(/ /g, '-'));
 
@@ -39,11 +50,15 @@ export class ReadmangaComponent implements OnInit,OnDestroy{
         chapterId: item.get('idchapter')|| '',
         chapterIndex: item.get('chapterIndex')|| '',
       }
-      this.mangaService.GetdataChapter(Mangaid, ChapterId).subscribe((item:any)=>{
+      this.subscription= this.mangaService.GetdataChapter(Mangaid, ChapterId).subscribe((item:any)=>{
         this.listurl = item;
         this.listdataSubject.next(item.slice(0,5));
+        setTimeout(() => {
+          console.log('vào')
+          this.userService.ViewManga(this.info.mangaid).subscribe();
+        }, 5000);
       });
-      this.mangaService.GetListChapterByManga(this.info.mangaid).subscribe((item: any)=>{
+      this.subscription2 = this.mangaService.GetListChapterByManga(this.info.mangaid).subscribe((item: any)=>{
         this.listChapter = item.sort((a: any, b: any)=> a.chapterIndex - b.chapterIndex);
       })
     })
@@ -127,6 +142,8 @@ export class ReadmangaComponent implements OnInit,OnDestroy{
   }
   ngOnDestroy(): void { 
     this.listdataSubject.unsubscribe();
+    this.subscription.unsubscribe();
+    this.subscription2.unsubscribe();
   }
   // như tên dùng để làm lazyloading cho image
   removewhenimageloaded(index: number){
