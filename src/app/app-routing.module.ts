@@ -25,6 +25,7 @@ import { InfouserReadhistoryComponent } from './user/infouser-readhistory/infous
 import { InfouserFollowingComponent } from './user/infouser-following/infouser-following.component';
 import { CommentComponent } from './manga/comment/comment.component';
 import { ReplycommentComponent } from './manga/replycomment/replycomment.component';
+import { InfouserNotificationsComponent } from './user/infouser-notifications/infouser-notifications.component';
 
 const routes: Routes = [
   {path: '' , component: HomeComponent, children:[
@@ -53,6 +54,7 @@ const routes: Routes = [
       {path: '', component: InfouserDetailsComponent},
       {path: 'history', component: InfouserReadhistoryComponent},
       {path: 'following', component: InfouserFollowingComponent},
+      {path: 'notificatios', component: InfouserNotificationsComponent},
     ]}
   ]},
   {path: 'oAuth', component: UserpageComponent, children:[

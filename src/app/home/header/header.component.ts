@@ -12,7 +12,7 @@ import { isLogin } from 'src/app/Service/website-service.service';
 export class HeaderComponent implements OnInit, OnDestroy {
   hasLogin: boolean =false;
   user: any;
-  Notification: any;
+  Notification: any[]=[];
   @ViewChild('toggler') toggler!: ElementRef;
   isToggle: boolean = false;
   private login!: Subscription;
@@ -52,6 +52,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.isShownotification = !this.isShownotification;
   }
   moreinfo(input: any){
+    this.userService.daXemthongbao(input.id).subscribe({
+      complete: ()=>{
+        this.Notification.splice(
+          this.Notification.findIndex(x=> x.id == input.id),1
+        )
+      },
+    })
     const name= input.nametarget.replace(/ /g, '-');
     this.router.navigate([`/Manga/${input.target}/${name}`]);
   }

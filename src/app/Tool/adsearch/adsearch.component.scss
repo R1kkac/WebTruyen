@@ -1,4 +1,4 @@
-.container{
+.container-fluid{
     display: grid;
     justify-content: center;
     align-items: center;
@@ -91,5 +91,20 @@
     }
     a:hover{
         color: red;
+    }
+}
+.type-search{
+    display: flex;
+    border-bottom: 3px solid rgb(35, 35, 248);
+    .type-item{
+        padding: 1rem;
+        text-decoration: none;
+        background-color: white;
+        cursor: pointer;
+        font-weight: 600;
+    }
+    .type-item:hover{
+        color: white;
+        background: linear-gradient(to bottom, #3366ff 0%, #66ffff 100%);;
     }
 }

@@ -9,6 +9,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
+import { MatTableModule } from '@angular/material/table';
+
 
 
 
@@ -24,6 +26,7 @@ import {MatListModule} from '@angular/material/list';
         MatListModule,
         MatIconModule,
         MatDividerModule,
+        MatTableModule
     ]
 })
 export class MaterialModulo{

@@ -20,7 +20,7 @@ export class InfouserFollowingComponent implements OnInit{
       this.Id=user.id;
     })
     this.userService.danhSachTruyenTheoDoi(this.Id).subscribe((item: any)=>{
-      console.log(item);
+      //console.log(item);
 
       this.listmanga = item;
     })

@@ -12,7 +12,7 @@ import { SearchbyCategories } from 'src/app/Service/website-service.service';
 })
 export class AdsearchComponent implements OnInit, OnDestroy{
 
-
+  typeSearch=1;
   Categories:any;
   count=0;
   temporary=0;
@@ -77,6 +77,9 @@ export class AdsearchComponent implements OnInit, OnDestroy{
     }
     //không có hoặc không còn temporary
     return data.slice(precount,this.count);
+  }
+  changeTypeSearch(type: number){
+    this.typeSearch = type;
   }
   ngOnDestroy(): void {
     this.Sub.unsubscribe();

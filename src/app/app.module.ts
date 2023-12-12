@@ -42,6 +42,7 @@ import { InfouserFollowingComponent } from './user/infouser-following/infouser-f
 import { CommentComponent } from './manga/comment/comment.component';
 import { ReplycommentComponent } from './manga/replycomment/replycomment.component';
 import { AvatarErrorService } from './Service/avatar-error.service';
+import { InfouserNotificationsComponent } from './user/infouser-notifications/infouser-notifications.component';
 
 
 
@@ -95,7 +96,8 @@ export function Topmanga(Manga: MangaService) {
     InfouserFollowingComponent,
     CommentComponent,
     ReplycommentComponent,
-    AvatarErrorService
+    AvatarErrorService,
+    InfouserNotificationsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,35 @@
-<div class="container">
+<div class="container-fluid">
     <div class="search-field">
-        <h2 class="search-title d-flex justify-content-center m-3 m-0 p-0">Tìm nâng cao</h2>
-        <h2 class="categories-title m-0 p-0 ms-3">Danh sách thể loại</h2>
+        <h2 class="search-title d-flex justify-content-center mt-3 m-0 p-0">Tìm nâng cao</h2>
+        <div class="type-search">
+            <a (click)="changeTypeSearch(1)" class="type-item">Thể loại</a>
+            <a (click)="changeTypeSearch(2)" class="type-item">Tìm theo tên</a>
+            <a (click)="changeTypeSearch(3)" class="type-item">Tìm theo tác giả</a>
+        </div>
+       <ng-container *ngIf="typeSearch === 1">
+            <h2 class="categories-title m-0 p-0 ms-3">Tìm theo thể loại</h2>
+            <div class="calegories row m-0 p-0" style="background-color: white;">
+                <form (submit)="search()" class="p-0">
+                    <div class="row mb-5 p-1 ms-2 pe-0 me-0">
+                        <ng-container *ngFor="let items of listCategory" >  
+                            <div class="col-6 col-sm-4 col-lg-3">
+                                <ng-container *ngFor="let item of items">
+                                    <div class="category d-flex justify-content-left p-1">
+                                        <input (change)="listChecked(item)" type="checkbox" id="{{item.genreId}}" name="categories" value="{{ item.genreId }}">
+                                        <label class="ms-2" for="{{item.genreId}}">{{item.genresIdName}}</label><br>
+                                    </div>
+                                </ng-container>         
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="action-search d-flex justify-content-center">
+                        <input type="submit" value="Tìm kiếm" class="btn btn-primary text-center">
+                    </div>
+                </form>
+            </div>
+       </ng-container>
+       <ng-container *ngIf="typeSearch ===2">
+        <h2 class="categories-title m-0 p-0 ms-3">Tìm theo tên truyện</h2>
         <div class="calegories row m-0 p-0" style="background-color: white;">
             <form (submit)="search()" class="p-0">
                 <div class="row mb-5 p-1 ms-2 pe-0 me-0">
@@ -21,6 +49,7 @@
                 </div>
             </form>
         </div>
+       </ng-container>
     </div>
     <div class="result-field">
         <h2 class="border border-info d-flex justify-content-center m-2">Kết quả</h2>

@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { WebsiteServiceService, isLogin } from './website-service.service';
 
 @Injectable({
@@ -9,7 +9,8 @@ import { WebsiteServiceService, isLogin } from './website-service.service';
 })
 export class UserService {
 
-  constructor(private http: HttpClient, private cookie: CookieService, private isLogin: isLogin, private websiteService: WebsiteServiceService) { }
+  constructor(private http: HttpClient, private cookie: CookieService, private isLogin: isLogin, private websiteService: WebsiteServiceService,
+    ) { }
   private ApiUrlUser='https://localhost:7132/Authentication';
   private ApiUrlService= 'https://localhost:7132/Services';
 
@@ -125,6 +126,7 @@ export class UserService {
     return this.http.post(url, fromdata);
   }
 }
+
 export interface userlogin{
   username: string;
   password: string;

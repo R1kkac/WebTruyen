@@ -18,7 +18,7 @@ export class InfouserDetailsComponent implements OnInit{
     })
     this.userService.infouser(this.Id).subscribe((result: any)=>{
       this.user = result;
-      console.log(this.user);
+      //console.log(this.user);
     })
   }
 

@@ -13,7 +13,7 @@
         <li class="notification nav-item">
           <a class="message nav-link" (click)="notificationunseen()">
               <i class="message-icon fa-regular fa-envelope"></i>
-              <span class="message-span" *ngIf="Notification?.length !==0">{{Notification?.length}}</span>
+              <span class="message-span" *ngIf="Notification?.length !==0">{{Notification.length}}</span>
               <ul *ngIf="isShownotification === true">
                 <li *ngFor="let item of Notification" class="d-grid">
                   <a (click)="moreinfo(item)" class="item-notification">
