@@ -20,9 +20,9 @@ export class SlidebarComponent implements OnInit{
   constructor(private Topmanga: Topmangadefault, private isLogin: isLogin, private userService: UserService){}
   ngOnInit(): void {
     this.Topmanga.TopmangaData$.subscribe((item: any)=>{
-      this.date = item.filter((x: any)=> x.typetop === '1') ?? null;
-      this.month = item.filter((x: any)=> x.typetop ==='2') ?? null;
-      this.year = item.filter((x: any)=> x.typetop ==='3') ?? null;
+      this.date = item.filter((x: any)=> x.typetop === '1') || [];
+      this.month = item.filter((x: any)=> x.typetop ==='2') || [];
+      this.year = item.filter((x: any)=> x.typetop ==='3') || [];
     })
     this.isLogin.isLogin$.subscribe((result: any)=>{
       if(result.status === true){

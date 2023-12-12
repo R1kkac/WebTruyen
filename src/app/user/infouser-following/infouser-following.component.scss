@@ -35,3 +35,17 @@
     background-color: white;
     border-radius: .5rem;
 }
+.data{
+    position: relative;
+    .unsubscribe{
+        display: block  ;
+        position: absolute;
+        bottom: 1%;
+        right: 1%;
+    }
+}
+@media (max-width: 767px) {
+    .content{
+        -webkit-line-clamp: 2;
+    }
+  }

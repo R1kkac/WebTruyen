@@ -1,37 +1,31 @@
-.image{
-    display: grid;
-    justify-content: center;
-    align-items: center;
+.card-body{
+   display: flex;
+   align-items: end;
+   justify-content: center;
+   .card-text{
+    font-weight: 600;
+   }
 }
 .card{
-    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(229, 229, 229, 0.5);
-    border: none;
-    .card-title{
-        color:  black;
-        font-weight: 700;
-        font-size: 1rem;
-        cursor: pointer;
-    }
-    .card-title:hover{
+    cursor: pointer;
+}
+.card:has(.card-text:hover ,.card-img-top:hover ){
+    background-color: rgb(227, 222, 222);
+    .card-text{
         color: red;
     }
+    .card-img-top{
+        opacity: .7;
+    }
 }
-.content{
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+img{
+    width: 140px;
+    height: 240px;
 }
-.container{
-    max-height: 80vh;
-    overflow: auto;
-}
-.card-data{
-    width: 95%;
-    background-color: white;
-    border-radius: .5rem;
+.row{
+    max-height: 85vh;
+    overflow-y: auto;
 }

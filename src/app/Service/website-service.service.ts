@@ -25,12 +25,15 @@ export class WebsiteServiceService {
     return data;
   }
   formatView(input: any){
-    if(typeof(input) === 'string')
-    {
-      var a= Number.parseInt(input);
-      return a.toLocaleString();
+    if(input != undefined){
+      if(typeof(input) === 'string')
+      {
+        var a= Number.parseInt(input);
+        return a.toLocaleString();
+      }
+      return input.toLocaleString();
     }
-    return input.toLocaleString();
+    return 'N/A';
   }
   formatDate(input: any, type: any){
     const inputDate = new Date(input);
@@ -107,28 +110,16 @@ export class WebsiteServiceService {
       return false;
     }
   }
-  addtoreadhistory(input : any){
-    const a= 'history';
-    var data= localStorage.getItem(a);
-    if(data !== null){
-      var history: any[]= JSON.parse(data);
-      history.push(input);
-      localStorage.setItem(a, JSON.stringify(history));
-    }else{
-      var history: any[]=[];
-      history.push(input);
-      localStorage.setItem(a,JSON.stringify(history));
-    }
-  }
   scrolltoTop(){
     window.scrollTo({ top: 0, behavior: 'instant' });
   }
-  readHistory(manga: any){
+  addHistory(manga: any){
+    this.deleteHistoryExpired();
     const historyStore= localStorage.getItem('read_manga_history');
     if(historyStore){
       var datahistory: manga_history[]= JSON.parse(historyStore);
-      const checkIsRead= datahistory.findIndex(x=> x.id == manga.id);
-      if(checkIsRead){
+      const checkIsRead= datahistory.findIndex(x=> x.id == manga.mangaId);
+      if(checkIsRead !== -1){
         const datenow: Date= new Date();
         datahistory[checkIsRead].date = datenow.toLocaleDateString();
         localStorage.setItem('read_manga_history', JSON.stringify(datahistory));
@@ -136,7 +127,7 @@ export class WebsiteServiceService {
         const datenow: Date= new Date();
         const a: manga_history={
           id: manga.mangaId,
-          image: manga.mangaName,
+          image: manga.mangaImage,
           name: manga.mangaName,
           date: datenow.toLocaleDateString()
         }
@@ -149,12 +140,37 @@ export class WebsiteServiceService {
       const datenow: Date= new Date();
         const a: manga_history={
           id: manga.mangaId,
-          image: manga.mangaName,
+          image: manga.mangaImage,
           name: manga.mangaName,
           date: datenow.toLocaleDateString()
       }
       datahistory.push(a);
       localStorage.setItem('read_manga_history', JSON.stringify(datahistory));
+    }
+  }
+  getHistory(){
+    const history= localStorage.getItem('read_manga_history');
+    if(history){
+      const listdata: manga_history[]= JSON.parse(history);
+      return listdata;
+    }else{
+      return null;
+    }
+  }
+  deleteHistoryExpired(){
+    const history= localStorage.getItem('read_manga_history');
+    if(history){
+      const listdata: manga_history[]= JSON.parse(history);
+      const count= listdata.length;
+      if(count >50){
+        const isValidDate = (dateString: string) => !isNaN(Date.parse(dateString));
+
+        const newList = listdata
+        .filter(item => isValidDate(item.date))
+        .sort((a, b) => Date.parse(a.date) - Date.parse(b.date))
+        .slice(0,50);
+        localStorage.setItem('read_manga_history', JSON.stringify(newList));
+      }
     }
   }
 }

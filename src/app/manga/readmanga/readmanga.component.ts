@@ -1,5 +1,6 @@
-import { Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, Renderer2, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, Renderer2, SimpleChanges, ViewChild, ViewChildren } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { MangaService } from 'src/app/Service/manga.service';
 import { UserService } from 'src/app/Service/user.service';
@@ -27,7 +28,7 @@ export class ReadmangaComponent implements OnInit,OnDestroy{
   info: info = {mangaid: '', manganame: '', chapterId: '', chapterIndex: ''};
   constructor(private processBar: Processbar, private mangaService: MangaService, private route: ActivatedRoute,private renderer: Renderer2,
     private router: Router, private popUpmessage: PopupMessageService,private el: ElementRef, private websiteService: WebsiteServiceService,
-    private userService: UserService){
+    private userService: UserService,private toastr: ToastrService){
     }
   ngOnInit(): void {
     if(this.subscription){
@@ -50,13 +51,19 @@ export class ReadmangaComponent implements OnInit,OnDestroy{
         chapterId: item.get('idchapter')|| '',
         chapterIndex: item.get('chapterIndex')|| '',
       }
-      this.subscription= this.mangaService.GetdataChapter(Mangaid, ChapterId).subscribe((item:any)=>{
-        this.listurl = item;
-        this.listdataSubject.next(item.slice(0,5));
-        setTimeout(() => {
-          console.log('vào')
-          this.userService.ViewManga(this.info.mangaid).subscribe();
-        }, 5000);
+      this.subscription= this.mangaService.GetdataChapter(Mangaid, ChapterId).subscribe({
+        next:(item:any)=>{
+          this.listurl = item;
+          this.listdataSubject.next(item.slice(0,5));
+          setTimeout(() => {
+            //đếm ngược thời gian người dùng ở trong trang đọc truyện này nếu trên 5s thì sẽ gọi hàm này và tính 1 view
+            this.userService.ViewManga(this.info.mangaid).subscribe();
+          }, 5000);
+        },
+        error: (err:any)=>{
+          this.listdataSubject.next([]);
+          this.toastr.error('Lỗi kết tối tới máy chủ');
+        }
       });
       this.subscription2 = this.mangaService.GetListChapterByManga(this.info.mangaid).subscribe((item: any)=>{
         this.listChapter = item.sort((a: any, b: any)=> a.chapterIndex - b.chapterIndex);

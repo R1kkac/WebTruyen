@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         const user= JSON.parse(result.user);
         this.user= user;
         this.userService.getNotification(user.id).subscribe((item: any)=>{
-          console.warn(item);
+          //console.warn(item);
           this.Notification = item;
         });
       }

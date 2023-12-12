@@ -1,18 +1,10 @@
-<div class="container">
-    <div class="row col-12 p-1">
-        <div class="col-sm-6 card mb-3">
-            <div class="card-data row g-0">
-              <div class="image col-md-4">
-                <img src="" class="img-fluid rounded-start" alt="" appImageError>
-              </div>
-              <div class="data col-md-8">
-                <div class="card-body">
-                  <h5  class="card-title">ddd</h5>
-                  <p class="content card-text">sss</p>
-                  <p class="card-text"><small class="text-body-secondary">asd</small></p>
-                </div>
-              </div>
-            </div>
+<div class="container-fluid">
+    <div class="row p-0 m-0">
+      <div *ngFor="let item of ListHistoryManga" class="card m-1" style="width: 10rem;"  (click)="infomanga(item)">
+        <img [src]="item?.image" class="card-img-top" [alt]="item.name" appImageError>
+        <div class="card-body">
+          <p class="card-text">{{item?.name}}</p>
         </div>
+      </div>
     </div>  
 </div>
