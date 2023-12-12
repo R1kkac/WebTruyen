@@ -29,6 +29,11 @@ export class MangadetailComponent implements OnInit, OnDestroy{
       const Id= item.get('id');
       this.mangaDefault.MangaData$.subscribe(item=>{
         const index= item.findIndex(x=> x.mangaId == Id);
+        setTimeout(() => {
+          console.log('Vào add localstorage');
+          
+          this.webService.addtoreadhistory(this.manga);
+        }, 5000);
         if(index != -1){
            this.manga= item.find(x=> x.mangaId == Id);
            this.mangaService.GetListChapterByManga(this.manga.mangaId).subscribe(item=>{
@@ -47,6 +52,10 @@ export class MangadetailComponent implements OnInit, OnDestroy{
           this.mangaService.GetMangaInfo(Id!).subscribe({
             next: (item:any)=>{
               this.manga=item;
+              setTimeout(() => {
+                console.log('Vào add localstorage');
+                this.webService.addtoreadhistory(this.manga);
+              }, 5000);
             },
             complete: ()=>{
               setTimeout(() => {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MangaDefault, MangaService, PageNumber } from 'src/app/Service/manga.service';
+import { CurPage } from 'src/app/Service/website-service.service';
 
 @Component({
   selector: 'app-mangapage',
@@ -12,17 +13,25 @@ export class MangapageComponent implements OnInit{
 
   private Mangas!: Subscription;
   mangalist:any[]=[];
-  constructor(private mangaDefault: MangaDefault, private Page: PageNumber, private mangaService: MangaService,
+  constructor(private mangaDefault: MangaDefault, private Page: CurPage, private mangaService: MangaService,private page : PageNumber,
     private route: ActivatedRoute){}
   ngOnInit(): void {
     this.route.paramMap.subscribe((item: ParamMap)=>{
-      const a= item.get('page');
+      var a=Number(item.get('page'));
       if(a!= null || a!= undefined){
+        this.page.PageNumberData$.subscribe(x=>{
+          if(a<1){
+            a=1;
+          }else if(a> x){
+            a=x;
+          }
+        })
         this.mangaService.GetmangaByPage(a).subscribe((item: any)=>{
           this.mangalist = item;
           setTimeout(() => {
             document.body.scrollIntoView({ behavior: 'instant', block: 'start'});
           }, 0);
+          this.Page.pushpage(Number(a));
         })
       }else{
         if(this.Mangas){

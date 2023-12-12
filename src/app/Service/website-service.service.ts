@@ -123,6 +123,40 @@ export class WebsiteServiceService {
   scrolltoTop(){
     window.scrollTo({ top: 0, behavior: 'instant' });
   }
+  readHistory(manga: any){
+    const historyStore= localStorage.getItem('read_manga_history');
+    if(historyStore){
+      var datahistory: manga_history[]= JSON.parse(historyStore);
+      const checkIsRead= datahistory.findIndex(x=> x.id == manga.id);
+      if(checkIsRead){
+        const datenow: Date= new Date();
+        datahistory[checkIsRead].date = datenow.toLocaleDateString();
+        localStorage.setItem('read_manga_history', JSON.stringify(datahistory));
+      }else{
+        const datenow: Date= new Date();
+        const a: manga_history={
+          id: manga.mangaId,
+          image: manga.mangaName,
+          name: manga.mangaName,
+          date: datenow.toLocaleDateString()
+        }
+        datahistory.push(a);
+        localStorage.setItem('read_manga_history', JSON.stringify(datahistory));
+      }
+    }
+    else{
+      var datahistory: manga_history[]= [];
+      const datenow: Date= new Date();
+        const a: manga_history={
+          id: manga.mangaId,
+          image: manga.mangaName,
+          name: manga.mangaName,
+          date: datenow.toLocaleDateString()
+      }
+      datahistory.push(a);
+      localStorage.setItem('read_manga_history', JSON.stringify(datahistory));
+    }
+  }
 }
 //thanh process bar
 @Injectable({
@@ -180,6 +214,18 @@ export class PopupMessageService {
     this.messageSubject.next(message);
   }
 }
+@Injectable({
+  providedIn: 'root',
+})
+export class CurPage {
+  private curPageSubject = new Subject<number>();
+
+  message$ = this.curPageSubject.asObservable();
+
+  pushpage(page: number): void {
+    this.curPageSubject.next(page);
+  }
+}
 export interface user{
   id: string;
   avatar: string;
@@ -191,4 +237,10 @@ export interface cookie{
   isLogout: boolean;
   token: string;
   user: string;
+}
+export interface manga_history{
+  id: string;
+  image: string;
+  name: string;
+  date: string;
 }

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { faL } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { MangaDefault, MangaService, PageNumber } from 'src/app/Service/manga.service';
+import { CurPage } from 'src/app/Service/website-service.service';
 
 @Component({
   selector: 'app-content',
@@ -12,12 +13,12 @@ import { MangaDefault, MangaService, PageNumber } from 'src/app/Service/manga.se
 export class ContentComponent implements OnInit, OnDestroy{
 
   page :number =0;
-  data =[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+  curPage: number=0;
   data2: any[]=[];
   datafirstload: any[]=[];
   private Mangas!: Subscription;
   mangalist:any[]=[];
-  constructor(private router: Router, private mangaDefault: MangaDefault, private Page: PageNumber){}
+  constructor(private router: Router, private mangaDefault: MangaDefault, private Page: PageNumber, private curpage: CurPage){}
  
   ngOnInit(): void {
     if(this.Mangas){
@@ -25,14 +26,11 @@ export class ContentComponent implements OnInit, OnDestroy{
     }
     this.Page.PageNumberData$.subscribe(item=>{
       this.page = item;
+      //this.page= 100;
     })
-    // var x= ()=>{
-    //   let a:any[]=[];
-    //   for(let i=1; i<=this.page; i++){
-    //     a.push(i);
-    //   }
-    //   return a;
-    // }
+    this.curpage.message$.subscribe(item=>{
+      this.curPage = item;
+    })
     //code hàm trên của AI
     this.data2 = (() => Array.from({length: this.page}, (_, i) => i + 1))();
 

@@ -30,7 +30,7 @@ const routes: Routes = [
   {path: '' , component: HomeComponent, children:[
     {path: '' , component: ContentComponent, children: [
       {path: '' , component: MangapageComponent},
-      {path: 'page/:page' , component: MangapageComponent}
+      {path: 'page/:page' , component: MangapageComponent},
     ]},
     {path: 'Manga/:id/:name' , component: MangadetailComponent},
     {path: 'Manga/:id/:name/:idchapter/:chapterIndex' , component: ReadmangaComponent, children:[
