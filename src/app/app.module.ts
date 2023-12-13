@@ -43,6 +43,7 @@ import { CommentComponent } from './manga/comment/comment.component';
 import { ReplycommentComponent } from './manga/replycomment/replycomment.component';
 import { AvatarErrorService } from './Service/avatar-error.service';
 import { InfouserNotificationsComponent } from './user/infouser-notifications/infouser-notifications.component';
+import { SearchComponent } from './Tool/search/search.component';
 
 
 
@@ -97,7 +98,8 @@ export function Topmanga(Manga: MangaService) {
     CommentComponent,
     ReplycommentComponent,
     AvatarErrorService,
-    InfouserNotificationsComponent
+    InfouserNotificationsComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,

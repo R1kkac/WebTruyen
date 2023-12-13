@@ -26,6 +26,7 @@ import { InfouserFollowingComponent } from './user/infouser-following/infouser-f
 import { CommentComponent } from './manga/comment/comment.component';
 import { ReplycommentComponent } from './manga/replycomment/replycomment.component';
 import { InfouserNotificationsComponent } from './user/infouser-notifications/infouser-notifications.component';
+import { SearchComponent } from './Tool/search/search.component';
 
 const routes: Routes = [
   {path: '' , component: HomeComponent, children:[
@@ -38,6 +39,9 @@ const routes: Routes = [
       {path: '', component : CommentComponent}
     ]},
     {path: 'The-loai/:idcategory', component: MangabycategoryComponent},
+    {path: 'Search', component: SearchComponent, children:[
+      {path:'', component: SlidebarComponent}
+    ]},
     {path: 'Tim-kiem-nang-cao', component: AdsearchComponent, children:[
       { path: '', component: ResultsearchComponent},
       { path: 'Ket-Qua', component: ResultsearchComponent}

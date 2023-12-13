@@ -1,23 +1,29 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {AfterContentInit, AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Subject, Subscription } from 'rxjs';
+import { MangaService, ResultSearchManga } from 'src/app/Service/manga.service';
 import { UserService } from 'src/app/Service/user.service';
-import { isLogin } from 'src/app/Service/website-service.service';
+import { PopupMessageService, isLogin } from 'src/app/Service/website-service.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit, OnDestroy , AfterViewInit{
   hasLogin: boolean =false;
   user: any;
   Notification: any[]=[];
   @ViewChild('toggler') toggler!: ElementRef;
+  @ViewChild('inputElement') search!: ElementRef;
+  inputsearch: string='';
+  result: any;
   isToggle: boolean = false;
   private login!: Subscription;
   isShownotification: boolean = false;
-  constructor(private isLogin: isLogin, private router: Router, private userService: UserService){}
+  constructor(private isLogin: isLogin, private router: Router, private userService: UserService, private popUpmessage: PopupMessageService,
+    private mangaService: MangaService, private searchManga: ResultSearchManga){}
 
   ngOnInit(): void {
     if(this.login){
@@ -61,6 +67,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
     })
     const name= input.nametarget.replace(/ /g, '-');
     this.router.navigate([`/Manga/${input.target}/${name}`]);
+  }
+  timkiem(input: any){
+    this.router.navigate(['Search']);
+  }
+  ngAfterViewInit(): void {
+    this.search.nativeElement.addEventListener('input',async (event: InputEvent)=>{
+      if(this.inputsearch!=='')
+      {
+        this.mangaService.Mangasearch(this.inputsearch).subscribe((result:any)=>{
+          this.result=result;
+          this.searchManga.sendData(result);
+        });
+      }else{
+        this.result = [];
+      }
+    })
   }
   ngOnDestroy(): void {
     this.login.unsubscribe();

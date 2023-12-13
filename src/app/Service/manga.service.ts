@@ -78,10 +78,26 @@ export class MangaService {
     const url = `${this.ApiUrl}/GetAllManga/${page}`;
     return this.http.get(url);
   }
+  Mangasearch(value: string): Observable<any>{
+    const url= `${this.ApiUrl}/SearchMangaV2/${value}`;
+    return this.http.get(url);
+  }
 }
 
 
 
+@Injectable({
+  providedIn: 'root'
+})
+export class ResultSearchManga {
+
+  private SearchmangatSubject= new BehaviorSubject<any[]>([]);
+  SearchMangaData$ = this.SearchmangatSubject.asObservable();
+
+    sendData(item: any[]){
+    this.SearchmangatSubject.next(item);
+  }
+}
 @Injectable({
   providedIn: 'root'
 })
