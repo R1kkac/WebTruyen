@@ -110,9 +110,19 @@ export class WebsiteServiceService {
       return false;
     }
   }
+  //Xuất hiện trên đầu
   scrolltoTop(){
     window.scrollTo({ top: 0, behavior: 'instant' });
   }
+  //Xuất hiện ngay tại vị trí đó
+  scrollToLocation_instant(input: any){
+    input.scrollIntoView({behavior: 'instant'});
+  }
+  //Cuộn đến đó
+  scrollToLocation_Smooth(input: any){
+    input.scrollIntoView({behavior: 'smooth'});
+  }
+  //lưu lịch sử xem truyện vào LocalStorage
   addHistory(manga: any){
     this.deleteHistoryExpired();
     const historyStore= localStorage.getItem('read_manga_history');
@@ -148,6 +158,7 @@ export class WebsiteServiceService {
       localStorage.setItem('read_manga_history', JSON.stringify(datahistory));
     }
   }
+  //Trả về danh sách lịch sử đọc
   getHistory(){
     const history= localStorage.getItem('read_manga_history');
     if(history){
@@ -157,6 +168,7 @@ export class WebsiteServiceService {
       return null;
     }
   }
+  //Xóa lịch sử chỉ giữ lại tối đa 50 truyện
   deleteHistoryExpired(){
     const history= localStorage.getItem('read_manga_history');
     if(history){
@@ -173,7 +185,81 @@ export class WebsiteServiceService {
       }
     }
   }
+  //Lưu vị trí đọc của chương truyện vào LocalStorage
+  writeIndexReadManga(manga_id: any, chapter_id: any, cur_index: number, chapter_length: number){
+    const store_name= 'index_read_chapter_history';
+    var Store= localStorage.getItem(store_name);
+    if(Store){
+      var listData: index_history_read_chapter[]= JSON.parse(Store);
+      const manga_index= listData.findIndex(x=> x.id_m && x.id_ct == chapter_id);
+      if(manga_index !== -1){
+        const time= new Date().toLocaleDateString().toString();
+        listData[manga_index].cur_index = cur_index;
+        listData[manga_index].time = time;
+        listData[manga_index].num_of_data = chapter_length;
+        localStorage.setItem(store_name, JSON.stringify(listData));
+      }else{
+        const data: index_history_read_chapter={
+          id_m: manga_id,
+          id_ct: chapter_id,
+          cur_index: cur_index,
+          num_of_data: chapter_length,
+          time: new Date().toLocaleDateString().toString(),
+        }
+        listData.push(data);
+        localStorage.setItem(store_name, JSON.stringify(listData));
+      }
+    }else{
+      var listData: index_history_read_chapter[]= [];
+      const data: index_history_read_chapter={
+        id_m: manga_id,
+        id_ct: chapter_id,
+        cur_index: cur_index,
+        num_of_data: chapter_length,
+        time: new Date().toLocaleDateString().toString(),
+      }
+      listData.push(data);
+      localStorage.setItem(store_name, JSON.stringify(listData));
+    }
+  }
+  //lấy index đọc của manga
+  readIndexReadManga(manga_id: any, chapter_id: any){
+    const store_name= 'index_read_chapter_history';
+    const storeData= localStorage.getItem(store_name);
+    if(storeData){
+      const listData: index_history_read_chapter[]= JSON.parse(storeData);
+      const cur_manga= listData.findIndex(x=> x.id_m== manga_id && x.id_ct == chapter_id);
+      if(cur_manga !== -1){
+        return listData[cur_manga];
+      }
+      else{
+        return null;
+      }
+    }else{
+      return null;
+    }
+  }
+  //Xóa inex_read khi người dùng đọc xong
+  removeIndexReadManga(manga_id: any, chapter_id: any){
+    const store_name= 'index_read_chapter_history';
+    const storeData= localStorage.getItem(store_name);
+    if(storeData){
+      const listData: index_history_read_chapter[]= JSON.parse(storeData);
+      const manga_index= listData.findIndex(x=> x.id_m == manga_id && x.id_ct== chapter_id);
+      if( manga_index !== -1){
+        listData.splice(manga_index, 1);
+        localStorage.setItem(store_name, JSON.stringify(listData));
+        return true;
+      }
+      else{
+        return false;
+      }
+    }else{
+      return false;
+    }
+  }
 }
+
 //thanh process bar
 @Injectable({
   providedIn: 'root'
@@ -259,4 +345,11 @@ export interface manga_history{
   image: string;
   name: string;
   date: string;
+}
+export interface index_history_read_chapter{
+  id_m: string;
+  id_ct: string;
+  cur_index: number;
+  num_of_data:number;
+  time:string;
 }

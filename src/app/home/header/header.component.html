@@ -48,9 +48,9 @@
         <ng-container *ngIf="result?.length>0">
         <ul class="search-result p-0 m-0">
           <li *ngFor="let item of result">
-            <div class="search-result-data m-0 p-0">
+            <div (click)="infomanga(item)" class="search-result-data m-0 p-0">
               <img [src]="item?.mangaImage" [alt]="item.mangaName">
-              <a href="">{{item.mangaName}}</a>
+              <a >{{item.mangaName}}</a>
             </div>
           </li>
         </ul>

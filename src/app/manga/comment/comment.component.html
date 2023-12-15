@@ -16,7 +16,7 @@
         <ul class="p-0">
             <li *ngFor="let comment of this.DanSachBinhLuan">
                 <div class="comment-item row m-0">
-                    <div class="comment-item-left col-2 d-flex justify-content-start">
+                    <div class="comment-item-left col-1 d-flex justify-content-start">
                         <div class="avatar-comment d-flex justify-content-center">
                             <img [src]="comment.userAvatar" class="comment-avatar img-thumbnail p-0" [alt]="comment.userName" appAvatarError>
                         </div>
@@ -24,7 +24,7 @@
                             <span (click)="ReplyComment(comment.idComment)" class="comment-reply"><i class="fa-solid fa-reply"></i></span>
                         </div>
                     </div>
-                    <div class="comment-item-right col-10">
+                    <div class="comment-item-right col-11">
                         <div class="comment-info">
                             <span class="comment-username">{{comment.userName}}</span>
                             <span class="comment-date">Thời gian: {{comment.date | date:'h:mm dd-MM-yyyy'}}</span>
@@ -32,7 +32,7 @@
                         <div class="comment-content">{{comment.commentData}}</div>
                     </div>
                 </div>
-                <div class="reply-comment-form" *ngIf="this.idComment=== comment.idComment"> 
+                <div class="reply-comment-form" *ngIf="this.idComment=== comment.idComment && isComment === true"> 
                     <form class="reply-field row" (ngSubmit)="SenderReply(dataReply.value, this.User.id, comment.idComment)">
                         <i class="fa-solid fa-reply fa-rotate-180 fa-lg col-1" style="color: #000000;"></i>
                         <div class="col-11 d-flex justify-content-start">

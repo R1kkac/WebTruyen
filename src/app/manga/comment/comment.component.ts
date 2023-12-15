@@ -55,9 +55,10 @@ export class CommentComponent implements OnInit{
   ReplyComment(idComment: string){
     if(this.idComment==idComment && this.isComment==true){
       this.idComment="";
+      this.isComment = !this.isComment;
     }else{
       this.idComment=idComment;
-      this.isComment=true;
+      this.isComment = !this.isComment;
     }
   }
   SenderReply(dataReplyComment: string, CurrentIdUserL: string, idComment: string){
@@ -69,6 +70,9 @@ export class CommentComponent implements OnInit{
           this.userService.layDanhSachBinhLuan(this.IdChapter).subscribe((res: any)=>{
             // console.warn(res);
             this.DanSachBinhLuan= res;
+            setTimeout(() => {
+              this.isComment=! this.isComment;
+            }, 0);
           });
         }
       });   

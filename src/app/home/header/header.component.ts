@@ -71,6 +71,10 @@ export class HeaderComponent implements OnInit, OnDestroy , AfterViewInit{
   timkiem(input: any){
     this.router.navigate(['Search']);
   }
+  infomanga(input :any){
+    const name= input.mangaName.replace(/ /g, '-');
+    this.router.navigate([`/Manga/${input.mangaId}/${name}`]);
+  }
   ngAfterViewInit(): void {
     this.search.nativeElement.addEventListener('input',async (event: InputEvent)=>{
       if(this.inputsearch!=='')

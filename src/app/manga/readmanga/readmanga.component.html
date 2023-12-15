@@ -1,7 +1,7 @@
 <div class="container-fluid p-0">  
     <div class="content">
         <div class="chapter row col-12 col-sm-8 p-0 m-0">  
-            <div *ngFor="let item of listdata$ | async; let i = index" class="item">
+            <div #listmanga *ngFor="let item of listdata$| async; let i = index" class="item">
                 <img [id]="i" src="/assets/giphy.gif" alt="..." class="img-fluid w-100 m-0 p-0">
                 <img [id]="i+'-image'" loading="lazy" #item [src]="item" [alt]="info.manganame" class="img-fluid w-100 m-0 p-0 image-data-x" (load)="removewhenimageloaded(i)" appImageError>
                 <!-- <img loading="lazy" #item [src]="item" [alt]="info.manganame" class="img-fluid w-100 m-0 p-0" appImageError> -->

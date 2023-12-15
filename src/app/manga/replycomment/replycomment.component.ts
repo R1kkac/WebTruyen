@@ -15,7 +15,7 @@ export class ReplycommentComponent implements OnInit{
     // console.error("Vào List Reply");
     // console.error(this.IdComment);
     this.userService.layDanhSachPhanHoiBinhLuan(this.IdComment).subscribe((res: any[])=>{
-      // console.log(res);
+      //console.log(res);
       this.Danhsach= res;
     })
   }
