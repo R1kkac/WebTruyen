@@ -87,11 +87,11 @@ export class WebsiteServiceService {
     this.CookieService.set(this.UserCookie, this.encrypt(JSON.stringify(infouser)), cookieOptions); // Tạo cookie với dữ liệu mã hóa
   }
   avatar(input: any){
-    const check=this.checkExitstImage(input.avatar);
+    const check=this.checkExitstImage(input);
     if(check === true ){
-      return input.avatar;
+      return input;
     }else{
-      return `https://ui-avatars.com/api/?name=${input.name}&background=random`;
+      return `https://ui-avatars.com/api/?name=${input}&background=random`;
     }
   }
   reverseString(input : string): string{

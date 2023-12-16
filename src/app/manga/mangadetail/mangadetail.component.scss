@@ -83,16 +83,15 @@ nav >ul>li>div >a:hover{
     display: grid;
     border: 1px solid rgb(154, 153, 153);
     padding: 0px;
+    border-radius: .5rem;
+
 }
 .user-comment .user-info{
-    border-bottom: 1px solid rgb(154, 153, 153);
     max-height: 25px;
 }
 .user-comment .user-info >span{
     display: inline;
-    background-color: green;
     margin: 5px;
-    border: 1px solid rgb(251, 3, 3);
 }
 .chat-data {
     margin: 0px;

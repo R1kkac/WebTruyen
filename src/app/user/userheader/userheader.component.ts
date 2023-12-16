@@ -24,6 +24,6 @@ export class UserheaderComponent implements OnInit{
     this.hasLogin.emit(false);
   }
   avatar(input: any){
-    return this.websiteService.avatar(input);
+    return this.websiteService.avatar(input.avatar);
   }
 }

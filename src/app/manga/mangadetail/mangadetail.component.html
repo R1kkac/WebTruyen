@@ -97,83 +97,31 @@
                     </div>
                 </div>
             </div>
-            <div class="hiwtory-comment mb-4">
+            <div class="history-comment mb-4">
                 <ul>
-                    <li class="user row mt-2">
+                    <li *ngFor="let item of listComment" class="user row mt-2">
                         <div class="user-avatar">
-                            <img class="img-thumbnail" src="../assets/onepunchman.jpg" alt="">
+                            <img class="img-thumbnail" [src]="avatar(item.avatar)" [alt]="item.name" appAvatarError>
                             <button type="button" class="btn btn-info">Trả lời</button>
                         </div>
                         <div class="user-comment">
                            <div class="user-info">
-                                <span>Hải</span>
-                                <span>Chap 11</span>
-                                <span>7 Ngày trước</span>
+                                <span><b>{{item.name}}</b> </span>
+                                <span> <i>{{item.curChapter}}</i></span>
+                                <span><i>{{item.dateComment}}</i></span>
                            </div>
                            <div class="row chat-data">
-                                <div class="data m-1">asdasdasdasdsadasdasddsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdsdsssssssssssssssssssssssssssssssssssssssssssssssssssss
-                                </div>
-                           </div>
-                        </div>
-                    </li>
-                    <li class="user row mt-2">
-                        <div class="user-avatar">
-                            <img class="img-thumbnail" src="../assets/onepunchman.jpg" alt="">
-                            <button type="button" class="btn btn-info">Trả lời</button>
-                        </div>
-                        <div class="user-comment">
-                           <div class="user-info">
-                                <span>Hải</span>
-                                <span>Chap 11</span>
-                                <span>7 Ngày trước</span>
-                           </div>
-                           <div class="row chat-data">
-                                <div class="data m-1">asdasdasdasdsadasdasddsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdsdsssssssssssssssssssssssssssssssssssssssssssssssssssss
-                                </div>
-                           </div>
-                        </div>
-                    </li>   
-                    <li class="user row mt-2">
-                        <div class="user-avatar">
-                            <img class="img-thumbnail" src="../assets/onepunchman.jpg" alt="">
-                            <button type="button" class="btn btn-info">Trả lời</button>
-                        </div>
-                        <div class="user-comment">
-                           <div class="user-info">
-                                <span>Hải</span>
-                                <span>Chap 11</span>
-                                <span>7 Ngày trước</span>
-                           </div>
-                           <div class="row chat-data">
-                                <div class="data m-1">asdasdasdasdsadasdasddsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdsdsssssssssssssssssssssssssssssssssssssssssssssssssssss
-                                </div>
-                           </div>
-                        </div>
-                    </li>   
-                    <li class="user row mt-2">
-                        <div class="user-avatar">
-                            <img class="img-thumbnail" src="../assets/onepunchman.jpg" alt="">
-                            <button type="button" class="btn btn-info">Trả lời</button>
-                        </div>
-                        <div class="user-comment">
-                           <div class="user-info">
-                                <span>Hải</span>
-                                <span>Chap 11</span>
-                                <span>7 Ngày trước</span>
-                           </div>
-                           <div class="row chat-data">
-                                <div class="data m-1">asdasdasdasdsadasdasddsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdsdsssssssssssssssssssssssssssssssssssssssssssssssssssss
-                                </div>
+                                <div class="data m-1">{{item.commentData}}</div>
                            </div>
                         </div>
                     </li>
                 </ul>
                 <div class="page-comment">
-                    <a href="">1</a>
-                    <a href="">2</a>
-                    <a href="">...</a>
-                    <a href="">4</a>
-                    <a href="">5</a>
+                    <a (click)="getlistComment(manga?.mangaId,5,1)">1</a>
+                    <a (click)="getlistComment(manga?.mangaId,5,2)">2</a>
+                    <a (click)="getlistComment(manga?.mangaId,5,3)">...</a>
+                    <a (click)="getlistComment(manga?.mangaId,5,4)">4</a>
+                    <a (click)="getlistComment(manga?.mangaId,5,5)">5</a>
                 </div>
             </div>
         </div>

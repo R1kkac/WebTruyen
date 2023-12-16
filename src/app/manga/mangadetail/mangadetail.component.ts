@@ -21,12 +21,14 @@ export class MangadetailComponent implements OnInit, OnDestroy{
   chapterlist$ = this.chapterlistSubject.asObservable();
   isLastChapter= false;
   rate: number[]=[];
+  listComment: any[]=[];
   constructor(private route:ActivatedRoute, private webService: WebsiteServiceService, private mangaService: MangaService,
     private mangaDefault: MangaDefault, private userService: UserService, private toastr: ToastrService, private isLogin: isLogin,
     private popupService: PopupMessageService){}
   ngOnInit(): void {
     this.route.paramMap.subscribe((item: ParamMap)=>{
       const Id= item.get('id');
+      this.getlistComment(Id!,5,1);
       this.mangaDefault.MangaData$.subscribe(item=>{
         const index= item.findIndex(x=> x.mangaId == Id);
         if(index != -1){
@@ -264,6 +266,13 @@ export class MangadetailComponent implements OnInit, OnDestroy{
     }else{
       this.popupService.showMessage('Vui lòng đăng nhập để sử dụng chức năng này');
     }
-    
+  }
+  getlistComment(MangaId: string, pagesize: number, pagenumber: number){
+    this.mangaService.GetlistCommentManga(MangaId, pagesize, pagenumber).subscribe((result: any)=>{
+      this.listComment= result;
+    })
+  }
+  avatar(input: any){
+    return this.webService.avatar(input);
   }
 }

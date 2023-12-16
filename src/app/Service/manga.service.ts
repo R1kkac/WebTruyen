@@ -8,6 +8,8 @@ import { BehaviorSubject, Observable, catchError, lastValueFrom, tap } from 'rxj
 export class MangaService {
 
   private ApiUrl='https://localhost:7132/Truyen-tranh';
+  private ApiServiceUrl='https://localhost:7132/Services';
+
   constructor(private http: HttpClient, private mangadefault: MangaDefault, private CategoriesService: DataCategories,
      private Page: PageNumber, private Topmanga: Topmangadefault) { }
 
@@ -80,6 +82,10 @@ export class MangaService {
   }
   Mangasearch(value: string): Observable<any>{
     const url= `${this.ApiUrl}/SearchMangaV2/${value}`;
+    return this.http.get(url);
+  }
+  GetlistCommentManga(Mangaid: any, pagesize: number, pagenumber: number): Observable<any>{
+    const url= `${this.ApiServiceUrl}/comment/${Mangaid}/${pagesize}/${pagenumber}`;
     return this.http.get(url);
   }
 }
