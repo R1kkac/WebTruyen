@@ -91,10 +91,12 @@
             <h2><b>Bình luận</b></h2>
             <div class="row comment-field ">
                 <div class="mb-3">
-                    <textarea class="form-control" rows="3" placeholder="Nhập gì đó để bình luận"></textarea>
-                    <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-info">Bình luận</button>
-                    </div>
+                    <form (ngSubmit)="commentmanga(manga.mangaId, commentdata.value)">
+                        <textarea #commentdata class="form-control" rows="3" placeholder="Nhập gì đó để bình luận"></textarea>
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-info">Bình luận</button>
+                        </div>
+                    </form>
                 </div>
             </div>
             <div class="history-comment mb-4">
@@ -107,7 +109,7 @@
                         <div class="user-comment">
                            <div class="user-info">
                                 <span><b>{{item.name}}</b> </span>
-                                <span> <i>{{item.curChapter}}</i></span>
+                                <span *ngIf="item.curChapter!== null"> <i>{{item.curChapter}}</i></span>
                                 <span><i>{{item.dateComment}}</i></span>
                            </div>
                            <div class="row chat-data">

@@ -29,45 +29,64 @@ export class MangadetailComponent implements OnInit, OnDestroy{
     this.route.paramMap.subscribe((item: ParamMap)=>{
       const Id= item.get('id');
       this.getlistComment(Id!,5,1);
-      this.mangaDefault.MangaData$.subscribe(item=>{
-        const index= item.findIndex(x=> x.mangaId == Id);
-        if(index != -1){
-           this.manga= item.find(x=> x.mangaId == Id);
-           this.mangaService.GetListChapterByManga(this.manga.mangaId).subscribe(item=>{
-            this.manga.listChaper = item;
-           });
-           if(this.manga.listChaper.length <=5){
-            this.chapterlistSubject.next(this.getListSort(0,this.manga.listChaper.length, this.manga.listChaper));
+      this.mangaService.GetMangaInfo(Id!).subscribe({
+        next: (item:any)=>{
+          this.manga=item;
+        },
+        complete: ()=>{
+          setTimeout(() => {
+            if(this.manga.listChaper.length <=5){
+              this.chapterlistSubject.next(this.getListSort(0,this.manga.listChaper.length, this.manga.listChaper));
             }
             else{
               this.chapterlistSubject.next(this.getListSort(0,5, this.manga.listChaper));
             }
-           setTimeout(() => {
+          }, 0);
+          setTimeout(() => {
             document.body.scrollIntoView({ behavior: 'instant', block: 'start'});
           }, 0);
           this.webService.addHistory(this.manga);
-        }else{
-          this.mangaService.GetMangaInfo(Id!).subscribe({
-            next: (item:any)=>{
-              this.manga=item;
-            },
-            complete: ()=>{
-              setTimeout(() => {
-                if(this.manga.listChaper.length <=5){
-                  this.chapterlistSubject.next(this.getListSort(0,this.manga.listChaper.length, this.manga.listChaper));
-                }
-                else{
-                  this.chapterlistSubject.next(this.getListSort(0,5, this.manga.listChaper));
-                }
-              }, 0);
-              setTimeout(() => {
-                document.body.scrollIntoView({ behavior: 'instant', block: 'start'});
-              }, 0);
-              this.webService.addHistory(this.manga);
-            }
-          })
         }
       })
+      // this.mangaDefault.MangaData$.subscribe(item=>{
+      //   const index= item.findIndex(x=> x.mangaId == Id);
+      //   if(index != -1){
+      //      this.manga= item.find(x=> x.mangaId == Id);
+      //      this.mangaService.GetListChapterByManga(this.manga.mangaId).subscribe(item=>{
+      //       this.manga.listChaper = item;
+      //      });
+      //      if(this.manga.listChaper.length <=5){
+      //       this.chapterlistSubject.next(this.getListSort(0,this.manga.listChaper.length, this.manga.listChaper));
+      //       }
+      //       else{
+      //         this.chapterlistSubject.next(this.getListSort(0,5, this.manga.listChaper));
+      //       }
+      //      setTimeout(() => {
+      //       document.body.scrollIntoView({ behavior: 'instant', block: 'start'});
+      //     }, 0);
+      //     this.webService.addHistory(this.manga);
+      //   }else{
+      //     this.mangaService.GetMangaInfo(Id!).subscribe({
+      //       next: (item:any)=>{
+      //         this.manga=item;
+      //       },
+      //       complete: ()=>{
+      //         setTimeout(() => {
+      //           if(this.manga.listChaper.length <=5){
+      //             this.chapterlistSubject.next(this.getListSort(0,this.manga.listChaper.length, this.manga.listChaper));
+      //           }
+      //           else{
+      //             this.chapterlistSubject.next(this.getListSort(0,5, this.manga.listChaper));
+      //           }
+      //         }, 0);
+      //         setTimeout(() => {
+      //           document.body.scrollIntoView({ behavior: 'instant', block: 'start'});
+      //         }, 0);
+      //         this.webService.addHistory(this.manga);
+      //       }
+      //     })
+      //   }
+      // })
     });
   }
   formatview(input: any){
@@ -268,8 +287,23 @@ export class MangadetailComponent implements OnInit, OnDestroy{
     }
   }
   getlistComment(MangaId: string, pagesize: number, pagenumber: number){
+    this.listComment=[];
     this.mangaService.GetlistCommentManga(MangaId, pagesize, pagenumber).subscribe((result: any)=>{
       this.listComment= result;
+    })
+  }
+  commentmanga(mangaid: any, message: any){
+    var user:any;
+    this.isLogin.isLogin$.subscribe(item=>{
+      user= JSON.parse(item.user);
+    })
+    this.userService.binhLuanChuongTruyen(user.id,mangaid, 'isnull',message).subscribe({
+      error: (err:any)=>{
+        console.log(err);
+      },
+      complete: ()=>{
+        this.getlistComment(this.manga.mangaId,5,1);
+      }
     })
   }
   avatar(input: any){

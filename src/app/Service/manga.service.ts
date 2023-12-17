@@ -85,7 +85,7 @@ export class MangaService {
     return this.http.get(url);
   }
   GetlistCommentManga(Mangaid: any, pagesize: number, pagenumber: number): Observable<any>{
-    const url= `${this.ApiServiceUrl}/comment/${Mangaid}/${pagesize}/${pagenumber}`;
+    const url= `${this.ApiServiceUrl}/manga_comment_manga/${Mangaid}/${pagesize}/${pagenumber}`;
     return this.http.get(url);
   }
 }

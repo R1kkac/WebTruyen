@@ -14,6 +14,7 @@ export class CommentComponent implements OnInit{
 
   User:any;
   IdChapter: any;
+  IdManga: any;
   DanSachBinhLuan: any;
   idComment = "";
   isComment= false;
@@ -24,6 +25,7 @@ export class CommentComponent implements OnInit{
   ngOnInit(): void {
     this.route.paramMap.subscribe(route=>{
       this.IdChapter= route.get('idchapter');
+      this.IdManga= route.get('id');
     })
     this.isLogin.isLogin$.subscribe((res:any)=>{
       this.hasLogin=res.status;
@@ -42,7 +44,7 @@ export class CommentComponent implements OnInit{
     if(this.hasLogin === false){
       this.popUpmessage.showMessage('Vui lòng đăng nhập để sử dụng chức năng này!');
     }else{
-      this.userService.binhLuanChuongTruyen(idUser, this.IdChapter, message).subscribe({
+      this.userService.binhLuanChuongTruyen(idUser,this.IdManga, this.IdChapter, message).subscribe({
         complete: ()=>{
           this.userService.layDanhSachBinhLuan(this.IdChapter).subscribe((res: any)=>{
             // console.warn(res);

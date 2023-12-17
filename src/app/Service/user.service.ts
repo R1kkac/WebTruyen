@@ -87,12 +87,15 @@ export class UserService {
     fromdata.append('idNotification',idNotification);
     return this.http.post(url, fromdata);
   }
-  binhLuanChuongTruyen(idUser: string, idChapter: string, message: string): Observable<any>{
+  binhLuanChuongTruyen(idUser: string,idmanga: string, idChapter: string, message: string): Observable<any>{
+    console.log("vào")
     const url= `${this.ApiUrlService}/Comment`;
     const fromdata= new FormData();
     fromdata.append("IdUser", idUser);
+    fromdata.append("IdManga", idmanga);
     fromdata.append("IdChapter", idChapter);
     fromdata.append("CommentData", message);
+    console.log(fromdata);
     return this.http.post(url, fromdata);
   }
   layDanhSachBinhLuan(IdChapter: string): Observable<any>{
