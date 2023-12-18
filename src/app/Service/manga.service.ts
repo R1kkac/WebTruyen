@@ -88,6 +88,14 @@ export class MangaService {
     const url= `${this.ApiServiceUrl}/manga_comment_manga/${Mangaid}/${pagesize}/${pagenumber}`;
     return this.http.get(url);
   }
+  GetAllMangaByTYpe(type: any, pagesize: any, pagenumber:any): Observable<any>{
+    const url=`${this.ApiUrl}/all_manga_by_type/${type}/${pagenumber}/${pagesize}`;
+    return this.http.get(url);
+  }
+  GetNumberManga():Observable<any>{
+    const url=`${this.ApiUrl}/number_all_manga`;
+    return this.http.get(url);
+  }
 }
 
 

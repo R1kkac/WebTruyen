@@ -55,12 +55,15 @@ tr{
         justify-content: end;
        }
        ul>li{
-        padding: 5px;
-        padding-left: 10px;
-        padding-right: 10px;
         cursor: pointer;
         background-color: rgb(225, 224, 224 ,.5);
+        display: flex;
+        padding: 0;
        }
+       ul>li>a{
+        display: block;
+        padding: .5rem;
+       }    
        ul>li:hover{
         background-color: rgb(225, 224, 224);
         color: rgb(255, 0, 0);
