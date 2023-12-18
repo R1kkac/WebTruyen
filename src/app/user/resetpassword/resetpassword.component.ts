@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/Service/user.service';
@@ -36,7 +37,8 @@ export class ResetpasswordComponent implements OnInit, AfterViewInit{
     ],
   }
   constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private userService: UserService,
-    private toastr: ToastrService){
+    private toastr: ToastrService, private title: Title){
+      this.title.setTitle('Thay đổi mật khẩu');
     this.resetpasswordform = this.formBuilder.group({
       token: new FormControl(''),
       email: new FormControl(''),

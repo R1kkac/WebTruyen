@@ -1,5 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -26,12 +27,13 @@ export class InfouserNotificationsComponent implements OnInit{
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
   expandedElement!: Notifications | null;
   constructor(private router: Router, private toast: ToastrService, private route: ActivatedRoute,private islogin: isLogin,
-    private userService: UserService, private popUpmessage: PopupMessageService){}
+    private userService: UserService, private popUpmessage: PopupMessageService, private title: Title){}
   ngOnInit(): void {
     this.islogin.isLogin$.subscribe(result=>{
       if(result.status === true){
         const user= JSON.parse(result.user);
         const Id= user.id;
+        this.title.setTitle(`${user.name} - Thông báo`);
         this.userService.getNotification(Id).subscribe((item:any[])=>{
           var list: Notifications[]=[];
           item.forEach(x=>{

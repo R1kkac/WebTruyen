@@ -55,8 +55,8 @@ export class MangaService {
     const url= `${this.ApiUrl}/Details/${MangaId}`;
     return this.http.get(url);
   }
-  GetmangabyType(type: any): Observable<any>{
-    const url= `${this.ApiUrl}/Gettopmanga/${type}`;
+  GetmangabyType(type: any, pagenumber: number, pagesize: number): Observable<any>{
+    const url= `${this.ApiUrl}/topmanga_by_type/${type}/${pagenumber}/${pagesize}`;
     return this.http.get(url);
   }
   GetdataChapter(MangaId: any, ChapterId: any): Observable<any>{

@@ -49,11 +49,11 @@ const routes: Routes = [
     {path: 'Top-manga', component: TopmangaComponent, children:[
       { 
         path: '',
-        redirectTo: 'All',
+        redirectTo: '0',
         pathMatch: 'full'
       },
-      { path: ':nametype', component: ResulttoppmangaComponent, data:{nametype: 'All'}}]},
-    {path: 'Manga/All' , component: ListmangaComponent, children: [{path: '', component: SlidebarComponent}]},
+      { path: ':id', component: ResulttoppmangaComponent, data:{id:0}}]},
+    {path: 'Manga/:type' , component: ListmangaComponent,data: {type: 'All'}, children: [{path: '', component: SlidebarComponent} ]},
     {path: 'user/:userid/:usernam', component: InfouserComponent, children: [
       {path: '', component: InfouserDetailsComponent},
       {path: 'history', component: InfouserReadhistoryComponent},

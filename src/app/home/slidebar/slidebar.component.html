@@ -41,10 +41,10 @@
       <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" class="border-top border-danger">
         <mat-tab label="Lịch sử đọc">
           <ul class="history list-group list-group-flush">
-            <li [routerLink]="getUrl(item)" *ngFor="let item of date" class="list-group-item">
+            <li [routerLink]="urlHistory(item.id, item.name)" *ngFor="let item of readhistory" class="list-group-item">
               <a>
-                <img [src]="item?.mangaImage"  [alt]="item?.mangaName" appImageError>
-                <span>{{item?.mangaName}}</span>
+                <img [src]="item?.image"  [alt]="item?.name" appImageError>
+                <span>{{item?.name}}</span>
               </a>
             </li>
           </ul>

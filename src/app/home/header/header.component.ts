@@ -1,4 +1,4 @@
-import {AfterContentInit, AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {AfterContentInit, AfterViewInit, Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Subject, Subscription } from 'rxjs';
@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit, OnDestroy , AfterViewInit{
   private login!: Subscription;
   isShownotification: boolean = false;
   constructor(private isLogin: isLogin, private router: Router, private userService: UserService, private popUpmessage: PopupMessageService,
-    private mangaService: MangaService, private searchManga: ResultSearchManga){}
+    private mangaService: MangaService, private searchManga: ResultSearchManga,private renderer: Renderer2){}
 
   ngOnInit(): void {
     if(this.login){
@@ -74,6 +74,10 @@ export class HeaderComponent implements OnInit, OnDestroy , AfterViewInit{
   infomanga(input :any){
     const name= input.mangaName.replace(/ /g, '-');
     this.router.navigate([`/Manga/${input.mangaId}/${name}`]);
+    setTimeout(() => {
+      this.result=[];
+      this.renderer.setProperty(this.search.nativeElement, 'value', '');
+    }, 0);
   }
   ngAfterViewInit(): void {
     this.search.nativeElement.addEventListener('input',async (event: InputEvent)=>{
@@ -87,6 +91,12 @@ export class HeaderComponent implements OnInit, OnDestroy , AfterViewInit{
         this.result = [];
       }
     })
+  }
+  enterevent(){
+    setTimeout(() => {
+      this.result=[];
+      this.renderer.setProperty(this.search.nativeElement, 'value', '');
+    }, 0);
   }
   ngOnDestroy(): void {
     this.login.unsubscribe();

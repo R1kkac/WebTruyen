@@ -258,6 +258,12 @@ export class WebsiteServiceService {
       return false;
     }
   }
+  //Tùy chỉnh thời gian
+  formatdatetime(input: any){
+    let [day, month, year]= input.split('/');
+    let date= new Date(`${month}/${day}/${year}`).toLocaleDateString();
+    return date;
+  }
 }
 
 //thanh process bar

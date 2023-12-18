@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/Service/user.service';
@@ -13,11 +14,13 @@ export class InfouserFollowingComponent implements OnInit{
 
   listmanga: any[]=[];
   Id: any;
-  constructor(private userService: UserService, private isLogin: isLogin, private router: Router, private toastr: ToastrService){}
+  constructor(private userService: UserService, private isLogin: isLogin, private router: Router, private toastr: ToastrService,
+    private title: Title){}
   ngOnInit(): void {
     this.isLogin.isLogin$.subscribe((result: any)=>{
       const user= JSON.parse(result.user);
       this.Id=user.id;
+      this.title.setTitle(`${user.name} - Theo dõi`);
     })
     this.userService.danhSachTruyenTheoDoi(this.Id).subscribe((item: any)=>{
       //console.log(item);

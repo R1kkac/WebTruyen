@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap, Params } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { DataCategories, MangaService } from 'src/app/Service/manga.service';
 import { WebsiteServiceService } from 'src/app/Service/website-service.service';
@@ -22,7 +23,7 @@ export class MangabycategoryComponent implements OnInit{
   curcategory: any;
   private subcription!: Subscription;
   constructor(private route: ActivatedRoute, private mangaService: MangaService, private categoriesService: DataCategories,
-    private websiteService: WebsiteServiceService){}
+    private websiteService: WebsiteServiceService, private title: Title, private router: Router){}
   ngOnInit(): void {
     this.categoriesService.CategoriesData$.subscribe(item=>{
       this.CategorysSource= item;
@@ -31,9 +32,18 @@ export class MangabycategoryComponent implements OnInit{
     this.page = Math.ceil(this.CategorysSource.length / 15);
     this.route.paramMap.subscribe((item: ParamMap)=>{
       const id= item.get('idcategory');
+      if(this.subcription){
+        this.subcription.unsubscribe()
+      }
+      this.subcription = this.mangaService.GetMangaByCategories(id!).subscribe(item=>{
+        const ca= this.CategorysSource.find(item=> item.genreId == id);
+        this.curcategory= ca;
+        this.listManga = item;
+      })
       this.idcategories= id;
       this.curcategory= this.CategorysSource.find(item=> item.genreId == id);
-      this.getManga(this.idcategories);
+      this.title.setTitle(`Thể loại ${this.curcategory.genresIdName}`);
+      //this.getManga(this.idcategories);
     });
   }
   changeCategories(index : number){
@@ -47,14 +57,7 @@ export class MangabycategoryComponent implements OnInit{
     }
   }
   getManga(id: any){
-    if(this.subcription){
-      this.subcription.unsubscribe()
-    }
-    this.subcription = this.mangaService.GetMangaByCategories(id).subscribe(item=>{
-      const ca= this.CategorysSource.find(item=> item.genreId == id);
-      this.curcategory= ca;
-      this.listManga = item;
-    })
+    this.router.navigate([`The-loai/${id}`]);
   }
   readchapter(chapter: any, manga: any){
     let manganame= manga.mangaName.replace(/ /g, '-');
@@ -68,7 +71,6 @@ export class MangabycategoryComponent implements OnInit{
       return `/Manga/${id}/${name}`;
   }
   formatdate(date: any){
-    const type= 'dd/MM/yyyy';
-    return this.websiteService.formatDate(date, type);
+    return this.websiteService.formatdatetime(date);
   }
 }

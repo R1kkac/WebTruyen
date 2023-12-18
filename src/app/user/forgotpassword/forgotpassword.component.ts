@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/Service/user.service';
 
@@ -11,7 +12,8 @@ import { UserService } from 'src/app/Service/user.service';
 export class ForgotpasswordComponent {
   forgotpasswordform: FormGroup;
   isSuccess: boolean = false;
-  constructor(private formbuider: FormBuilder, private userService: UserService, private toastr: ToastrService){
+  constructor(private formbuider: FormBuilder, private userService: UserService, private toastr: ToastrService, private title: Title){
+    this.title.setTitle('Quên mật khẩu')
     this.forgotpasswordform = this.formbuider.group({
       email: new FormControl('', Validators.email)
     })

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/Service/user.service';
@@ -36,7 +37,9 @@ export class RegisterComponent{
     ],
   }
 
-  constructor(public formBuilder: FormBuilder, private userService: UserService, private toastr: ToastrService, private router: Router) {
+  constructor(public formBuilder: FormBuilder, private userService: UserService, private toastr: ToastrService, private router: Router,
+    private title: Title) {
+      this.title.setTitle('Đăng ký');
     this.registerform = this.formBuilder.group({
       username: new FormControl('', Validators.compose([
         Validators.required,

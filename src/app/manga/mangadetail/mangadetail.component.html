@@ -75,7 +75,7 @@
                     <ul #listdatachapter class="list-data-chapter">
                         <li *ngFor="let item of chapterlist$ | async" class="simple-chapter row pt-2 pb-2">
                             <div class="col"><a [href]="readchapter(item)">{{item.chapterName}}</a></div>
-                            <div class="col"><i>{{item?.chapterDate}}</i></div>
+                            <div class="col"><i>{{formatdatetime(item?.chapterDate)}}</i></div>
                             <div [ngStyle]="{'color': item?.status === 'chưa xem qua' ? '' : 'rgba(128, 128, 128, 0.5)'}" class="col">
                                 <i>{{item.status || 'N/A'}}</i>
                             </div>
@@ -110,7 +110,7 @@
                            <div class="user-info">
                                 <span><b>{{item.name}}</b> </span>
                                 <span *ngIf="item.curChapter!== null"> <i>{{item.curChapter}}</i></span>
-                                <span><i>{{item.dateComment}}</i></span>
+                                <span><i>{{(item.dateComment | date: 'dd/MM/yyyy - h:mm') || item.dateComment}}</i></span>
                            </div>
                            <div class="row chat-data">
                                 <div class="data m-1">{{item.commentData}}</div>

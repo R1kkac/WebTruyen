@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import { WebsiteServiceService } from 'src/app/Service/website-service.service';
 
 @Component({
@@ -6,7 +8,7 @@ import { WebsiteServiceService } from 'src/app/Service/website-service.service';
   templateUrl: './listmanga.component.html',
   styleUrls: ['./listmanga.component.scss']
 })
-export class ListmangaComponent {
+export class ListmangaComponent implements OnInit{
   data =[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
   listmanga=[
     {typemanga:'1', id:1, rank: '1' , image: '../assets/hyouka.jpg', name: 'Hyouka', type: 'Series', date: 'Oct 2012 - Apr 2014', view: '119.067', status:'Đã hoàn thành', rating: '9.08',
@@ -66,7 +68,15 @@ export class ListmangaComponent {
     }
   ];
 
-  constructor(private webService: WebsiteServiceService){}
+  constructor(private webService: WebsiteServiceService, private route: ActivatedRoute, private title: Title){
+    this.title.setTitle('Danh sách truyện - Yahallo')
+  }
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(param=>{
+      const type= param.get('type') || 1;
+      console.log(type)
+    })
+  }
   hovermanga(input: any){
     const tdElement = input.currentTarget as HTMLElement;
     const trElement = tdElement.closest('.items') as HTMLElement;

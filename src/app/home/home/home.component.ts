@@ -1,4 +1,5 @@
 import { Component, ElementRef, HostListener, ViewChild, AfterViewInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
@@ -11,6 +12,9 @@ export class HomeComponent implements AfterViewInit{
   isAtTop = false;
   private Headerheight=0;
 
+  constructor(private title: Title){
+    this.title.setTitle('Yahallo');
+  }
   ngAfterViewInit(): void {
     this.Headerheight = this.Header.nativeElement.offsetHeight;
   }

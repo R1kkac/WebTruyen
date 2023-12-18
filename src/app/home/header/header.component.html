@@ -44,7 +44,7 @@
       </form> -->
       <form class="search-field d-flex justify-content-center" (submit)="timkiem($event)">
         <div class="search-content">
-          <input autocomplete="off" name="search" [(ngModel)]="inputsearch" #inputElement class="searchfrom form-control me-1" type="search" placeholder="Tìm kiếm" aria-label="Search">
+          <input (keydown.enter)="enterevent()" autocomplete="off" name="search" [(ngModel)]="inputsearch" #inputElement class="searchfrom form-control me-1" type="search" placeholder="Tìm kiếm" aria-label="Search">
         <ng-container *ngIf="result?.length>0">
         <ul class="search-result p-0 m-0">
           <li *ngFor="let item of result">

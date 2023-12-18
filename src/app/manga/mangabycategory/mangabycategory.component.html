@@ -13,7 +13,7 @@
                         <div class="info">
                             <div class="list-chapter">
                                 <a *ngFor="let chap of item.listChaper" class="ms-1 d-block" [routerLink]="readchapter(chap, item)">{{chap.chapterName}}<span class="ms-1"><mat-icon>query_builder</mat-icon>
-                                    {{chap.chapterDate}}</span>
+                                  {{formatdate(chap.chapterDate)}}</span>
                                 </a>
                             </div>
                         </div>

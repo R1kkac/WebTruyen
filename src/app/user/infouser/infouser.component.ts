@@ -1,5 +1,6 @@
 import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { PopupMessageService, isLogin } from 'src/app/Service/website-service.service';
 
@@ -48,12 +49,10 @@ export class InfouserComponent  implements OnInit{
   items = [{id:'', name:'Thông tin tài khoản'}
   ,{id:'following', name: 'Danh sách truyện theo dõi'}
   ,{id:'history', name: 'Lịch sử đọc truyện'}
-  ,{id:'notificatios', name: 'Thông báo'}
-  ,{id:'', name: 'Lịch sử bình luận'}
-  ,{id:'', name: 'Đăng ký trở thành dịch giả'}
-  ,{id:'', name: 'Đăng xuất'}];
+  ,{id:'notificatios', name: 'Thông báo'}];
 
-  constructor(private isLogin: isLogin, private route: ActivatedRoute, private popupmessage: PopupMessageService, private router:Router){
+  constructor(private isLogin: isLogin, private route: ActivatedRoute, private popupmessage: PopupMessageService, private router:Router,
+    private title: Title){
     this.isLogin.isLogin$.subscribe(item=>{
       if(item.status !== true && item.isLogout === false){
         this.popupmessage.showMessage('Vui lòng đăng nhập trước!');
@@ -68,6 +67,7 @@ export class InfouserComponent  implements OnInit{
     this.route.paramMap.subscribe((item: ParamMap)=>{
       this.Id= item.get('userid');
       this.Name= item.get('usernam');
+      this.title.setTitle("");
     })
   }
   routerlink(input: any){

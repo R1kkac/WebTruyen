@@ -1,5 +1,6 @@
 import { ThisReceiver } from '@angular/compiler';
 import { AfterViewInit, Component,ElementRef, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, map } from 'rxjs';
@@ -24,7 +25,7 @@ export class MangadetailComponent implements OnInit, OnDestroy{
   listComment: any[]=[];
   constructor(private route:ActivatedRoute, private webService: WebsiteServiceService, private mangaService: MangaService,
     private mangaDefault: MangaDefault, private userService: UserService, private toastr: ToastrService, private isLogin: isLogin,
-    private popupService: PopupMessageService){}
+    private popupService: PopupMessageService, private title: Title){}
   ngOnInit(): void {
     this.route.paramMap.subscribe((item: ParamMap)=>{
       const Id= item.get('id');
@@ -32,6 +33,7 @@ export class MangadetailComponent implements OnInit, OnDestroy{
       this.mangaService.GetMangaInfo(Id!).subscribe({
         next: (item:any)=>{
           this.manga=item;
+          this.title.setTitle(`${this.manga.mangaName}`);
         },
         complete: ()=>{
           setTimeout(() => {
@@ -305,6 +307,9 @@ export class MangadetailComponent implements OnInit, OnDestroy{
         this.getlistComment(this.manga.mangaId,5,1);
       }
     })
+  }
+  formatdatetime(input: any){
+    return this.webService.formatdatetime(input);
   }
   avatar(input: any){
     return this.webService.avatar(input);

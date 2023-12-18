@@ -1,4 +1,5 @@
 import { Component, ElementRef, HostListener, OnDestroy, OnInit, QueryList, Renderer2, SimpleChanges, ViewChild, ViewChildren } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, Subscription } from 'rxjs';
@@ -30,7 +31,7 @@ export class ReadmangaComponent implements OnInit,OnDestroy{
   cur_index_history_read: any;
   constructor(private processBar: Processbar, private mangaService: MangaService, private route: ActivatedRoute,private renderer: Renderer2,
     private router: Router, private popUpmessage: PopupMessageService,private el: ElementRef, private websiteService: WebsiteServiceService,
-    private userService: UserService,private toastr: ToastrService){
+    private userService: UserService,private toastr: ToastrService, private title: Title){
     }
 
   ngOnInit(): void {
@@ -41,6 +42,7 @@ export class ReadmangaComponent implements OnInit,OnDestroy{
         chapterId: item.get('idchapter')|| '',
         chapterIndex: item.get('chapterIndex')|| '',
       }
+      this.title.setTitle(`Đọc truyện ${this.info.manganame}`);
       this.cur_index_history_read= this.websiteService.readIndexReadManga(this.info.mangaid, this.info.chapterId);
       this.getData(this.info.mangaid,this.info.chapterId);
       setTimeout(() => {

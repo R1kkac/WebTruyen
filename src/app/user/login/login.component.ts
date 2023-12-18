@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/Service/user.service';
@@ -15,7 +16,8 @@ export class LoginComponent {
   status: boolean = false; // Biến để lưu trạng thái lỗi
 
   constructor(public formBuilder: FormBuilder, private userService: UserService, private toastr: ToastrService, private router:Router
-    ,private websiteService: WebsiteServiceService) {
+    ,private websiteService: WebsiteServiceService, private title: Title) {
+      this.title.setTitle('Đăng nhập');
     this.loginform = this.formBuilder.group({
       username: new FormControl('', Validators.compose([
         Validators.required

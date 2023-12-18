@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { DataCategories } from 'src/app/Service/manga.service';
@@ -20,7 +21,9 @@ export class AdsearchComponent implements OnInit, OnDestroy{
   ListCategoryhaveChecked:any[]=[];
   listCategory: any[]=[];
   private  Sub!: Subscription;
-  constructor(private router: Router, private searchmanga: SearchbyCategories,private CategoriesService: DataCategories ){}
+  constructor(private router: Router, private searchmanga: SearchbyCategories,private CategoriesService: DataCategories,private title: Title ){
+    this.title.setTitle('Tìm kiếm - Yahallo');
+  }
  
   ngOnInit(): void {
     if(this.Sub){

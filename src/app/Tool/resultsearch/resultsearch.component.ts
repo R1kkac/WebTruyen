@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router, RouterLinkActive } from '@angular/router';
 import { FaStackItemSizeDirective } from '@fortawesome/angular-fontawesome';
 import { Subscription } from 'rxjs';
@@ -15,7 +16,8 @@ export class ResultsearchComponent implements OnInit{
   list:any[]=[];
   private sub!: Subscription;
   flag=false;
-  constructor(private searchManga: SearchbyCategories, private mangaService: MangaService){}
+  constructor(private searchManga: SearchbyCategories, private mangaService: MangaService){
+  }
   ngOnInit(): void {
     if(this.sub){
       this.sub.unsubscribe();;

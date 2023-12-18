@@ -50,7 +50,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="info-name"><a (mouseenter)="changedisplay(item)" (mouseleave)="changedisplay(item)" [href]="'/Manga/' + item.mangaId +'/' + item.mangaName">{{item.mangaName}}</a></div>
+                        <div class="info-name"><a (mouseenter)="changedisplay(item)" (mouseleave)="changedisplay(item)" (click)="mangainfo(item.mangaId, item.mangaName)">{{item.mangaName}}</a></div>
                         <div class="infomation d-grid">
                             <span>{{item.type}}</span>
                             <span>{{item.dateupdate | date: 'd/M/y'}}</span>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-topmanga',
@@ -7,13 +8,16 @@ import { Component } from '@angular/core';
 })
 export class TopmangaComponent {
   Categories=[
-    {id: 1, name:'All'},
-    {id: 2, name:'Manga'},
-    {id: 3, name:'Manhwa'},
-    {id: 4, name:'Manhhua'},
-    {id: 5, name:'Series'},
-    {id: 6, name:'Oneshot'},
+    {id: '0', name:'All'},
+    {id: '1', name:'Oneshot'},
+    {id: '2', name:'Series'},
+    {id: '3', name:'Doujinshi'},
+    {id: '4', name:'Manhwa'},
+    {id: '5', name:'Manhua'},
   ]
+  constructor(private title: Title){
+    this.title.setTitle('Xếp hạng truyện - Tất cả');
+  }
   changestyle(event: any){
     const elements= document.querySelectorAll('.categories') as NodeListOf<HTMLElement>;
 
