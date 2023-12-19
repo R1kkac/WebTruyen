@@ -23,10 +23,18 @@ export class MangadetailComponent implements OnInit, OnDestroy{
   isLastChapter= false;
   rate: number[]=[];
   listComment: any[]=[];
+  hasLogin= false;
+  User: any;
   constructor(private route:ActivatedRoute, private webService: WebsiteServiceService, private mangaService: MangaService,
     private mangaDefault: MangaDefault, private userService: UserService, private toastr: ToastrService, private isLogin: isLogin,
     private popupService: PopupMessageService, private title: Title){}
   ngOnInit(): void {
+    this.isLogin.isLogin$.subscribe((result: any)=>{
+      this.hasLogin= result.status;
+      if(this.hasLogin === true){
+        this.User = JSON.parse(result.user);
+      }
+    })
     this.route.paramMap.subscribe((item: ParamMap)=>{
       const Id= item.get('id');
       this.getlistComment(Id!,5,1);
@@ -237,39 +245,29 @@ export class MangadetailComponent implements OnInit, OnDestroy{
         count += 0.5;
       }
     });
-    this.isLogin.isLogin$.subscribe((result: any)=>{
-      if(result.status === true){
-        this.userService.danhGiaTruyen(this.manga.mangaId, count.toString()).subscribe({
-          next: (result: any)=>{
-            if(result === true){
-              this.toastr.success('Đã đánh giá thành công');
-            }
-            else{
-              this.toastr.error('Đánh giá tất bại');
-            }
-          },
-          error: (err: any)=>{
-            this.toastr.error('đã xảy ra lỗi')
+    if(this.hasLogin == true){
+      this.userService.danhGiaTruyen(this.manga.mangaId, count.toString()).subscribe({
+        next: (result: any)=>{
+          if(result === true){
+            this.toastr.success('Đã đánh giá thành công');
           }
-        })
-      }
-      else{
-        this.popupService.showMessage('Vui lòng đăng nhập để sử dụng tính năng này');
-      }
-    })
+          else{
+            this.toastr.error('Đánh giá tất bại');
+          }
+        },
+        error: (err: any)=>{
+          this.toastr.error('đã xảy ra lỗi')
+        }
+      })
+    }else{
+      this.popupService.showMessage('Vui lòng đăng nhập để sử dụng tính năng này');
+    }
     // alert('Bạn đã đánh giá bộ truyện này '+ count.toString() +'sao');
     // this.webService.showAndHideDisplayElement('.rate'); 
   }
   follow(item: any){
-    var Id: any;
-    var isLogin: Boolean = false;
-    this.isLogin.isLogin$.subscribe((result: any)=>{
-      isLogin = result.status;
-      const user = JSON.parse(result.user);
-      Id= user.id;
-    })
-    if(isLogin === true){
-      this.userService.taoTheoDoiTruyen(Id, item.mangaId).subscribe({
+    if(this.hasLogin === true){
+      this.userService.taoTheoDoiTruyen(this.User.id, item.mangaId).subscribe({
         next: (result: any)=>{
           if(result.status =='Success'){
             this.toastr.success(`Đã theo dõi truyện`);
@@ -295,11 +293,7 @@ export class MangadetailComponent implements OnInit, OnDestroy{
     })
   }
   commentmanga(mangaid: any, message: any){
-    var user:any;
-    this.isLogin.isLogin$.subscribe(item=>{
-      user= JSON.parse(item.user);
-    })
-    this.userService.binhLuanChuongTruyen(user.id,mangaid, 'isnull',message).subscribe({
+    this.userService.binhLuanChuongTruyen(this.User.id,mangaid, 'isnull',message).subscribe({
       error: (err:any)=>{
         console.log(err);
       },

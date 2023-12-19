@@ -64,50 +64,6 @@ nav >ul>li>div >a:hover{
     display: grid;
     grid-template-columns: 1.5fr 8.5fr;
 }
-.user-avatar{
-    display: grid;
-    justify-content: center;
-}
-.user-avatar >img{
-    width: 50px;
-    height: 50px;
-    padding: 0px;
-}
-.user-avatar >button{
-    width: 50px;
-    height: 20px;
-    padding: 0px;
-    font-size: .8rem;
-}
-.user-comment{
-    display: grid;
-    border: 1px solid rgb(154, 153, 153);
-    padding: 0px;
-    border-radius: .5rem;
-
-}
-.user-comment .user-info{
-    max-height: 25px;
-}
-.user-comment .user-info >span{
-    display: inline;
-    margin: 5px;
-}
-.chat-data {
-    margin: 0px;
-}
-.chat-data .data{
-    max-width: 50rem;
-    display: block;
-    overflow: hidden;
-    word-wrap: break-word;
-}
-.chat-data .data{
-    display: -webkit-box;
-    -webkit-line-clamp: 5;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
 .manga-detail{
     display: -webkit-box;
     -webkit-line-clamp: 3;
@@ -122,22 +78,6 @@ nav >ul>li>div >a:hover{
 .more-manga-detail:hover{
     color: rgb(252, 78, 78);
     text-decoration: underline;
-}
-.page-comment{
-    display: flex;
-    justify-content: right;
-    text-align: center;
-}
-.page-comment >a{
-    width: 30px;
-    height: 25px;
-    background-color: rgb(211, 210, 210);
-    margin: .2rem;
-    border-radius: 2px;
-    color: rgb(123, 123, 123);
-}
-.page-comment >a:hover{
-    color: rgb(0, 0, 0);
 }
 .detail-info .row .img-thumbnail{
     max-width: 20rem;
@@ -190,6 +130,37 @@ nav >ul>li>div >a:hover{
 .list-category >a:not(:last-child)::after{
     content: ' - ';
 }
+.history-comment{
+    display: flex;
+    flex-direction: column;
+    .page-comment{
+        display: flex;
+        justify-content: right;
+        text-align: center;
+        margin-top: auto;
+    }
+    .page-comment >a{
+        width: 30px;
+        height: 25px;
+        background-color: rgb(211, 210, 210);
+        margin: .2rem;
+        border-radius: 2px;
+        color: rgb(123, 123, 123);
+    }
+    .page-comment >a:hover{
+        color: rgb(0, 0, 0);
+    }
+   ul{
+    display: flex;
+    flex-direction: column;
+   }
+   ul>li{
+    display: block;
+   }
+}
+.user{
+    background: rgb(239, 235, 235);
+}
 @media (min-width: 360px) and (max-width: 767px){
     .chat-data .data{
         max-width: 15rem;
@@ -223,3 +194,48 @@ nav >ul>li>div >a:hover{
         overflow: hidden;
     }
 }
+
+// .user-avatar{
+//     display: grid;
+//     justify-content: center;
+// }
+// .user-avatar >img{
+//     width: 50px;
+//     height: 50px;
+//     padding: 0px;
+// }
+// .user-avatar >button{
+//     width: 50px;
+//     height: 20px;
+//     padding: 0px;
+//     font-size: .8rem;
+// }
+// .user-comment{
+//     display: grid;
+//     border: 1px solid rgb(154, 153, 153);
+//     padding: 0px;
+//     border-radius: .5rem;
+
+// }
+// .user-comment .user-info{
+//     max-height: 25px;
+// }
+// .user-comment .user-info >span{
+//     display: inline;
+//     margin: 5px;
+// }
+// .chat-data {
+//     margin: 0px;
+// }
+// .chat-data .data{
+//     max-width: 50rem;
+//     display: block;
+//     overflow: hidden;
+//     word-wrap: break-word;
+// }
+// .chat-data .data{
+//     display: -webkit-box;
+//     -webkit-line-clamp: 5;
+//     -webkit-box-orient: vertical;
+//     overflow: hidden;
+// }

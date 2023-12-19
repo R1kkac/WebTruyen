@@ -1,21 +1,22 @@
 <div class="list-reply">
     <ul>
         <li class="reply-field" *ngFor="let data of this.Danhsach">
-            <div class="icon-reply"><i class="fa-solid fa-reply fa-rotate-180" style="color: #c6c7c7;"></i></div>
-            <div class="reply-item rows">
-                <div class="reply-item-left co-l2 me-1">
-                    <div class="avatar-reply">
-                        <img [src]="data.userAvatar" class="reply-avatar img-thumbnail" [alt]="data.userNam" appAvatarError>
+            <div class="data-comment">
+                <div class="icon-reply mt-2"><i class="fa-solid fa-reply fa-rotate-180" style="color: #c6c7c7;"></i></div>
+                <div class="div content">
+                    <div class="avatar-user ">
+                        <img [src]="data.userAvatar" class="p-0" [alt]="data.userName" appAvatarError>
+                    </div>
+                    <div class="user-comment ms-1">
+                        <div class="comment-info">
+                            <span class="comment-username">{{data.userName}}</span>
+                            <span class="comment-date">Thời gian: {{(data.dateReply | date:'h:mm dd-MM-yyyy')}}</span>
+                        </div>
+                        <div class="comment-content"><span style="color: blue;">@{{data.nameReply}}&nbsp;</span>{{data.replyData}}</div>
                     </div>
                 </div>
-                <div class="reply-item-right col-10">
-                    <div class="reply-info">
-                        <span class="reply-username">{{data.userName}}</span>
-                        <span class="reply-date">Thời gian: {{data.dateReply | date:'h:mm dd-MM-yyyy'}}</span>
-                    </div>
-                    <div class="reply-content">{{data.replyData}}</div>
-                </div>
+              
             </div>
-        </li>
+         </li>
     </ul>
 </div>

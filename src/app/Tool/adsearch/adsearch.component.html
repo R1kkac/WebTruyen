@@ -1,13 +1,13 @@
 <div class="container-fluid">
     <div class="search-field">
-        <h2 class="search-title d-flex justify-content-center mt-3 m-0 p-0">Tìm nâng cao</h2>
+        <h2 class="search-title d-flex justify-content-center mt-3 m-0 p-0">Tìm truyện theo thể loại</h2>
         <div class="type-search">
-            <a (click)="changeTypeSearch(1)" class="type-item">Thể loại</a>
-            <a (click)="changeTypeSearch(2)" class="type-item">Tìm theo tên</a>
-            <a (click)="changeTypeSearch(3)" class="type-item">Tìm theo tác giả</a>
-        </div>
-       <ng-container *ngIf="typeSearch === 1">
-            <h2 class="categories-title m-0 p-0 ms-3">Tìm theo thể loại</h2>
+            <a #type1 (click)="changeTypeSearch()" class="type-item">Tìm thông thường</a>
+            <a #type2 (click)="changeTypeSearch()" class="type-item">Tìm nâng cao</a>
+            <!-- <a (click)="changeTypeSearch(3)" class="type-item">Tìm theo tác giả</a> -->
+        </div>  
+       <ng-container>
+            <h2 class="categories-title m-0 p-0 ms-3">Danh sách thể loại</h2>
             <div class="calegories row m-0 p-0" style="background-color: white;">
                 <form (submit)="search()" class="p-0">
                     <div class="row mb-5 p-1 ms-2 pe-0 me-0">
@@ -28,7 +28,7 @@
                 </form>
             </div>
        </ng-container>
-       <ng-container *ngIf="typeSearch ===2">
+       <!-- <ng-container *ngIf="typeSearch ===2">
         <h2 class="categories-title m-0 p-0 ms-3">Tìm theo tên truyện</h2>
         <div class="calegories row m-0 p-0" style="background-color: white;">
             <form (submit)="search()" class="p-0">
@@ -49,7 +49,7 @@
                 </div>
             </form>
         </div>
-       </ng-container>
+       </ng-container> -->
     </div>
     <div class="result-field">
         <h2 class="border border-info d-flex justify-content-center m-2">Kết quả</h2>

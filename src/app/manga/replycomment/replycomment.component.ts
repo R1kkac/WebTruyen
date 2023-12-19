@@ -8,14 +8,13 @@ import { WebsiteServiceService } from 'src/app/Service/website-service.service';
   styleUrls: ['./replycomment.component.scss']
 })
 export class ReplycommentComponent implements OnInit{
-  @Input() IdComment: any;
+
+  @Input() comment!: any;
   Danhsach :any;
   constructor(private userService: UserService){}
   ngOnInit(): void {
     // console.error("Vào List Reply");
-    // console.error(this.IdComment);
-    this.userService.layDanhSachPhanHoiBinhLuan(this.IdComment).subscribe((res: any[])=>{
-      //console.log(res);
+    this.userService.layDanhSachPhanHoiBinhLuan(this.comment.idComment).subscribe((res: any[])=>{
       this.Danhsach= res;
     })
   }

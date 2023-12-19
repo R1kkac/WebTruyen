@@ -2,14 +2,8 @@
     <section class="content">
         <h2 class="list-manga-title d-flex justify-content-center">Danh sách truyện</h2>
         <div class="list-data">
-            <ul>Sắp xếp theo:
-                <li (click)="getmanga(0)">A-Z</li>
-                <li (click)="getmanga(1)">Z-A</li>
-                <li (click)="getmanga(2)">Tình trạng</li>
-                <li (click)="getmanga(3)">Ngày cập nhật</li>
-                <li (click)="getmanga(4)">Số chương</li>
-                <li (click)="getmanga(5)">Lượt xem</li>
-                <li (click)="getmanga(6)">Đánh giá</li>
+            <ul class="d-flex align-items-center">Sắp xếp theo:
+                <li *ngFor="let category of Categories" (click)="getmanga(category.name)">{{category.viewname}}</li>
             </ul>
             <div class="result-list">
                 <h2>Có tổng {{this.number}} truyện</h2>

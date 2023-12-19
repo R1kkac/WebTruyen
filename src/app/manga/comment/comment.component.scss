@@ -1,5 +1,6 @@
 ul{
     list-style-type: none;
+    padding: 0;
 }
 .comment-field {
     width: 100%;
@@ -7,111 +8,27 @@ ul{
     display: flex;
     flex-direction: column;
 }
-.comment{
-    width: 100%;
-    background-color: green($color: #000000);
-}
 .history-comment{
     width: 100%;
-    display: flex;
+    display: inline-block;
     position: relative;
     background-color: white;
 }
-.comment-item-left{
-    position: relative;
+.comment-item{
+    border-radius: .25rem;
     display: flex;
     flex-direction: column;
+    background: rgb(239, 235, 235);
 }
-.comment-avatar{
-    display: flex;
-    width: 3rem;
-    height: 2.5rem;
-    border: 1px solid gray;
-    border-end-start-radius: 0;
-    border-end-end-radius: 0;
-
-}
-.history-comment{
-    width: 100%;
-    display: block;
-}
-
-.history-comment .comment-reply{
-    display: block;
-    width: 3rem;
-    background-color: rgb(255, 255, 255);
-    color: black;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    text-align: center;
-    border: 1px solid gray;
-    cursor: pointer;
-    border-bottom-left-radius: .25rem;
-    border-bottom-right-radius: .25rem;
-
-}
-.history-comment .comment-reply:hover{
-    background-color: aqua;
-    color: red;
-}
-.history-comment  .comment-item-right{
-    border: solid 1px rgb(212, 212, 212);
-    border-radius: .25rem;
-    padding-inline: 5px;
-    padding-top: 5px;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-}
-.history-comment  .comment-item-right .comment-info{
-    display: flex;
-}
-.history-comment  .comment-item-right .comment-username{
-    background: linear-gradient(to left, #3399ff 15%, #00ffff 100%);
-    padding: 2px;
-    margin-right: 10px;
-    border-radius: 3px;
-}
-.history-comment  .comment-item-right .comment-date{
-    padding: 2px;
-    border-radius: 3px;
-}
-.history-comment  .comment-item-right .comment-content{
-    padding-top: 5px;
-}
-.history-comment .reply-comment-form .reply-field{
-    display: flex;
-    width: 90%;
-    padding-left: 5px;
-    align-items: center;
-
-}
-.reply-comment-form{
-    display: flex;
-    width: 100%;
-    justify-content: end;
-}
-.history-comment .reply-comment-form .reply-field i{
-    padding: 10px 10px 0px 10px;
-}
-.history-comment .reply-comment-form .reply-field .submit-reply{
-    padding: .5rem;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    text-decoration: none;
-    align-items: center;
-    justify-content: center;
-}
-.list-children{
-    display: flex; 
-    justify-content: end;
-    padding-left: 5px;
-    width: 100%;
-    .data-reply{
-        display: flex;
-        width: 95%;
-        justify-content: end;
+@media (max-width: 768px) {
+    .data-comment {
+        flex-direction: row;
     }
-}
-.input-reply{
-    display: flex;
-    width: 100%;
+    .user-comment{
+        max-width: 75%;
+    }
+    .avatar-user {
+        max-width: 25%;
+        margin-bottom: .5rem;
+    }
 }

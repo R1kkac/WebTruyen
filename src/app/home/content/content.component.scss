@@ -86,7 +86,8 @@
 }
 //Content
 .content{
-    display: grid;
+    display: flex;
+    flex-direction: column;
     position: relative;
     column-gap: 5px;
     row-gap: 5px; 
@@ -97,8 +98,8 @@
 }
 .list-paginator{
     display: flex;
-    justify-content: flex-end;
-    grid-template-rows: 1fr;
+    justify-content: end;
+    margin-top: auto;
     text-align: center;
 }
 .list-paginator .paginator{

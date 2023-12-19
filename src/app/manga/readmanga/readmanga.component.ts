@@ -48,7 +48,7 @@ export class ReadmangaComponent implements OnInit,OnDestroy{
       setTimeout(() => {
         //đếm ngược thời gian người dùng ở trong trang đọc truyện này nếu trên 5s thì sẽ gọi hàm này và tính 1 view
         this.userService.ViewManga(this.info.mangaid).subscribe();
-      }, 5000);
+      }, 10000);
      });
 
     const aaad=this.route.url;

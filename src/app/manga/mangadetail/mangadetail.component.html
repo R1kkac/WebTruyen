@@ -101,8 +101,12 @@
             </div>
             <div class="history-comment mb-4">
                 <ul>
-                    <li *ngFor="let item of listComment" class="user row mt-2">
-                        <div class="user-avatar">
+                    <li *ngFor="let item of listComment" class="user mt-2">
+                        <app-commenttemplate [hasLogin]="hasLogin" [comment]="item" [User]="User" [IdChapter]="item.chapterId" ></app-commenttemplate>
+                        <div class="list-reply-comment">
+                            <app-replycomment [comment]="item" ></app-replycomment>
+                        </div>
+                        <!-- <div class="user-avatar">
                             <img class="img-thumbnail" [src]="avatar(item.avatar)" [alt]="item.name" appAvatarError>
                             <button type="button" class="btn btn-info">Trả lời</button>
                         </div>
@@ -115,7 +119,7 @@
                            <div class="row chat-data">
                                 <div class="data m-1">{{item.commentData}}</div>
                            </div>
-                        </div>
+                        </div> -->
                     </li>
                 </ul>
                 <div class="page-comment">

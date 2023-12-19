@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild, Renderer2 } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -13,7 +13,9 @@ import { SearchbyCategories } from 'src/app/Service/website-service.service';
 })
 export class AdsearchComponent implements OnInit, OnDestroy{
 
-  typeSearch=1;
+  @ViewChild('type1') type1!: ElementRef;
+  @ViewChild('type2') type2!: ElementRef;
+  isbackground= false;
   Categories:any;
   count=0;
   temporary=0;
@@ -21,7 +23,8 @@ export class AdsearchComponent implements OnInit, OnDestroy{
   ListCategoryhaveChecked:any[]=[];
   listCategory: any[]=[];
   private  Sub!: Subscription;
-  constructor(private router: Router, private searchmanga: SearchbyCategories,private CategoriesService: DataCategories,private title: Title ){
+  constructor(private router: Router, private searchmanga: SearchbyCategories,private CategoriesService: DataCategories,private title: Title ,
+    private rederer: Renderer2){
     this.title.setTitle('Tìm kiếm - Yahallo');
   }
  
@@ -81,8 +84,19 @@ export class AdsearchComponent implements OnInit, OnDestroy{
     //không có hoặc không còn temporary
     return data.slice(precount,this.count);
   }
-  changeTypeSearch(type: number){
-    this.typeSearch = type;
+  changeTypeSearch(){
+    const type1 = this.type1.nativeElement;
+    const type2 = this.type2.nativeElement;
+    if(this.isbackground === false){
+      this.rederer.setStyle(type1, 'background', 'linear-gradient(to bottom, #3366ff 0%, #66ffff 100%)');
+      this.rederer.setStyle(type2, 'background', 'white');
+      this.isbackground = !this.isbackground;
+    }else
+    {
+      this.rederer.setStyle(type2, 'background', 'linear-gradient(to bottom, #3366ff 0%, #66ffff 100%)');
+      this.rederer.setStyle(type1, 'background', 'white');
+      this.isbackground = !this.isbackground;
+    }
   }
   ngOnDestroy(): void {
     this.Sub.unsubscribe();

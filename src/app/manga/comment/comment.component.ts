@@ -26,6 +26,10 @@ export class CommentComponent implements OnInit{
     this.route.paramMap.subscribe(route=>{
       this.IdChapter= route.get('idchapter');
       this.IdManga= route.get('id');
+      this.userService.layDanhSachBinhLuan(this.IdChapter).subscribe((res: any)=>{
+        // console.warn(res);
+        this.DanSachBinhLuan= res;
+      })
     })
     this.isLogin.isLogin$.subscribe((res:any)=>{
       this.hasLogin=res.status;
@@ -34,10 +38,6 @@ export class CommentComponent implements OnInit{
         this.User = user;
       }
      });
-    this.userService.layDanhSachBinhLuan(this.IdChapter).subscribe((res: any)=>{
-      // console.warn(res);
-      this.DanSachBinhLuan= res;
-    })
   }
   SendMessage(message: string, idUser: string){
     //kiểm tra xem người dùng login chưa
@@ -54,30 +54,7 @@ export class CommentComponent implements OnInit{
       });
     }
   }
-  ReplyComment(idComment: string){
-    if(this.idComment==idComment && this.isComment==true){
-      this.idComment="";
-      this.isComment = !this.isComment;
-    }else{
-      this.idComment=idComment;
-      this.isComment = !this.isComment;
-    }
-  }
-  SenderReply(dataReplyComment: string, CurrentIdUserL: string, idComment: string){
-    if(this.hasLogin === false){
-      alert("Vui lòng đăng nhập để sử dụng chức năng này!");
-    }else{
-      this.userService.phanHoiBinhLuan(idComment,CurrentIdUserL,dataReplyComment).subscribe({
-        complete: ()=>{
-          this.userService.layDanhSachBinhLuan(this.IdChapter).subscribe((res: any)=>{
-            // console.warn(res);
-            this.DanSachBinhLuan= res;
-            setTimeout(() => {
-              this.isComment=! this.isComment;
-            }, 0);
-          });
-        }
-      });   
-    }
+  return(input: any){
+    this.DanSachBinhLuan= input;
   }
 }

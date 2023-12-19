@@ -53,7 +53,9 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       { path: ':id', component: ResulttoppmangaComponent, data:{id:0}}]},
-    {path: 'Manga/:type' , component: ListmangaComponent,data: {type: 'All'}, children: [{path: '', component: SlidebarComponent} ]},
+    {path: 'Manga/:type' , component: ListmangaComponent,data: {type: 'A-Z'}, children: [
+      {path: '', component: SlidebarComponent} 
+    ]},
     {path: 'user/:userid/:usernam', component: InfouserComponent, children: [
       {path: '', component: InfouserDetailsComponent},
       {path: 'history', component: InfouserReadhistoryComponent},
