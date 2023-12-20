@@ -1,13 +1,13 @@
-<div class="container bg-dark">
-    <div class="data m-0 p-0">
-        <ng-container *ngIf="ListSearch.length>0">
-            <div *ngFor="let item of ListSearch" class="card col-4 " style="width: 12rem;" (click)="infomanga(item)">
-                <img [src]="item?.mangaImage" class="card-img-top m-0 p-0" [alt]="item?.mangaName" appImageError>
-                <div class="card-body">
-                  <a class="card-text">{{item?.mangaName}}</a>
-                </div>
+<div class="container bg-light">
+    <div class="data m-0 p-0 row d-flex justify-content-center">
+        <div *ngFor="let item of ListSearch" class="card" style="width: 18rem;" (click)="infomanga(item)">
+            <img [src]="item?.mangaImage" class="card-img-top m-0 p-0" [alt]="item?.mangaName" appImageError>
+            <div class="card-body">
+              <h5 class="card-title">{{item?.mangaName}}</h5>
+              <p class="card-text">{{item?.mangaDetails}}</p>
+              <a class="btn btn-primary">Chi tiết</a>
             </div>
-        </ng-container> 
+          </div>
     </div>
     <div class="slidebar d-flex justify-content-center">
         <router-outlet></router-outlet>

@@ -47,8 +47,8 @@ export class MangaService {
       throw error;
     }
   }
-  GetMangaByCategories(id: string): Observable<any>{
-    const url= `${this.ApiUrl}/GetmangabyCategory/${id}`;
+  GetMangaByCategories(id: string, pagenumber: any, pagesize: any): Observable<any>{
+    const url= `${this.ApiUrl}/GetmangabyCategory/${id}/${pagenumber}/${pagesize}`;
     return this.http.get(url);
   }
   GetMangaInfo(MangaId: string): Observable<any>{
@@ -73,7 +73,7 @@ export class MangaService {
       console.warn(item);
         params= params.append('List', item.genreId);
      });
-     const url= `${this.ApiUrl}/GetMangaByCategories`;
+     const url= `${this.ApiUrl}/GetMangaByListCategories`;
      return this.http.get(url,{params: params})
   }
   //Phải thỏa tất cả thể loại

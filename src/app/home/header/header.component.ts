@@ -69,6 +69,10 @@ export class HeaderComponent implements OnInit, OnDestroy , AfterViewInit{
     this.router.navigate([`/Manga/${input.target}/${name}`]);
   }
   timkiem(input: any){
+    setTimeout(() => {
+      this.result=[];
+      this.renderer.setProperty(this.search.nativeElement, 'value', '');
+    }, 0);
     this.router.navigate(['Search']);
   }
   infomanga(input :any){

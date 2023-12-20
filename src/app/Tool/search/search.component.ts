@@ -15,7 +15,7 @@ export class SearchComponent implements OnInit{
   }
   ngOnInit(): void {
     this.resultSearchManga.SearchMangaData$.subscribe((result: any)=>{
-      //console.log(result);
+      console.log(result);
       this.ListSearch = result || [];
     })
   }

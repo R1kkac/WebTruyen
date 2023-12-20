@@ -1,62 +1,47 @@
-.result-item{
-    background-color: rgba(216, 215, 215, 0.5);
-    margin: 0;
-    padding: 0;
-    position: relative;
-    a{
-        text-decoration: none;
-        color: black;
-    }
-    .result-info{
-        display: grid;
-        justify-content: center;
-        align-items: end;
-        p {
-            min-height: 30px;
-            width: 100%;
-            margin: 0;
-            background-color: rgba(0, 0, 0, 0.5);
-            position: absolute;
-            color: rgb(255, 255, 255);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        img{
-            display: flex;
-            width: 100%;
-            object-fit: cover;
-        }
-    }
-    .result-info:hover{
-        img{
-            opacity: .7;
-        }
-        p{
-            background-color: rgba(255, 255, 255, 0.5);
-            color: aqua;
-        }
-    }
-    a:hover{
-        color: red;
-    }
-}
 .no-result{
     display: flex;
     width: 100%;
     min-height: 500px;
     justify-content: center;
     align-items: center;
-    background-image: url('/assets/IMG_20180604_171359.jpg');
-    background-size: cover; 
+    background-image: url('/assets/sorry.jpg');
+    background-size: auto; 
     background-position: center; 
     background-repeat: no-repeat;
     opacity: .7;
     h1{
         color: rgb(255, 6, 6);
         text-shadow: 0 5px 5px black;
-        font-size: 3rem;
+        font-size: 2rem;
         font-weight: 700;
         opacity: 1;
+        font-style: italic;
+    }
+}
+.card-text{
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.card{
+    img{
+        display: flex;
+        object-fit: cover;
+        height: 20rem;
+    }
+    a:hover{
+        background-color: red;
+        border: none;
+        box-shadow: 0 0 3px black;
+    }
+    h5{
+        font-size: 1rem;
+        font-weight: 700;
+        text-align: start;
+        cursor: pointer;
+    }
+    h5:hover{
+        color: red;
     }
 }

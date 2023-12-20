@@ -10,8 +10,6 @@ import { WebsiteServiceService } from 'src/app/Service/website-service.service';
   styleUrls: ['./resulttoppmanga.component.scss']
 })
 export class ResulttoppmangaComponent implements OnInit{
-
-  data =[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
   Categories=[
     {id: '0', name:'All'},
     {id: '1', name:'Oneshot'},
@@ -24,17 +22,20 @@ export class ResulttoppmangaComponent implements OnInit{
   preId: any;
   typename:any
   flag=false;
+  page: any;
   constructor(private route: ActivatedRoute, private mangaService: MangaService, private websiteService: WebsiteServiceService,
     private router: Router, private title: Title){}
   ngOnInit(): void {
     this.route.paramMap.subscribe((param: ParamMap)=>{
       const Id=param.get('id') || '0';
+      this.preId= Id;
       const category= this.Categories.find(x=> x.id == Id)?.name;
       this.title.setTitle(`Xếp hạng truyện - ${category}`);
       this.result=[];
       this.mangaService.GetmangabyType(Id,1,10).subscribe((item:any)=>{
         console.log(item)
-        this.result = item;
+        this.result = item.listmanga;
+        this.page= this.websiteService.returnPage(item.numberManga, 10) || 1;
       })
     })
   }
@@ -54,5 +55,14 @@ export class ResulttoppmangaComponent implements OnInit{
   }}
   formatview(input: any){
     return this.websiteService.formatView(input);
+  }
+  nextpage(number: number){
+    this.result=[];
+    this.mangaService.GetmangabyType(this.preId,number,10).subscribe((item:any)=>{
+      console.log(item)
+
+      this.result = item.listmanga;
+      this.page= this.websiteService.returnPage(item.numberManga, 10) || 1;
+    })
   }
 }

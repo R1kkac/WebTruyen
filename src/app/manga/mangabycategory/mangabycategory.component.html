@@ -1,45 +1,50 @@
 <section class="result-category">
-    <h2 class="title"><mat-icon>view_headline</mat-icon><span>{{curcategory.genresIdName}}</span></h2>
-    <h3 class="ms-2">{{curcategory.info}}</h3>
-    <div class="hf row container d-flex justify-content-centre">
-        <article class="content col-12 col-sm-10">
+    <div class="tool-bav">
+        <h2 title="Mở danh sách thể loại" (click)="showandhidemenu($event)" class="title"><mat-icon>view_headline</mat-icon><span>Danh mục</span></h2>
+        <ol [@expandCollapse]="menuState" class="row p-0 m-0">
+          <li *ngFor="let item of CategorysSource" [@stagger]  class="col-sm-2 col-4 bg-light row p-0 m-0">
+            <a class="fs-6 col-12" (click)="getManga(item.genreId)" [title]="item.info">{{item.genresIdName}}</a>
+          </li>
+        </ol>
+    </div>
+    <h3 class="ms-2 fs-6"><b><span style="color: red;">{{curcategory.genresIdName}}</span> : {{curcategory.info}}</b></h3>
+    <div class="hf row container-fluid">
+        <article class="bg-light">
             <div class="data-result">
-                <div class="row d-flex justify-content-start">
-                    <div *ngFor=" let item of listManga" class="data col-3 col-lg-2 m-2">
-                        <div class="image">
-                            <img [routerLink]="getUrl(item)" [src]="item.mangaImage" [alt]="item.mangaName" appImageError loading="lazy">
-                            <a [routerLink]="getUrl(item)">{{item.mangaName}}</a>
-                        </div>
-                        <div class="info">
-                            <div class="list-chapter">
-                                <a *ngFor="let chap of item.listChaper" class="ms-1 d-block" [routerLink]="readchapter(chap, item)">{{chap.chapterName}}<span class="ms-1"><mat-icon>query_builder</mat-icon>
-                                  {{formatdate(chap.chapterDate)}}</span>
-                                </a>
+                <div class="row d-flex justify-content-center">
+                    <ng-container *ngIf="listManga.length >0">
+                        <div *ngFor="let item of listManga" class="card m-1 p-0" style="width: 15rem;">
+                            <img [src]="item.mangaImage || item.MangaImage" [alt]="item.mangaName || item.MangaName" class="card-img-top">
+                            <div class="card-body">
+                              <h5 [routerLink]="getUrl(item)" class="card-title">{{item.mangaName || item.MangaName}}</h5>
+                              <p class="card-text">{{item.mangaDetails || item.MangaDetails}}</p>
+                              <a [routerLink]="getUrl(item)" class="btn btn-primary">Chi tiết</a>
                             </div>
+                          </div>
+                    </ng-container>
+                    <ng-container *ngIf="listManga.length == 0">
+                        <div class="no-result">
+                            <img src="../assets/noresult.png" alt="error" appImageError>
                         </div>
-                    </div>
+                    </ng-container>
+                </div>
+                <div class="pagination d-flex justify-content-center">
+                    <ul class="d-flex p-2">
+                        <li *ngFor="let page of page"><a (click)="getmangapage(page)">{{page}}</a></li>
+                    </ul>
                 </div>
             </div>
-            <div class="pagination">
-                <ul class="d-flex justify-content-end p-2">
-                    <li><a href="">1</a></li>
-                    <li><a href="">2</a></li>
-                    <li><a href="">3</a></li>
-                    <li><a href="">4</a></li>
-                    <li><a href="">5</a></li>
-                </ul>
-                </div>
         </article>
-        <aside class="slidebar col-sm-2">
+        <aside class="slidebar">
             <h2>Danh mục</h2>
             <ul class="list-group d-none d-lg-block">
                 <li class="list-group-item" *ngFor="let item of Categorys">
-                    <a (click)="getManga(item.genreId)">{{item.genresIdName}}</a>
+                    <a (click)="getManga(item.genreId)" [title]="item.info">{{item.genresIdName}}</a>
                 </li>
             </ul>
             <ul class="pagination-categories d-flex justify-content-end">
-                <li *ngFor="let i of [].constructor(page); let j = index">
-                    <a (click)="changeCategories(j)">{{j+1}}</a>
+                <li *ngFor="let i of pageforcategories; let j = index">
+                    <a class="rounded" (click)="changeCategories(j)">{{j+1}}</a>
                 </li>
             </ul>
         </aside>

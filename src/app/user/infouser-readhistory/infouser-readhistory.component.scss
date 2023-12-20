@@ -13,7 +13,7 @@
     cursor: pointer;
 }
 .card:has(.card-text:hover ,.card-img-top:hover ){
-    background-color: rgb(227, 222, 222);
+    background-color: #e3dede;
     .card-text{
         color: red;
     }
@@ -28,4 +28,6 @@ img{
 .row{
     max-height: 85vh;
     overflow-y: auto;
+    display: flex;
+    justify-content: center;
 }

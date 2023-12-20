@@ -77,6 +77,5 @@ export class InfouserComponent  implements OnInit{
     this.menu = !this.menu;
     this.menuState = this.menu ? 'expanded' : 'collapsed';
     this.menuIconClass = this.menu ? 'fa-caret-down' : 'fa-caret-right';
-
   }
 }

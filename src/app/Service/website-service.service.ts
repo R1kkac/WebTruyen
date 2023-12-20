@@ -264,6 +264,9 @@ export class WebsiteServiceService {
     let date= new Date(`${month}/${day}/${year}`).toLocaleDateString();
     return date;
   }
+  returnPage(number: any, divisor: any): any[]{
+    return Array.from({ length:  Math.ceil(number / divisor) }, (_, index) => index + 1);
+  }
 }
 
 //thanh process bar

@@ -39,45 +39,33 @@
                                     <span>{{item.chaptercount}}</span>
                                 </div>
                                 <div class="ms-2"><b>Loại :</b>&nbsp;
-                                    <span>{{typename}}</span>
+                                    <span>{{item.typeManga}}</span>
                                 </div>
                                 <div class="ms-2"><b>Tình trạng :</b>&nbsp;
                                     <span>{{item.status ===false ? 'Đang tiến hàng' : 'Đã hoàn thành'}}</span>
                                 </div>
                                 <div class="ms-2"><b>Theo dõi :</b>&nbsp;
-                                    <span>'N/A'</span>
-                                    members
+                                    <span>{{item.numberFollow}}</span>
                                 </div>
                             </div>
                         </div>
                         <div class="info-name"><a (mouseenter)="changedisplay(item)" (mouseleave)="changedisplay(item)" (click)="mangainfo(item.mangaId, item.mangaName)">{{item.mangaName}}</a></div>
                         <div class="infomation d-grid">
                             <span>{{item.type}}</span>
-                            <span>{{item.dateupdate | date: 'd/M/y'}}</span>
+                            <span>{{item.dateupdate | date: 'dd/MM/y'}}</span>
                             <span>{{formatview(item.view)}}</span>
                         </div>
                     </div>
                 </div>
             </td>
             <td class="align-middle">{{item.status === false? 'Đang tiến hành': 'Đã hoàn thành'}}</td>
-            <td class="align-middle"><i class="fa-solid fa-star p-1" style="color: rgb(249, 249, 4);"></i><span>{{item.rating}}</span></td>
+            <td class="align-middle"><i class="fa-solid fa-star p-1" style="color: rgb(249, 249, 4);"></i><span>{{item.rating == '0' ? 'Chưa có đánh giá' : item.rating}}</span></td>
           </tr>
         </tbody>
     </table>
     <div class=" pagination-topmanga">
         <ul class="d-flex justify-content-end p-2">
-            <li><a href="">1</a></li>
-            <li><a href="">2</a></li>
-            <div class="dropup-center dropup">
-                <a class="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                ...
-                </a>
-                <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#" *ngFor="let index of data">{{index}}</a></li>
-                </ul>
-            </div>
-            <li><a href="">4</a></li>
-            <li><a href="">5</a></li>
+            <li *ngFor="let page of page"><a (click)="nextpage(page)">{{page}}</a></li>
         </ul>
     </div>
 </div>

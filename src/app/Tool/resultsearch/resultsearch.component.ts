@@ -16,7 +16,8 @@ export class ResultsearchComponent implements OnInit{
   list:any[]=[];
   private sub!: Subscription;
   flag=false;
-  constructor(private searchManga: SearchbyCategories, private mangaService: MangaService, private route: ActivatedRoute){
+  constructor(private searchManga: SearchbyCategories, private mangaService: MangaService, private route: ActivatedRoute,
+    private router: Router){
   }
   ngOnInit(): void {
     this.route.paramMap.subscribe(item=>{
@@ -58,9 +59,18 @@ export class ResultsearchComponent implements OnInit{
       }
     })
   }
+  infomanga(input: any){
+    let manganame='';
+    if(input.mangaName === undefined){
+      manganame =input.MangaName.replace(/ /g, '-');
+    }
+    else{
+      manganame = input.mangaName.replace(/ /g, '-');
+    }
+    this.router.navigate([`Manga/${input.mangaId || input.MangaId}/${manganame}`]);
+  }
   readchapter(chapter: any, manga: any){
     let manganame='';
-    console.log(manga.mangaName )
     if(manga.mangaName === undefined){
       manganame =manga.MangaName.replace(/ /g, '-');
     }
