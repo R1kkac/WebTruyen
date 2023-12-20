@@ -4,7 +4,7 @@
     </div>
     <div class="user-comment ms-1">
         <div class="comment-info">
-            <span class="comment-username">{{comment.name}}</span>
+            <span class="comment-username">{{comment.name || comment.userName}}</span>
             <span *ngIf="comment.curChapter !== null" class="comment-chapter">{{comment.curChapter}}</span>
             <span class="comment-date">Thời gian: {{(comment.date | date:'h:mm dd-MM-yyyy') || (comment.dateComment | date:'h:mm dd-MM-yyyy')}}</span>
         </div>
@@ -13,11 +13,11 @@
 </div>
 <div class="action-comment">
    <div> <a (click)="ReplyComment(comment.idComment)">Phản hồi</a></div>
-    <div ><i class="fa-regular fa-thumbs-up" style="color: #000000;"></i>14
-        <a href="">Thích</a>
+    <div ><i class="fa-regular fa-thumbs-up" style="color: #000000;"></i>{{likecomment}}
+        <a (click)="like(comment.idComment)">Thích</a>
     </div>    
-    <div ><i class="fa-regular fa-thumbs-up fa-rotate-180" style="color: #000000;"></i>11
-        <a href="">Không thích</a>
+    <div ><i class="fa-regular fa-thumbs-up fa-rotate-180" style="color: #000000;"></i>{{dislikecomment}}
+        <a (click)="unlike(comment.idComment)">Không thích</a>
     </div>
 </div>
 <div class="reply-comment" *ngIf="this.idComment=== comment.idComment && isComment === true"> 

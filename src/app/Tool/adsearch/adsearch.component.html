@@ -2,17 +2,17 @@
     <div class="search-field">
         <h2 class="search-title d-flex justify-content-center mt-3 m-0 p-0">Tìm truyện theo thể loại</h2>
         <div class="type-search">
-            <a #type1 (click)="changeTypeSearch()" class="type-item">Tìm thông thường</a>
-            <a #type2 (click)="changeTypeSearch()" class="type-item">Tìm nâng cao</a>
+            <a #type1 (click)="changeTypeSearch(1)" class="type-item">Tìm thông thường</a>
+            <a #type2 (click)="changeTypeSearch(2)" class="type-item">Tìm nâng cao</a>
             <!-- <a (click)="changeTypeSearch(3)" class="type-item">Tìm theo tác giả</a> -->
         </div>  
-       <ng-container>
-            <h2 class="categories-title m-0 p-0 ms-3">Danh sách thể loại</h2>
+       <ng-container *ngIf="typefind === 1">
+            <h2 class="categories-title m-0 p-0 ms-3">Tìm thông thường</h2>
             <div class="calegories row m-0 p-0" style="background-color: white;">
-                <form (submit)="search()" class="p-0">
+                <form (submit)="search(1)" class="p-0">
                     <div class="row mb-5 p-1 ms-2 pe-0 me-0">
                         <ng-container *ngFor="let items of listCategory" >  
-                            <div class="col-6 col-sm-4 col-lg-3">
+                            <div class="col-6 col-sm-4 col-lg-3">   
                                 <ng-container *ngFor="let item of items">
                                     <div class="category d-flex justify-content-left p-1">
                                         <input (change)="listChecked(item)" type="checkbox" id="{{item.genreId}}" name="categories" value="{{ item.genreId }}">
@@ -28,10 +28,10 @@
                 </form>
             </div>
        </ng-container>
-       <!-- <ng-container *ngIf="typeSearch ===2">
-        <h2 class="categories-title m-0 p-0 ms-3">Tìm theo tên truyện</h2>
+       <ng-container *ngIf="typefind === 2">
+        <h2 class="categories-title m-0 p-0 ms-3">Tìm nâng cao</h2>
         <div class="calegories row m-0 p-0" style="background-color: white;">
-            <form (submit)="search()" class="p-0">
+            <form (submit)="search(2)" class="p-0">
                 <div class="row mb-5 p-1 ms-2 pe-0 me-0">
                     <ng-container *ngFor="let items of listCategory" >  
                         <div class="col-6 col-sm-4 col-lg-3">
@@ -49,7 +49,7 @@
                 </div>
             </form>
         </div>
-       </ng-container> -->
+       </ng-container>
     </div>
     <div class="result-field">
         <h2 class="border border-info d-flex justify-content-center m-2">Kết quả</h2>

@@ -25,6 +25,8 @@ export class MangadetailComponent implements OnInit, OnDestroy{
   listComment: any[]=[];
   hasLogin= false;
   User: any;
+  resetComment= false;
+  pageComment: any;
   constructor(private route:ActivatedRoute, private webService: WebsiteServiceService, private mangaService: MangaService,
     private mangaDefault: MangaDefault, private userService: UserService, private toastr: ToastrService, private isLogin: isLogin,
     private popupService: PopupMessageService, private title: Title){}
@@ -38,6 +40,9 @@ export class MangadetailComponent implements OnInit, OnDestroy{
     this.route.paramMap.subscribe((item: ParamMap)=>{
       const Id= item.get('id');
       this.getlistComment(Id!,5,1);
+      this.userService.numberComment(Id).subscribe(item=>{
+        this.pageComment= (() => Array.from({length: Math.ceil(item/5)}, (_, i) => i + 1))();
+      })
       this.mangaService.GetMangaInfo(Id!).subscribe({
         next: (item:any)=>{
           this.manga=item;
@@ -295,12 +300,18 @@ export class MangadetailComponent implements OnInit, OnDestroy{
   commentmanga(mangaid: any, message: any){
     this.userService.binhLuanChuongTruyen(this.User.id,mangaid, 'isnull',message).subscribe({
       error: (err:any)=>{
-        console.log(err);
+        //console.log(err);
       },
       complete: ()=>{
         this.getlistComment(this.manga.mangaId,5,1);
       }
     })
+  }
+  resetcommentf(input: any){
+   this.resetComment= input;
+   setTimeout(() => {
+    this.resetComment = false;
+   }, 100);
   }
   formatdatetime(input: any){
     return this.webService.formatdatetime(input);

@@ -1,12 +1,12 @@
-<div class="no-result" *ngIf="flag === false"><h1>No Result Here</h1></div>
+<div class="no-result" *ngIf="flag === false"><h1>Không có kết quả</h1></div>
 <div *ngIf="flag=== true" class="row  d-flex justify-content-center">
     <div *ngFor="let item of list" class="result-item col-sm-2 col-4 m-2">
         <div class="result-info d-grid justify-content-center text-center">
-            <img [src]="item.mangaImage" [alt]="item.mangaName" class="img-thumbnail m-0 p-0">
-            <p>{{item.mangaName}}</p>
+            <img [src]="item.mangaImage || item.MangaImage" [alt]="item.mangaName || item.MangaName" class="img-thumbnail m-0 p-0">
+            <p>{{item.mangaName || item.MangaName}}</p>
         </div>
         <div class="result-chapter d-grid justify-content-center">
-            <a *ngFor="let chapter of item.listChaper"  [routerLink]="readchapter(chapter, item)">{{chapter.chapterName}}</a>
+            <a *ngFor="let chapter of (item.listChaper || item.ListChaper.$values)"  [routerLink]="readchapter(chapter, item)">{{chapter.chapterName || chapter.ChapterName}}</a>
         </div>
     </div>
 </div>

@@ -76,6 +76,16 @@ export class MangaService {
      const url= `${this.ApiUrl}/GetMangaByCategories`;
      return this.http.get(url,{params: params})
   }
+  //Phải thỏa tất cả thể loại
+  GetMangaByListCategoriesWithAllCategories(Listcategories: any): Observable<any>{
+    let params = new HttpParams();
+    Listcategories.forEach((item: any) => {
+      console.warn(item);
+        params= params.append('List', item.genreId);
+     });
+     const url= `${this.ApiUrl}/get_manga_all_categories`;
+     return this.http.get(url,{params: params})
+  }
   GetmangaByPage(page: any): Observable<any>{
     const url = `${this.ApiUrl}/GetAllManga/${page}`;
     return this.http.get(url);

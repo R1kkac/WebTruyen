@@ -20,6 +20,7 @@ export class AdsearchComponent implements OnInit, OnDestroy{
   count=0;
   temporary=0;
   ex=false;
+  typefind=1;
   ListCategoryhaveChecked:any[]=[];
   listCategory: any[]=[];
   private  Sub!: Subscription;
@@ -40,11 +41,11 @@ export class AdsearchComponent implements OnInit, OnDestroy{
       this.listCategory.push(items);
     }
   }
-  search(){
+  search(type: number){
     setTimeout(() => {
       this.searchmanga.sendData(this.ListCategoryhaveChecked);
     }, 0);
-    this.router.navigate(['Tim-kiem-nang-cao/Ket-Qua']);
+    this.router.navigate([`Tim-kiem-nang-cao/${type}/Ket-Qua`]);
   }
   listChecked(data: any){
     if(this.ListCategoryhaveChecked.length>0){
@@ -84,18 +85,20 @@ export class AdsearchComponent implements OnInit, OnDestroy{
     //không có hoặc không còn temporary
     return data.slice(precount,this.count);
   }
-  changeTypeSearch(){
+  changeTypeSearch(number: number){
     const type1 = this.type1.nativeElement;
     const type2 = this.type2.nativeElement;
-    if(this.isbackground === false){
+    if(number ==1 ){
+      this.typefind= 1;
+      this.ListCategoryhaveChecked=[];
       this.rederer.setStyle(type1, 'background', 'linear-gradient(to bottom, #3366ff 0%, #66ffff 100%)');
       this.rederer.setStyle(type2, 'background', 'white');
-      this.isbackground = !this.isbackground;
-    }else
-    {
+    }
+    else if(number ==2){
+      this.typefind= 2;
+      this.ListCategoryhaveChecked=[];
       this.rederer.setStyle(type2, 'background', 'linear-gradient(to bottom, #3366ff 0%, #66ffff 100%)');
       this.rederer.setStyle(type1, 'background', 'white');
-      this.isbackground = !this.isbackground;
     }
   }
   ngOnDestroy(): void {

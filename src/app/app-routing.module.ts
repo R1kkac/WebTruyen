@@ -44,7 +44,7 @@ const routes: Routes = [
     ]},
     {path: 'Tim-kiem-nang-cao', component: AdsearchComponent, children:[
       { path: '', component: ResultsearchComponent},
-      { path: 'Ket-Qua', component: ResultsearchComponent}
+      { path: ':type/Ket-Qua', component: ResultsearchComponent}
     ]},
     {path: 'Top-manga', component: TopmangaComponent, children:[
       { 

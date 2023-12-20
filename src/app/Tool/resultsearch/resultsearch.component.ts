@@ -16,25 +16,58 @@ export class ResultsearchComponent implements OnInit{
   list:any[]=[];
   private sub!: Subscription;
   flag=false;
-  constructor(private searchManga: SearchbyCategories, private mangaService: MangaService){
+  constructor(private searchManga: SearchbyCategories, private mangaService: MangaService, private route: ActivatedRoute){
   }
   ngOnInit(): void {
-    if(this.sub){
-      this.sub.unsubscribe();;
-    }
-    this.sub= this.searchManga.searchData$.subscribe(item=>{
-      this.mangaService.GetMangaByListCategories(item).subscribe((items: any)=>{
-          this.list = items;
-          if(this.list.length >0){
-            this.flag = true;
-          }
-        })
-    });
-   
+    this.route.paramMap.subscribe(item=>{
+      const type= Number(item.get('type')) || 1;
+      if(type ==1){
+        this.list=[];
+        if(this.sub){
+          this.sub.unsubscribe();;
+        }
+        this.sub= this.searchManga.searchData$.subscribe(item=>{
+          this.mangaService.GetMangaByListCategories(item).subscribe((items: any)=>{
+
+              this.list = items;
+              if(this.list.length >0){
+                this.flag = true;
+              }
+              else{
+                this.flag = false;
+              }
+            })
+        });
+      }else{
+        this.list=[];
+        if(this.sub){
+          this.sub.unsubscribe();;
+        }
+        this.sub= this.searchManga.searchData$.subscribe(item=>{
+          this.mangaService.GetMangaByListCategoriesWithAllCategories(item).subscribe((items: any)=>{
+              const listmanga= items.$values;
+              this.list = listmanga;
+              if(this.list.length >0){
+                this.flag = true;
+              }
+              else{
+                this.flag = false;
+              }
+            })
+        });
+      }
+    })
   }
   readchapter(chapter: any, manga: any){
-    let manganame= manga.mangaName.replace(/ /g, '-');
-    const url= `/Manga/${manga.mangaId}/${manganame}/${chapter.chapterId}/${chapter.chapterIndex}`;
+    let manganame='';
+    console.log(manga.mangaName )
+    if(manga.mangaName === undefined){
+      manganame =manga.MangaName.replace(/ /g, '-');
+    }
+    else{
+      manganame = manga.mangaName.replace(/ /g, '-');
+    }
+    const url= `/Manga/${manga.mangaId || manga.MangaId}/${manganame}/${chapter.chapterId || chapter.ChapterId}/${chapter.chapterIndex || chapter.ChapterIndex}`;
     return url;
   }
 }

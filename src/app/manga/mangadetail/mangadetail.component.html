@@ -68,17 +68,15 @@
                 <h2 class="border-bottom border-danger"><i class="fa-solid fa-list"></i> Danh sách chương</h2>
                 <div class="row list-data">
                     <div class="col ms-2">Số chương</div>
+                    <div class="col">Nội dung</div>
                     <div class="col">Ngày cập nhật</div>
-                    <div class="col">Đã xem</div>
                 </div>
                 <nav class="border">
                     <ul #listdatachapter class="list-data-chapter">
                         <li *ngFor="let item of chapterlist$ | async" class="simple-chapter row pt-2 pb-2">
                             <div class="col"><a [href]="readchapter(item)">{{item.chapterName}}</a></div>
+                            <div class="col"><i>{{item?.chapterTitle}}</i></div>
                             <div class="col"><i>{{formatdatetime(item?.chapterDate)}}</i></div>
-                            <div [ngStyle]="{'color': item?.status === 'chưa xem qua' ? '' : 'rgba(128, 128, 128, 0.5)'}" class="col">
-                                <i>{{item.status || 'N/A'}}</i>
-                            </div>
                         </li>
                         <li *ngIf="isLastChapter=== false" class="action-chapter row"><a (click)="morechapter()" class="view-more-chapter d-flex justify-content-center"><i>+</i>Xem thêm</a></li>
                         <li *ngIf="isLastChapter === true"  class="action-chapter row"><a (click)="hidechapter()" class="view-more-chapter d-flex justify-content-center">Ẩn bớt<i>--</i></a></li>
@@ -102,9 +100,9 @@
             <div class="history-comment mb-4">
                 <ul>
                     <li *ngFor="let item of listComment" class="user mt-2">
-                        <app-commenttemplate [hasLogin]="hasLogin" [comment]="item" [User]="User" [IdChapter]="item.chapterId" ></app-commenttemplate>
+                        <app-commenttemplate [hasLogin]="hasLogin" [comment]="item" [User]="User" [IdChapter]="item.chapterId" (resetComment)="resetcommentf($event)"></app-commenttemplate>
                         <div class="list-reply-comment">
-                            <app-replycomment [comment]="item" ></app-replycomment>
+                            <app-replycomment [comment]="item" [isResetComment]="resetComment"></app-replycomment>
                         </div>
                         <!-- <div class="user-avatar">
                             <img class="img-thumbnail" [src]="avatar(item.avatar)" [alt]="item.name" appAvatarError>
@@ -123,11 +121,7 @@
                     </li>
                 </ul>
                 <div class="page-comment">
-                    <a (click)="getlistComment(manga?.mangaId,5,1)">1</a>
-                    <a (click)="getlistComment(manga?.mangaId,5,2)">2</a>
-                    <a (click)="getlistComment(manga?.mangaId,5,3)">...</a>
-                    <a (click)="getlistComment(manga?.mangaId,5,4)">4</a>
-                    <a (click)="getlistComment(manga?.mangaId,5,5)">5</a>
+                    <a *ngFor="let page of pageComment" (click)="getlistComment(manga?.mangaId,5,page)">{{page}}</a>
                 </div>
             </div>
         </div>

@@ -128,6 +128,38 @@ export class UserService {
     fromdata.append('MangaId', MangaId);
     return this.http.post(url, fromdata);
   }
+  getLikeAndUnLikeComment(idcomment: any): Observable<any>{
+    const url = `${this.ApiUrlService}/get_like_and_unlike_comment/${idcomment}`;
+    return this.http.get(url);
+  }
+  LikeComment(idcomment: any): Observable<any>{
+    const url = `${this.ApiUrlService}/like_comment`;
+    var fromdata= new FormData;
+    fromdata.append('idcomment', idcomment);
+    return this.http.post(url,fromdata);
+  }
+  DisLikeComment(idcomment: any): Observable<any>{
+    const url = `${this.ApiUrlService}/dislike_comment`;
+    var fromdata= new FormData;
+    fromdata.append('idcomment', idcomment);
+    return this.http.post(url,fromdata);
+  }
+  UnLikeComment(idcomment: any): Observable<any>{
+    const url = `${this.ApiUrlService}/un_like_comment`;
+    var fromdata= new FormData;
+    fromdata.append('idcomment', idcomment);
+    return this.http.post(url,fromdata);
+  }
+  UnDisLikeComment(idcomment: any): Observable<any>{
+    const url = `${this.ApiUrlService}/un_dislike_comment`;
+    var fromdata= new FormData;
+    fromdata.append('idcomment', idcomment);
+    return this.http.post(url,fromdata);
+  }
+  numberComment(mangaid: any): Observable<any>{
+    const url = `${this.ApiUrlService}/comment_count/${mangaid}`;
+    return this.http.get(url);
+  }
 }
 
 export interface userlogin{

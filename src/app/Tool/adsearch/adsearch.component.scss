@@ -96,6 +96,9 @@
 .type-search{
     display: flex;
     border-bottom: 3px solid rgb(35, 35, 248);
+    :nth-child(1){
+        background: linear-gradient(to bottom, #3366ff 0%, #66ffff 100%);
+    }
     .type-item{
         padding: 1rem;
         text-decoration: none;
