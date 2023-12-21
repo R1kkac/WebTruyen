@@ -57,6 +57,19 @@ export class UserService {
     formdata.append('password', newpassword);
     return this.http.post(url, formdata);
   }
+  edituser(user: any, avatar: File): Observable<any>{
+    const url=  `${this.ApiUrlUser}/EditUser`;
+    const formdata= new FormData;
+    formdata.append('User', JSON.stringify(user));
+    formdata.append('Avatar', avatar);
+    return this.http.put(url, formdata);
+  }
+  changepassword(user: any){
+    const url=  `${this.ApiUrlUser}/change_password_user`;
+    const formdata= new FormData;
+    formdata.append('User', JSON.stringify(user));
+    return this.http.put(url, formdata);
+  }
    //Lấy danh sách thông báo chưa đọc
    getNotification(id: string): Observable<any>{
     const  url= `${this.ApiUrlService}/DanhSachThongBaoChuaXem/${id}`;

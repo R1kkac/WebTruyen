@@ -14,7 +14,7 @@ export class UserheaderComponent implements OnInit{
   @Output() hasLogin: EventEmitter<any> = new EventEmitter();
   constructor(private userService: UserService, private router: Router, private websiteService: WebsiteServiceService){}
   ngOnInit(): void {
-    //console.log(this.user);
+    console.log(this.user);
   }
   infouser(user: any){  
     this.router.navigate([`user/${user.id}/${user.name}`]);
