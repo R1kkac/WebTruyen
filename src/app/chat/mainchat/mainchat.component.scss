@@ -1,0 +1,48 @@
+li{
+
+    list-style-type: none;
+}
+.container{
+    background-color: white;
+    display: block;
+    .content{
+        height: 70vh;
+        display: flex;
+        align-items: start;
+        flex-direction: column;
+        .action{
+            margin-top: auto;
+            display: flex;
+            width: 100%;
+            input{
+                width: 100%;
+                display: block;
+            }
+        }
+    }
+    .data{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+}
+.item-chat{
+    display: flex;
+    align-items: center;
+    .info{
+        display: flex;
+        align-items: center;
+        padding-right: .25rem;
+    }
+    img{
+        width: 1.5rem;
+        height: 1.5rem;
+        border-radius: .75rem;
+    }
+    .chat-data{
+        display: block;
+        width: auto;
+        overflow: hidden;
+        word-wrap: break-word;
+    }
+}

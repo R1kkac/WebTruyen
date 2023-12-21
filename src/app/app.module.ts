@@ -45,6 +45,10 @@ import { AvatarErrorService } from './Service/avatar-error.service';
 import { InfouserNotificationsComponent } from './user/infouser-notifications/infouser-notifications.component';
 import { SearchComponent } from './Tool/search/search.component';
 import { CommenttemplateComponent } from './Tool/commenttemplate/commenttemplate.component';
+import { ChatpageComponent } from './chat/chatpage/chatpage.component';
+import { ListroomchatComponent } from './chat/listroomchat/listroomchat.component';
+import { ListuseractiveComponent } from './chat/listuseractive/listuseractive.component';
+import { MainchatComponent } from './chat/mainchat/mainchat.component';
 
 
 
@@ -101,7 +105,11 @@ export function Topmanga(Manga: MangaService) {
     AvatarErrorService,
     InfouserNotificationsComponent,
     SearchComponent,
-    CommenttemplateComponent
+    CommenttemplateComponent,
+    ChatpageComponent,
+    ListroomchatComponent,
+    ListuseractiveComponent,
+    MainchatComponent
   ],
   imports: [
     BrowserModule,

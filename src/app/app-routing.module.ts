@@ -27,6 +27,10 @@ import { CommentComponent } from './manga/comment/comment.component';
 import { ReplycommentComponent } from './manga/replycomment/replycomment.component';
 import { InfouserNotificationsComponent } from './user/infouser-notifications/infouser-notifications.component';
 import { SearchComponent } from './Tool/search/search.component';
+import { ChatpageComponent } from './chat/chatpage/chatpage.component';
+import { ListroomchatComponent } from './chat/listroomchat/listroomchat.component';
+import { ListuseractiveComponent } from './chat/listuseractive/listuseractive.component';
+import { MainchatComponent } from './chat/mainchat/mainchat.component';
 
 const routes: Routes = [
   {path: '' , component: HomeComponent, children:[
@@ -61,7 +65,12 @@ const routes: Routes = [
       {path: 'history', component: InfouserReadhistoryComponent},
       {path: 'following', component: InfouserFollowingComponent},
       {path: 'notificatios', component: InfouserNotificationsComponent},
-    ]}
+    ]},
+    {path :'c', component: ChatpageComponent, children:[
+      {path: '' , component: ListroomchatComponent, outlet: 'listroom'},
+      {path: '' , component: ListuseractiveComponent , outlet: 'listuser'},
+      {path: '' , component: MainchatComponent},
+    ]},
   ]},
   {path: 'oAuth', component: UserpageComponent, children:[
     {path: 'login' , component: LoginComponent},
