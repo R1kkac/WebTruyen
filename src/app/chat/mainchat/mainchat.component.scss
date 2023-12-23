@@ -8,8 +8,10 @@ li{
     .content{
         height: 70vh;
         display: flex;
+        width: 100%;
         align-items: start;
         flex-direction: column;
+        overflow-y: auto    ;
         .action{
             margin-top: auto;
             display: flex;
@@ -24,6 +26,9 @@ li{
         display: flex;
         flex-direction: column;
         width: 100%;
+    }
+    .user-active{
+        display: flex;
     }
 }
 .item-chat{

@@ -1,5 +1,6 @@
 import { Component, ElementRef, HostListener, ViewChild, AfterViewInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { WebsocketService } from 'src/app/Service/websocket.service';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,7 @@ export class HomeComponent implements AfterViewInit{
   isAtTop = false;
   private Headerheight=0;
 
-  constructor(private title: Title){
+  constructor(private title: Title, private websocket: WebsocketService){
     this.title.setTitle('Yahallo');
   }
   ngAfterViewInit(): void {

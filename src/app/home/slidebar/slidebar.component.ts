@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Topmangadefault } from 'src/app/Service/manga.service';
 import { UserService } from 'src/app/Service/user.service';
-import { WebsiteServiceService, isLogin } from 'src/app/Service/website-service.service';
+import { WebsiteServiceService} from 'src/app/Service/website-service.service';
+import { isLogin} from 'src/app/Service/repositores/injectable';
 
 @Component({
   selector: 'app-slidebar',

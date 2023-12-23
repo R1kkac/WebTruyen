@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/Service/user.service';
-import { PopupMessageService, WebsiteServiceService, isLogin } from 'src/app/Service/website-service.service';
+import { PopupMessageService, isLogin } from 'src/app/Service/repositores/injectable';
 import { PopupmessageComponent } from 'src/app/Tool/popupmessage/popupmessage.component';
 
 @Component({

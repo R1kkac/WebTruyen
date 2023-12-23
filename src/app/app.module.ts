@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { APP_INITIALIZER, Injector, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -25,14 +25,14 @@ import { ResulttoppmangaComponent } from './manga/resulttoppmanga/resulttoppmang
 import { ResultsearchComponent } from './Tool/resultsearch/resultsearch.component';
 import { MangabycategoryComponent } from './manga/mangabycategory/mangabycategory.component';
 import { HttpClientModule } from '@angular/common/http';
-import { MangaService, Topmangadefault } from './Service/manga.service';
+import { MangaService } from './Service/manga.service';
 import { HomeComponent } from './home/home/home.component';
 import { ForgotpasswordComponent } from './user/forgotpassword/forgotpassword.component';
 import { UserpageComponent } from './user/userpage/userpage.component';
 import { ToastrModule } from 'ngx-toastr';
 import { ResetpasswordComponent } from './user/resetpassword/resetpassword.component';
 import { MangapageComponent } from './manga/mangapage/mangapage.component';
-import { PopupMessageService, WebsiteServiceService, isLogin } from './Service/website-service.service';
+import { WebsiteServiceService} from './Service/website-service.service';
 import { UserheaderComponent } from './user/userheader/userheader.component';
 import { InfouserComponent } from './user/infouser/infouser.component';
 import { PopupmessageComponent } from './Tool/popupmessage/popupmessage.component';
@@ -49,9 +49,19 @@ import { ChatpageComponent } from './chat/chatpage/chatpage.component';
 import { ListroomchatComponent } from './chat/listroomchat/listroomchat.component';
 import { ListuseractiveComponent } from './chat/listuseractive/listuseractive.component';
 import { MainchatComponent } from './chat/mainchat/mainchat.component';
+import { PopupMessageService } from './Service/repositores/injectable';
+import { WebsocketService } from './Service/websocket.service';
 
 
-
+export function IsLogin(webSite: WebsiteServiceService) {
+  return () => webSite.Getcookie(); // Gọi hàm initialize của service khi ứng dụng bắt đầu chạy
+}
+export function websocket(injector: Injector) {
+  return () => {
+    const socket = injector.get(WebsocketService);
+    return socket.startconection();
+  };
+}
 export function MangaDefault(Mangas: MangaService) {
   return () => Mangas.GetMangaDefault(); // Gọi hàm initialize của service khi ứng dụng bắt đầu chạy
 }
@@ -62,13 +72,10 @@ export function CategoriesDefault(Mangas: MangaService) {
 export function GetPageNumber(Mangas: MangaService) {
   return () => Mangas.GetPageNumber(); // Gọi hàm initialize của service khi ứng dụng bắt đầu chạy
 }
-export function IsLogin(webSite: WebsiteServiceService) {
-  return () => webSite.Getcookie(); // Gọi hàm initialize của service khi ứng dụng bắt đầu chạy
-}
+
 export function Topmanga(Manga: MangaService) {
   return () => Manga.GetTopMangaDefault(); // Gọi hàm initialize của service khi ứng dụng bắt đầu chạy
 }
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -131,7 +138,10 @@ export function Topmanga(Manga: MangaService) {
     }),
   ],
   providers: [
-    MangaService,WebsiteServiceService,PopupMessageService,
+    WebsiteServiceService,
+    WebsocketService,
+    MangaService,
+    PopupMessageService,
     {
       provide: APP_INITIALIZER,
       useFactory: MangaDefault,
@@ -162,6 +172,12 @@ export function Topmanga(Manga: MangaService) {
       multi: true,
       deps: [MangaService]
     },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: websocket,
+      multi: true,
+      deps: [Injector]
+    }
   ],
   bootstrap: [AppComponent]
 })

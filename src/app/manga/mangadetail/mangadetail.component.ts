@@ -6,7 +6,11 @@ import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, map } from 'rxjs';
 import { MangaDefault, MangaService } from 'src/app/Service/manga.service';
 import { UserService } from 'src/app/Service/user.service';
-import { PopupMessageService, WebsiteServiceService, isLogin } from 'src/app/Service/website-service.service';
+import { WebsiteServiceService } from 'src/app/Service/website-service.service';
+import { PopupMessageService, RoomChat, isLogin } from 'src/app/Service/repositores/injectable';
+import { WebsocketService } from 'src/app/Service/websocket.service';
+import { RoomCreate } from 'src/app/Service/repositores/interface';
+
 
 @Component({
   selector: 'app-mangadetail',
@@ -27,9 +31,10 @@ export class MangadetailComponent implements OnInit, OnDestroy{
   User: any;
   resetComment= false;
   pageComment: any;
+  isChatRoom=false;
   constructor(private route:ActivatedRoute, private webService: WebsiteServiceService, private mangaService: MangaService,
-    private mangaDefault: MangaDefault, private userService: UserService, private toastr: ToastrService, private isLogin: isLogin,
-    private popupService: PopupMessageService, private title: Title){}
+    private userService: UserService, private toastr: ToastrService, private isLogin: isLogin,private roomChat: RoomChat,
+    private popupService: PopupMessageService, private title: Title, private webSocket: WebsocketService){}
   ngOnInit(): void {
     this.isLogin.isLogin$.subscribe((result: any)=>{
       this.hasLogin= result.status;
@@ -49,6 +54,19 @@ export class MangadetailComponent implements OnInit, OnDestroy{
           this.title.setTitle(`${this.manga.mangaName}`);
         },
         complete: ()=>{
+          this.webSocket.listRoomChatActive();
+          this.roomChat.roomchatData$.subscribe((result: any)=>{
+            console.log(result);
+            const rooms= result['Rooms'];
+            const room= rooms.find((x:any)=> x.roomId == this.manga.mangaId);
+            if(room){
+              console.log(room);
+
+              this.isChatRoom = true;
+            }else{
+              this.isChatRoom= false;
+            }    
+          })
           setTimeout(() => {
             if(this.manga.listChaper.length <=5){
               this.chapterlistSubject.next(this.getListSort(0,this.manga.listChaper.length, this.manga.listChaper));
@@ -318,5 +336,13 @@ export class MangadetailComponent implements OnInit, OnDestroy{
   }
   avatar(input: any){
     return this.webService.avatar(input);
+  }
+  creatRoomChat(roomid: any, roomname:any, image:any){
+    const room: RoomCreate={
+      RoomId: roomid,
+      RoomName: roomname,
+      image: image
+    }
+    this.webSocket.createChatRoom(room);
   }
 }

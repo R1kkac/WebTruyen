@@ -2,7 +2,7 @@ import { animate, keyframes, state, style, transition, trigger } from '@angular/
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { PopupMessageService, isLogin } from 'src/app/Service/website-service.service';
+import { PopupMessageService, isLogin } from 'src/app/Service/repositores/injectable';
 
 @Component({
   selector: 'app-infouser',

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { PopupMessageService } from 'src/app/Service/website-service.service';
+import { PopupMessageService } from 'src/app/Service/repositores/injectable';
 
 @Component({
   selector: 'app-popupmessage',

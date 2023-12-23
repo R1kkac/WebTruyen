@@ -4,20 +4,17 @@
 }
 .main-chat{
     display: block;
-    width: 70%;
+    width: 100%;
 }
-.list-user-active{
-    margin-right: auto;
-    width: auto;
-}
-@media (max-width: 1200px) {
-    .list-user-active{
-        visibility: hidden;
-        height: 0;
-        overflow: hidden;
-        display: none;
-    }
-    .main-chat{
-        width: 100%;
-    }
-}
+// .list-user-active{
+//     margin-right: auto;
+//     width: auto;
+// }
+// @media (max-width: 1200px) {
+//     .list-user-active{
+//         visibility: hidden;
+//         height: 0;
+//         overflow: hidden;
+//         display: none;
+//     }
+// }

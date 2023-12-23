@@ -7,9 +7,10 @@
     display: flex;
     align-items: center;
     flex-wrap: nowrap;
+    max-width: 15rem;
     cursor: pointer;
     .room-name{
-        max-width: 7rem;
+        display: inline-block;
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;

@@ -4,7 +4,7 @@ import { ActivatedRoute, Router, RouterLinkActive } from '@angular/router';
 import { FaStackItemSizeDirective } from '@fortawesome/angular-fontawesome';
 import { Subscription } from 'rxjs';
 import { MangaService } from 'src/app/Service/manga.service';
-import { SearchbyCategories } from 'src/app/Service/website-service.service';
+import { SearchbyCategories } from 'src/app/Service/repositores/injectable';
 
 @Component({
   selector: 'app-resultsearch',

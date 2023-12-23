@@ -2,7 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable, Subject } from 'rxjs';
-import { WebsiteServiceService, isLogin } from './website-service.service';
+import { WebsiteServiceService} from './website-service.service';
+import { isLogin} from './repositores/injectable';
 
 @Injectable({
   providedIn: 'root'

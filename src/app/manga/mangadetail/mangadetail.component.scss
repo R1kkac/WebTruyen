@@ -111,6 +111,59 @@ nav >ul>li>div >a:hover{
     width: 20px;
     height: 20px;
 }
+.chatroom{
+    border: 1px solid rgb(220, 220, 220);
+    border-radius: .25rem;
+    margin-top: .5rem;
+    padding: 0;
+    min-height: 1rem;
+    .info-chat{
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+    }
+    .action-chat{
+        margin-left: auto;
+    }
+    .action-chat >a{
+        cursor: pointer;
+        text-decoration: none;
+        padding: .5rem;
+        border-radius: .25rem;
+        margin: 0;
+    }
+    .action-chat >a:hover{
+        color: red;
+    }
+ 
+}
+.manga-image{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    img{
+        display: flex;
+        width: 80%;
+        border-radius: .25rem;
+    }
+}
+.status-off{
+    display: inline-block;
+    position: relative;
+    width: .75rem;
+    height: .75rem;
+    border-radius: .375rem;
+    background-color: red;
+}
+.status-on{
+    display: inline-block;
+    position: relative;
+    width: .75rem;
+    height: .75rem;
+    border-radius: .375rem;
+    background-color: green;
+}
 @media (max-width: 360px){
     .chat-data .data{
         max-width: 170px;

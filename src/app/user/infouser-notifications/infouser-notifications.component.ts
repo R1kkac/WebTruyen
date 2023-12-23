@@ -4,8 +4,9 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { Notifications } from 'src/app/Service/repositores/interface';
 import { UserService } from 'src/app/Service/user.service';
-import { PopupMessageService, isLogin } from 'src/app/Service/website-service.service';
+import { PopupMessageService, isLogin } from 'src/app/Service/repositores/injectable';
 
 @Component({
   selector: 'app-infouser-notifications',
@@ -65,11 +66,4 @@ export class InfouserNotificationsComponent implements OnInit{
     }
   }
 }
-export interface Notifications {
-  Type: string;
-  Message: string;
-  Targetimage: string;
-  Idtarget: string;
-  Target: string;
-  Date: string;
-}
+

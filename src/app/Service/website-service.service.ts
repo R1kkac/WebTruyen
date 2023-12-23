@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import * as CryptoJS from 'crypto-js';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { cookie, index_history_read_chapter, manga_history } from './repositores/interface';
+import { isLogin } from './repositores/injectable';
 
 @Injectable({
   providedIn: 'root'
@@ -267,98 +269,4 @@ export class WebsiteServiceService {
   returnPage(number: any, divisor: any): any[]{
     return Array.from({ length:  Math.ceil(number / divisor) }, (_, index) => index + 1);
   }
-}
-
-//thanh process bar
-@Injectable({
-  providedIn: 'root'
-})
-export class Processbar {
-
-  private dataSubject= new BehaviorSubject<dataProcess>({curPro: 0, lengthPro :0});
-  dataProcessbar$ = this.dataSubject.asObservable();
-
-  sendData(number: number, length: number){
-    const data: dataProcess ={curPro :number , lengthPro: length};
-    this.dataSubject.next(data);
-  }
-}
-export interface dataProcess{
-  curPro: number;
-  lengthPro: number;
-}
-
-//search data
-@Injectable({
-  providedIn: 'root'
-})
-export class SearchbyCategories {
-
-  private SearchDataSubject= new Subject<any[]>();
-  searchData$ = this.SearchDataSubject.asObservable();
-
-  sendData(item: any){
-    this.SearchDataSubject.next(item);
-  }
-}
-
-@Injectable({
-  providedIn: 'root'
-})
-export class isLogin{
-  private isLoginSubject= new BehaviorSubject<cookie>({status : false,isLogout: false, token :'', user:''});
-  isLogin$ = this.isLoginSubject.asObservable();
-
-  sendData(input: any){
-    this.isLoginSubject.next(input);
-  }
-}
-@Injectable({
-  providedIn: 'root',
-})
-export class PopupMessageService {
-  private messageSubject = new Subject<string>();
-
-  message$ = this.messageSubject.asObservable();
-
-  showMessage(message: string): void {
-    this.messageSubject.next(message);
-  }
-}
-@Injectable({
-  providedIn: 'root',
-})
-export class CurPage {
-  private curPageSubject = new Subject<number>();
-
-  message$ = this.curPageSubject.asObservable();
-
-  pushpage(page: number): void {
-    this.curPageSubject.next(page);
-  }
-}
-export interface user{
-  id: string;
-  avatar: string;
-  name: string;
-  email: string;
-}
-export interface cookie{
-  status: boolean;
-  isLogout: boolean;
-  token: string;
-  user: string;
-}
-export interface manga_history{
-  id: string;
-  image: string;
-  name: string;
-  date: string;
-}
-export interface index_history_read_chapter{
-  id_m: string;
-  id_ct: string;
-  cur_index: number;
-  num_of_data:number;
-  time:string;
 }

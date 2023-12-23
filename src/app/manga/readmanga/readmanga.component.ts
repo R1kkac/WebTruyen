@@ -5,7 +5,9 @@ import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { MangaService } from 'src/app/Service/manga.service';
 import { UserService } from 'src/app/Service/user.service';
-import { PopupMessageService, Processbar, WebsiteServiceService } from 'src/app/Service/website-service.service';
+import { WebsiteServiceService } from 'src/app/Service/website-service.service';
+import { PopupMessageService, Processbar } from 'src/app/Service/repositores/injectable';
+
 
 @Component({
   selector: 'app-readmanga',

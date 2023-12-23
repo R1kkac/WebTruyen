@@ -25,7 +25,7 @@ export class CommenttemplateComponent implements OnInit{
 
   }
   ngOnInit(): void {
-    console.log(this.comment);
+    //console.log(this.comment);
     this.likecomment = this.comment.likecomment ?? 0;
     this.dislikecomment= this.comment.dislikecomment ?? 0;
   }

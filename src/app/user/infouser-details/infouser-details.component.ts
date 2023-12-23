@@ -1,8 +1,12 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
+import { userChangePass } from 'src/app/Service/repositores/interface';
 import { UserService } from 'src/app/Service/user.service';
-import { PopupMessageService, WebsiteServiceService, cookie, isLogin } from 'src/app/Service/website-service.service';
+import { PopupMessageService, isLogin } from 'src/app/Service/repositores/injectable';
+import { WebsiteServiceService } from 'src/app/Service/website-service.service';
+import { user_info_detail, usercookie } from 'src/app/Service/repositores/interface';
+
 
 @Component({
   selector: 'app-infouser-details',
@@ -52,7 +56,7 @@ export class InfouserDetailsComponent implements OnInit{
       }, 3000);
     }
     else{
-      const user:user={
+      const user:user_info_detail={
         email: this.user.email,
         name: name,
         phone: phone,
@@ -151,19 +155,4 @@ export class InfouserDetailsComponent implements OnInit{
     };
     reader.readAsDataURL(avatar);
   }
-}
-export interface user{
-  email: string;
-  name: string;
-  phone: string;
-}
-export interface userChangePass{
-  email: string;
-  oldpassword: string;
-  newpassword: string;
-}
-export interface usercookie{
-  avatar: string;
-  id: string;
-  name: string;
 }

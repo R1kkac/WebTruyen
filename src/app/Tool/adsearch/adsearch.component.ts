@@ -4,7 +4,7 @@ import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { DataCategories } from 'src/app/Service/manga.service';
-import { SearchbyCategories } from 'src/app/Service/website-service.service';
+import { SearchbyCategories } from 'src/app/Service/repositores/injectable';
 
 @Component({
   selector: 'app-adsearch',

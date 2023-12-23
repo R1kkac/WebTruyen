@@ -2,7 +2,7 @@ import {Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DataCategories } from 'src/app/Service/manga.service';
-import { PopupMessageService, Processbar, WebsiteServiceService, isLogin } from 'src/app/Service/website-service.service';
+import { PopupMessageService, Processbar,isLogin } from 'src/app/Service/repositores/injectable';
 
 
 @Component({

@@ -3,7 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/Service/user.service';
-import { isLogin } from 'src/app/Service/website-service.service';
+import { isLogin } from 'src/app/Service/repositores/injectable';
 
 @Component({
   selector: 'app-infouser-following',

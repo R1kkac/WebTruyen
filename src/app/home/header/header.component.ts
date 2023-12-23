@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 import { MangaService, ResultSearchManga } from 'src/app/Service/manga.service';
 import { UserService } from 'src/app/Service/user.service';
-import { PopupMessageService, isLogin } from 'src/app/Service/website-service.service';
+import { PopupMessageService, isLogin } from 'src/app/Service/repositores/injectable';
 
 @Component({
   selector: 'app-header',

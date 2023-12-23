@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MangaDefault, MangaService, PageNumber } from 'src/app/Service/manga.service';
-import { CurPage } from 'src/app/Service/website-service.service';
+import { CurPage } from 'src/app/Service/repositores/injectable';
 
 @Component({
   selector: 'app-mangapage',

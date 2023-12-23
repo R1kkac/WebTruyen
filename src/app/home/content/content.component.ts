@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { faL } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { MangaDefault, MangaService, PageNumber } from 'src/app/Service/manga.service';
-import { CurPage } from 'src/app/Service/website-service.service';
+import { CurPage } from 'src/app/Service/repositores/injectable';
 
 @Component({
   selector: 'app-content',

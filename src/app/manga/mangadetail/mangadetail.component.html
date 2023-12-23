@@ -13,7 +13,26 @@
 
             <div class="detail-info text-center">
                 <div class="row">
-                  <div class="manga-image col-md-4 col-sm-12"><img [src]="manga?.mangaImage" [alt]="manga?.mangaData" appImageError></div>
+                  <div class="manga-image col-md-4 col-sm-12">
+                    <img [src]="manga?.mangaImage" [alt]="manga?.mangaData" appImageError>
+                    <div class="chatroom p-2 d-flex ms-1">
+                        <div class="info-chat d-flex">
+                            <span>Phòng chat :</span>
+                            <div class="ms-1 d-flex align-items-center">
+                                <span [ngClass]="isChatRoom === false ? 'status-off': 'status-on' "></span>
+                                <span class="p-1">{{isChatRoom == false ? 'đang đóng' : 'đã mở'}}</span>
+                            </div>
+                            <div class="action-chat">
+                                <ng-container *ngIf="isChatRoom === true">
+                                    <a >Tham gia</a>
+                                </ng-container>
+                                <ng-container *ngIf="isChatRoom === false">
+                                    <a (click)="creatRoomChat(manga?.mangaId,manga?.mangaName,manga?.mangaImage)">Mở phòng</a>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                   <div class="card-info-manga col-md-8 col-sm-12 text-start">
                     <ul class="list-info-manga">
                         <li class="row author pt-2 pb-2 ms-1">
