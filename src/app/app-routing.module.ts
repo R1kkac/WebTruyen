@@ -68,8 +68,10 @@ const routes: Routes = [
     ]},
     {path :'c', component: ChatpageComponent, children:[
       {path: '' , component: ListroomchatComponent, outlet: 'listroom'},
-      {path: '' , component: MainchatComponent},
-      {path: 'room/:id' , component: MainchatComponent},
+      {path: 'room' , component: MainchatComponent},
+      {path: 'room/:roomId/:roomName' , component: MainchatComponent, children:[
+        { path: '', component: ListuseractiveComponent}
+      ]},
     ]},
   ]},
   {path: 'oAuth', component: UserpageComponent, children:[

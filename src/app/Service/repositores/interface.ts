@@ -49,7 +49,13 @@ export interface Notifications {
 }
 export interface RoomCreate
 {
-    RoomId: string;
+    MangaId: string;
     RoomName:string;
     image: string;
+}
+export interface UserChatRoom
+{
+    Id: string;
+    Avatar: string;
+    Name: string;
 }

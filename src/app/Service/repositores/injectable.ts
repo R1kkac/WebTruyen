@@ -93,4 +93,34 @@ import { cookie } from "./interface";
       this.roomChatSubject.next(room);
     }
   }
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class UsersInRoom{
+    private UsersroomChatSubject= new Subject<any>();
+    public UsersroomchatData$= this.UsersroomChatSubject.asObservable();
+    public pushData(user: any){
+      this.UsersroomChatSubject.next(user);
+    }
+  }
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class UserJustCreate{
+    private UsersChatSubject= new Subject<any>();
+    public UserschatData$= this.UsersChatSubject.asObservable();
+    public pushData(user: any){
+      this.UsersChatSubject.next(user);
+    }
+  }
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class UserJustLeave{
+    private UsersChatLeaveSubject= new Subject<any>();
+    public UserschatLeaveData$= this.UsersChatLeaveSubject.asObservable();
+    public pushData(user: any){
+      this.UsersChatLeaveSubject.next(user);
+    }
+  }
   

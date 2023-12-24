@@ -34,7 +34,7 @@ export class MangadetailComponent implements OnInit, OnDestroy{
   isChatRoom=false;
   constructor(private route:ActivatedRoute, private webService: WebsiteServiceService, private mangaService: MangaService,
     private userService: UserService, private toastr: ToastrService, private isLogin: isLogin,private roomChat: RoomChat,
-    private popupService: PopupMessageService, private title: Title, private webSocket: WebsocketService){}
+    private popupService: PopupMessageService, private title: Title, private webSocket: WebsocketService, private router: Router){}
   ngOnInit(): void {
     this.isLogin.isLogin$.subscribe((result: any)=>{
       this.hasLogin= result.status;
@@ -58,14 +58,16 @@ export class MangadetailComponent implements OnInit, OnDestroy{
           this.roomChat.roomchatData$.subscribe((result: any)=>{
             console.log(result);
             const rooms= result['Rooms'];
-            const room= rooms.find((x:any)=> x.roomId == this.manga.mangaId);
-            if(room){
-              console.log(room);
-
-              this.isChatRoom = true;
-            }else{
-              this.isChatRoom= false;
-            }    
+            if(rooms){
+              const room= rooms.find((x:any)=> x.mangaId == this.manga.mangaId);
+              if(room){
+                console.log(room);
+  
+                this.isChatRoom = true;
+              }else{
+                this.isChatRoom= false;
+              }    
+            }
           })
           setTimeout(() => {
             if(this.manga.listChaper.length <=5){
@@ -339,10 +341,13 @@ export class MangadetailComponent implements OnInit, OnDestroy{
   }
   creatRoomChat(roomid: any, roomname:any, image:any){
     const room: RoomCreate={
-      RoomId: roomid,
+      MangaId: roomid,
       RoomName: roomname,
       image: image
     }
     this.webSocket.createChatRoom(room);
+  }
+  ChatRoom(){
+    this.router.navigate([`c`]);
   }
 }

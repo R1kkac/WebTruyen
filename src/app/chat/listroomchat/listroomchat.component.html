@@ -1,5 +1,5 @@
 <div class="content">
-    <div class="room p-1" *ngFor="let item of listroomchat">
+    <div class="room p-1" *ngFor="let item of listroomchat" (click)="JoinRoomChat(item)">
         <img [src]="item?.image" [alt]="item?.roomName" class="room-image img-thumbnail p-0 m-0" appImageError>
         <p class="room-name ms-1 m-1">{{item?.roomName}}</p>
         <div class="status-and-users">

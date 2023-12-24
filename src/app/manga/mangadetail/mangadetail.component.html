@@ -24,7 +24,7 @@
                             </div>
                             <div class="action-chat">
                                 <ng-container *ngIf="isChatRoom === true">
-                                    <a >Tham gia</a>
+                                    <a (click)="ChatRoom()">Tham gia</a>
                                 </ng-container>
                                 <ng-container *ngIf="isChatRoom === false">
                                     <a (click)="creatRoomChat(manga?.mangaId,manga?.mangaName,manga?.mangaImage)">Mở phòng</a>

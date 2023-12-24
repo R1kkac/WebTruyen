@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
-import { PopupMessageService, RoomChat, isHubConnected, isLogin } from './repositores/injectable';
+import { PopupMessageService, RoomChat, UserJustCreate, UserJustLeave, UsersInRoom, isHubConnected, isLogin } from './repositores/injectable';
 import { WebsiteServiceService } from './website-service.service';
 
 @Injectable({
@@ -15,7 +15,10 @@ export class WebsocketService implements OnInit{
     private isHubCon: isHubConnected,
     private islogin: isLogin,
     private roomChat: RoomChat,
-    private popUpmessage: PopupMessageService) { }
+    private popUpmessage: PopupMessageService,
+    private usersInRoom: UsersInRoom,
+    private userJustCreate: UserJustCreate,
+    private userJustLeave: UserJustLeave) { }
     ngOnInit(): void {
       this.islogin.isLogin$.subscribe(login=>{
         if(login.status === true){
@@ -89,6 +92,15 @@ export class WebsocketService implements OnInit{
         if(result.length>0){
           this.popUpmessage.showMessage(result);
         }
+      });
+      this.connection.on('cur_users_in_room', result=>{
+        this.usersInRoom.pushData(result);
+      });
+      this.connection.on('user_in_room', (result: any)=>{
+        this.userJustCreate.pushData(result);
+      });
+      this.connection.on('cur_users_leave_room', result=>{
+        this.userJustLeave.pushData(result);
       })
   }
   public listRoomChatActive(){
@@ -96,5 +108,14 @@ export class WebsocketService implements OnInit{
   }
   public createChatRoom(room: any){
     this.connection.invoke('createChatRoom', JSON.stringify(room)).catch(err=>{console.log(err)});
+  }
+  public getCurUsersInRoom(roomId: any){
+    this.connection.invoke('GetCurUserInRoom', roomId).catch(err=>{console.log(err)});
+  }
+  public joinChatRoom(userdata: any, roomId: any){
+    this.connection.invoke('userJoinChatRoom', JSON.stringify(userdata), roomId).catch(err=>{ console.log(err)});
+  }
+  public leaveChatRoom(userId: any, roomId: any){
+    this.connection.invoke('userLeaveChatRoom', userId, roomId).catch(err=>{ console.log(err)});
   }
 }

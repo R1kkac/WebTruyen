@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/Service/user.service';
 import { WebsiteServiceService } from 'src/app/Service/website-service.service';
+import { WebsocketService } from 'src/app/Service/websocket.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ export class LoginComponent {
   status: boolean = false; // Biến để lưu trạng thái lỗi
 
   constructor(public formBuilder: FormBuilder, private userService: UserService, private toastr: ToastrService, private router:Router
-    ,private websiteService: WebsiteServiceService, private title: Title) {
+    ,private websiteService: WebsiteServiceService, private title: Title, private webSocket: WebsocketService) {
       this.title.setTitle('Đăng nhập');
     this.loginform = this.formBuilder.group({
       username: new FormControl('', Validators.compose([
@@ -40,6 +41,7 @@ export class LoginComponent {
           this.toastr.success('Đăng nhập thành công');
           this.websiteService.SetCookie(token, user);
           this.websiteService.Getcookie();
+          this.webSocket.startconection();
           setTimeout(() => {
             this.router.navigate(['']);
           }, 0);

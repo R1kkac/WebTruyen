@@ -1,6 +1,14 @@
 <div class="container m-0 p-0">
     <ul class="users p-0 m-0">
-        <li class="m-1">
+        <li *ngFor="let item of listuser" class="m-1">
+            <div class="user-info ps-1 pe-2">
+                <img [src]="item?.Avatar" [alt]="item?.Name" class="me-2" appAvatarError>
+                <span class="name ms-2 me-2">{{item?.Name}}</span>
+                <span class="status"></span>
+            </div>
+        </li>
+
+        <!-- <li class="m-1">
             <div class="user-info ps-1 pe-2">
                 <img src="../assets/sorry.jpg" alt="" class="me-2">
                 <span class="name ms-2 me-2">Lê Sơn Hải</span>
@@ -27,7 +35,7 @@
                 <span class="ms-2 me-2">Haku</span>
                 <span class="status"></span>
             </div>
-        </li>
+        </li> -->
         
     </ul>
 </div>
