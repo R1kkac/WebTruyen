@@ -1,0 +1,10 @@
+<div class="item-chat m-2">
+    <div class="info">
+            <img [src]="User.Avatar" [alt]="User.Name">
+        <span class="ms-1 me-2">{{User.Name}}</span>
+        <span class="d-flex align-items-center ">:</span>
+    </div>
+    <div class="chat-data">
+        <span>{{Message || ''}}</span>
+    </div>
+</div>

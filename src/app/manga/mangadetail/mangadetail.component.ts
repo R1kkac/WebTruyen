@@ -56,12 +56,12 @@ export class MangadetailComponent implements OnInit, OnDestroy{
         complete: ()=>{
           this.webSocket.listRoomChatActive();
           this.roomChat.roomchatData$.subscribe((result: any)=>{
-            console.log(result);
+            //console.log(result);
             const rooms= result['Rooms'];
             if(rooms){
               const room= rooms.find((x:any)=> x.mangaId == this.manga.mangaId);
               if(room){
-                console.log(room);
+                //console.log(room);
   
                 this.isChatRoom = true;
               }else{

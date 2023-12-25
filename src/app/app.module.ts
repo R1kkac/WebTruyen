@@ -49,8 +49,9 @@ import { ChatpageComponent } from './chat/chatpage/chatpage.component';
 import { ListroomchatComponent } from './chat/listroomchat/listroomchat.component';
 import { ListuseractiveComponent } from './chat/listuseractive/listuseractive.component';
 import { MainchatComponent } from './chat/mainchat/mainchat.component';
-import { PopupMessageService } from './Service/repositores/injectable';
+import { PopupMessageService, UsersInRoom } from './Service/repositores/injectable';
 import { WebsocketService } from './Service/websocket.service';
+import { RowInChatComponent } from './Tool/row-in-chat/row-in-chat.component';
 
 
 export function IsLogin(webSite: WebsiteServiceService) {
@@ -116,7 +117,8 @@ export function Topmanga(Manga: MangaService) {
     ChatpageComponent,
     ListroomchatComponent,
     ListuseractiveComponent,
-    MainchatComponent
+    MainchatComponent,
+    RowInChatComponent
   ],
   imports: [
     BrowserModule,

@@ -68,7 +68,7 @@ const routes: Routes = [
     ]},
     {path :'c', component: ChatpageComponent, children:[
       {path: '' , component: ListroomchatComponent, outlet: 'listroom'},
-      {path: 'room' , component: MainchatComponent},
+      {path: '' , component: MainchatComponent},
       {path: 'room/:roomId/:roomName' , component: MainchatComponent, children:[
         { path: '', component: ListuseractiveComponent}
       ]},

@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
-import { PopupMessageService, RoomChat, UserJustCreate, UserJustLeave, UsersInRoom, isHubConnected, isLogin } from './repositores/injectable';
+import { ListDataChatRoom, NewChat, PopupMessageService, RoomChat, UserJustCreate, UserJustLeave, UsersInRoom, isHubConnected, isLogin } from './repositores/injectable';
 import { WebsiteServiceService } from './website-service.service';
 
 @Injectable({
@@ -18,7 +18,9 @@ export class WebsocketService implements OnInit{
     private popUpmessage: PopupMessageService,
     private usersInRoom: UsersInRoom,
     private userJustCreate: UserJustCreate,
-    private userJustLeave: UserJustLeave) { }
+    private userJustLeave: UserJustLeave,
+    private newChat: NewChat,
+    private listData: ListDataChatRoom) { }
     ngOnInit(): void {
       this.islogin.isLogin$.subscribe(login=>{
         if(login.status === true){
@@ -97,11 +99,19 @@ export class WebsocketService implements OnInit{
         this.usersInRoom.pushData(result);
       });
       this.connection.on('user_in_room', (result: any)=>{
+        console.warn(result); 
         this.userJustCreate.pushData(result);
       });
       this.connection.on('cur_users_leave_room', result=>{
         this.userJustLeave.pushData(result);
-      })
+      });
+      this.connection.on('new_data_chat', result=>{
+        this.newChat.pushData(result);
+      });
+      this.connection.on('data_room_chat', result=>{
+        console.error(result);
+        this.listData.pushData(result);
+      });
   }
   public listRoomChatActive(){
     this.connection.invoke('listRoomChatActive').catch((err:any)=>{console.log(err)});
@@ -117,5 +127,11 @@ export class WebsocketService implements OnInit{
   }
   public leaveChatRoom(userId: any, roomId: any){
     this.connection.invoke('userLeaveChatRoom', userId, roomId).catch(err=>{ console.log(err)});
+  }
+  public ChatToRoom(userId: any, roomId: any, message: any){
+    this.connection.invoke('UserChatToRoom', userId, roomId, message).catch(err=>{console.log(err)});
+  }
+  public GetDataChat(roomId: any){
+    this.connection.invoke('GetDataChat', roomId).catch(err=>{console.log(err)});
   }
 }

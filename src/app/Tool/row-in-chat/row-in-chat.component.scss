@@ -1,0 +1,21 @@
+
+.item-chat{
+    display: flex;
+    align-items: center;
+    .info{
+        display: flex;
+        align-items: center;
+        padding-right: .25rem;
+    }
+    img{
+        width: 1.5rem;
+        height: 1.5rem;
+        border-radius: .75rem;
+    }
+    .chat-data{
+        display: block;
+        width: auto;
+        overflow: hidden;
+        word-wrap: break-word;
+    }
+}

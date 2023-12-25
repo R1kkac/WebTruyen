@@ -27,7 +27,6 @@ export class ListuseractiveComponent implements OnInit, OnDestroy{
         if(users){
           var user= this.Mapper(users);
           this.listuser =  user;
-          console.log(users);
         }
       });
       this.userJustCreate.UserschatData$.subscribe(item => {
@@ -37,18 +36,12 @@ export class ListuseractiveComponent implements OnInit, OnDestroy{
         // Kiểm tra xem người dùng đã tồn tại trong mảng hay chưa
         const existingUser = this.listuser.find(u => u.Id === user.Id);
         if (!existingUser) {
-          console.error('User đã tham gia phòng chat');
           this.listuser.push(user);
         }
-        //console.log(item);
       });
       this.userJustLeave.UserschatLeaveData$.subscribe(item=>{
-        console.log('Vào user Just leave')
-        console.warn(item)
-        console.log(this.listuser)
         const exitstingUser= this.listuser.findIndex(u=> u.Id == item.id);
         if(exitstingUser !== -1){
-          console.error('User đã thoát khỏi phòng chat');
           this.listuser.splice(exitstingUser, 1);
         }
       })

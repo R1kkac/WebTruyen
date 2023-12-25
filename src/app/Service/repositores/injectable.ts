@@ -123,4 +123,23 @@ import { cookie } from "./interface";
       this.UsersChatLeaveSubject.next(user);
     }
   }
-  
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class NewChat{
+    private NewChatSubject= new Subject<any>();
+    public NewChatData$= this.NewChatSubject.asObservable();
+    public pushData(user: any){
+      this.NewChatSubject.next(user);
+    }
+  }
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class ListDataChatRoom{
+    private DataChatRoomSubJect= new Subject<any>();
+    public ChatRoomData$= this.DataChatRoomSubJect.asObservable();
+    public pushData(user: any){
+      this.DataChatRoomSubJect.next(user);
+    }
+  }
