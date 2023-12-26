@@ -120,9 +120,9 @@ export class InfouserDetailsComponent implements OnInit{
   }
   checkPasswordinput(input: any){
     var element = input.target.value;
-    var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
     if(!regex.test(element)){
-      this.err2='Mật khẩu phải bao gồm chữ, chữ hoa, số và ký tự đặc biệt và có ít nhất 8 ký tự';
+      this.err2='Mật khẩu phải bao gồm chữ, chữ hoa, số và ký tự đặc biệt và có ít nhất 6 ký tự';
       this.disable = true;
     }else{
       this.err2='';

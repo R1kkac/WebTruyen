@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { PopupMessageService, RoomChat, isHubConnected, isLogin } from 'src/app/Service/repositores/injectable';
+import { PopupMessageService, RoomChat, cur_room_chat, isHubConnected, isLogin } from 'src/app/Service/repositores/injectable';
 import { UserChatRoom } from 'src/app/Service/repositores/interface';
 import { WebsocketService } from 'src/app/Service/websocket.service';
 
@@ -15,7 +15,7 @@ export class ListroomchatComponent implements OnInit{
   preRoomId='';
   curUser:any;
   constructor(private RoomsChat: RoomChat,private webSocket: WebsocketService,private router: Router,
-    private isLogin: isLogin, private popUpMessage: PopupMessageService){}
+    private isLogin: isLogin, private popUpMessage: PopupMessageService, private cur_room_chat: cur_room_chat){}
   ngOnInit(): void {
     this.isLogin.isLogin$.subscribe(item=>{
       if(item.status === true){
@@ -40,7 +40,7 @@ export class ListroomchatComponent implements OnInit{
         this.webSocket.joinChatRoom(this.curUser, room.roomId)
         this.preRoomId = room.roomId;
       }
-      
+      this.cur_room_chat.pushData(room.roomId);
       setTimeout(() => {
         const a= room.roomName.replace(/ /g, '-');
         this.router.navigate([`c/room/${room.roomId}/${a}`]);
@@ -53,6 +53,7 @@ export class ListroomchatComponent implements OnInit{
         this.webSocket.joinChatRoom(this.curUser, room.roomId)
         this.preRoomId = room.roomId;
       }
+      this.cur_room_chat.pushData(room.roomId);
       setTimeout(() => {
         const a= room.roomName.replace(/ /g, '-');
         this.router.navigate([`c/room/${room.roomId}/${a}`]);

@@ -153,3 +153,23 @@ import { cookie } from "./interface";
       this.ClosedSubJect.next(user);
     }
   }
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class isDisConnect_socket{
+    private isDisSubject= new Subject<any>();
+    public isDisData$= this.isDisSubject.asObservable();
+    public pushData(user: any){
+      this.isDisSubject.next(user);
+    }
+  }
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class cur_room_chat{
+    private isDisSubject= new BehaviorSubject<string>('');
+    public isDisData$= this.isDisSubject.asObservable();
+    public pushData(user: any){
+      this.isDisSubject.next(user);
+    }
+  }

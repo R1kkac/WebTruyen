@@ -1,7 +1,7 @@
 import { AfterContentInit, Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ListDataChatRoom, NewChat, UserJustCreate, UserJustLeave, isLogin } from 'src/app/Service/repositores/injectable';
+import { ListDataChatRoom, NewChat, UserJustCreate, UserJustLeave, cur_room_chat, isLogin } from 'src/app/Service/repositores/injectable';
 import { UserChatRoom } from 'src/app/Service/repositores/interface';
 import { UserService } from 'src/app/Service/user.service';
 import { WebsocketService } from 'src/app/Service/websocket.service';
@@ -16,18 +16,24 @@ export class MainchatComponent implements OnInit, OnDestroy{
   private userjoin!: Subscription;
   private userLeave!: Subscription;
   private newMessage!: Subscription;
-  curRoomId:any;
+  curRoomId='';
   curUser:any;
   hasRoom=false;
   inputdata='';
   @ViewChild('fielddata') data!: ElementRef;
   constructor(private userJustJoin: UserJustCreate, private userJustLeave: UserJustLeave, private renderer: Renderer2,
     private route: ActivatedRoute, private isLogin: isLogin, private webSocket: WebsocketService, private newChat: NewChat,
-    private Listdatachat: ListDataChatRoom){}
+    private Listdatachat: ListDataChatRoom, private cur_room_chat: cur_room_chat){}
   ngOnInit(): void { 
     this.isLogin.isLogin$.subscribe(item=>{
       if(item.status === true){
-        this.curUser= JSON.parse(item.user);
+        const user= JSON.parse(item.user);
+        const userchat: UserChatRoom={
+          Id: user.id,
+          Name: user.name,
+          Avatar: user.avatar
+        }
+        this.curUser = userchat;
       }
     })
     this.route.paramMap.subscribe(item=>{
@@ -35,6 +41,13 @@ export class MainchatComponent implements OnInit, OnDestroy{
       if(roomId){
         if(this.curRoomId != roomId){
           this.webSocket.leaveChatRoom(this.curUser.Id, this.curRoomId);
+          if(roomId){
+            this.cur_room_chat.isDisData$.subscribe(id=>{
+              if(roomId !== id && id.length >0){
+                this.webSocket.joinChatRoom(this.curUser, roomId);
+              }
+            })
+          }
         }
         this.hasRoom= true;
         this.curRoomId= roomId;
@@ -90,7 +103,7 @@ export class MainchatComponent implements OnInit, OnDestroy{
   }
   chatToRoom(input: any){
     const message= input.target[0].value;
-    this.webSocket.ChatToRoom(this.curUser.id, this.curRoomId, message);
+    this.webSocket.ChatToRoom(this.curUser.Id, this.curRoomId, message);
     input.target[0].value = '';
   }
   Mapper(input: any) {
@@ -113,7 +126,7 @@ export class MainchatComponent implements OnInit, OnDestroy{
     this.webSocket.GetDataChat(this.curRoomId);
   }
   ngOnDestroy(): void {
-    //this.webSocket.leaveChatRoom(this.curUser.Id, this.curRoomId);
+    this.cur_room_chat.pushData('');
       if(this.userjoin && this.userLeave && this.newMessage){
         this.userjoin.unsubscribe();
         this.userLeave.unsubscribe();

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription, map } from 'rxjs';
-import { UserJustCreate, UserJustLeave, UsersInRoom } from 'src/app/Service/repositores/injectable';
+import { UserJustCreate, UserJustLeave, UsersInRoom, cur_room_chat } from 'src/app/Service/repositores/injectable';
 import { UserChatRoom } from 'src/app/Service/repositores/interface';
 import { WebsocketService } from 'src/app/Service/websocket.service';
 
