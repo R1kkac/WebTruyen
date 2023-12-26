@@ -1,7 +1,8 @@
 import { Injectable, OnInit } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
-import { ListDataChatRoom, NewChat, PopupMessageService, RoomChat, UserJustCreate, UserJustLeave, UsersInRoom, isHubConnected, isLogin } from './repositores/injectable';
+import { Closed_chat, ListDataChatRoom, NewChat, PopupMessageService, RoomChat, UserJustCreate, UserJustLeave, UsersInRoom, isHubConnected, isLogin } from './repositores/injectable';
 import { WebsiteServiceService } from './website-service.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,9 @@ export class WebsocketService implements OnInit{
     private userJustCreate: UserJustCreate,
     private userJustLeave: UserJustLeave,
     private newChat: NewChat,
-    private listData: ListDataChatRoom) { }
+    private listData: ListDataChatRoom,
+    private router: Router,
+    private closed_chat: Closed_chat) { }
     ngOnInit(): void {
       this.islogin.isLogin$.subscribe(login=>{
         if(login.status === true){
@@ -112,6 +115,14 @@ export class WebsocketService implements OnInit{
         console.error(result);
         this.listData.pushData(result);
       });
+      this.connection.on('close_room_chat', result=>{
+        if(result.length >0){
+          this.popUpmessage.showMessage(result);
+          setTimeout(() => {
+            this.router.navigate(['']);
+          }, 4000);
+        }
+      })
   }
   public listRoomChatActive(){
     this.connection.invoke('listRoomChatActive').catch((err:any)=>{console.log(err)});

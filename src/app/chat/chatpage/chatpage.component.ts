@@ -11,7 +11,7 @@ import { WebsocketService } from 'src/app/Service/websocket.service';
 export class ChatpageComponent implements OnInit, OnDestroy{
   constructor(private websocket: WebsocketService, private roomChat: RoomChat, private wwebsiteService: WebsiteServiceService){}
   ngOnDestroy(): void {
-    alert('Kết thúc chat');
+    //alert('Kết thúc chat');
   }
   ngOnInit(): void {
     this.wwebsiteService.scrolltoTop();

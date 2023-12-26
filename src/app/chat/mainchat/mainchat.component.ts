@@ -19,6 +19,7 @@ export class MainchatComponent implements OnInit, OnDestroy{
   curRoomId:any;
   curUser:any;
   hasRoom=false;
+  inputdata='';
   @ViewChild('fielddata') data!: ElementRef;
   constructor(private userJustJoin: UserJustCreate, private userJustLeave: UserJustLeave, private renderer: Renderer2,
     private route: ActivatedRoute, private isLogin: isLogin, private webSocket: WebsocketService, private newChat: NewChat,
@@ -90,6 +91,7 @@ export class MainchatComponent implements OnInit, OnDestroy{
   chatToRoom(input: any){
     const message= input.target[0].value;
     this.webSocket.ChatToRoom(this.curUser.id, this.curRoomId, message);
+    input.target[0].value = '';
   }
   Mapper(input: any) {
     return {
@@ -111,7 +113,7 @@ export class MainchatComponent implements OnInit, OnDestroy{
     this.webSocket.GetDataChat(this.curRoomId);
   }
   ngOnDestroy(): void {
-    this.webSocket.leaveChatRoom(this.curUser.Id, this.curRoomId);
+    //this.webSocket.leaveChatRoom(this.curUser.Id, this.curRoomId);
       if(this.userjoin && this.userLeave && this.newMessage){
         this.userjoin.unsubscribe();
         this.userLeave.unsubscribe();

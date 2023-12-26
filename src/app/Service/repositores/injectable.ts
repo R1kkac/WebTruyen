@@ -143,3 +143,13 @@ import { cookie } from "./interface";
       this.DataChatRoomSubJect.next(user);
     }
   }
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class Closed_chat{
+    private ClosedSubJect= new Subject<any>();
+    public ClosedData$= this.ClosedSubJect.asObservable();
+    public pushData(user: any){
+      this.ClosedSubJect.next(user);
+    }
+  }
