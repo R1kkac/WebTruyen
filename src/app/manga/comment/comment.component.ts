@@ -26,7 +26,7 @@ export class CommentComponent implements OnInit{
     this.route.paramMap.subscribe(route=>{
       this.IdChapter= route.get('idchapter');
       this.IdManga= route.get('id');
-      this.userService.layDanhSachBinhLuan(this.IdChapter).subscribe((res: any)=>{
+      this.userService.layDanhSachBinhLuan(this.IdManga,this.IdChapter).subscribe((res: any)=>{
         // console.warn(res);
         this.DanSachBinhLuan= res;
       })
@@ -46,7 +46,7 @@ export class CommentComponent implements OnInit{
     }else{
       this.userService.binhLuanChuongTruyen(idUser,this.IdManga, this.IdChapter, message).subscribe({
         complete: ()=>{
-          this.userService.layDanhSachBinhLuan(this.IdChapter).subscribe((res: any)=>{
+          this.userService.layDanhSachBinhLuan(this.IdManga, this.IdChapter).subscribe((res: any)=>{
             // console.warn(res);
             this.DanSachBinhLuan= res;
           });

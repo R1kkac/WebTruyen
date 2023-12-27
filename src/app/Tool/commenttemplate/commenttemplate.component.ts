@@ -10,6 +10,7 @@ export class CommenttemplateComponent implements OnInit{
 
   @Input() User!:any;
   @Input() comment!: any;
+  @Input() mangaId!:any;
   @Input() IdChapter!:any;
   @Input() hasLogin!:boolean;
   @Output() DanSachBinhLuan: EventEmitter<any> = new EventEmitter();
@@ -45,7 +46,7 @@ export class CommenttemplateComponent implements OnInit{
     }else{
       this.userService.phanHoiBinhLuan(idComment,CurrentIdUserL,dataReplyComment).subscribe({
         complete: ()=>{
-          this.userService.layDanhSachBinhLuan(this.IdChapter).subscribe((res: any)=>{
+          this.userService.layDanhSachBinhLuan( this.mangaId ,this.IdChapter).subscribe((res: any)=>{
             // console.warn(res);
             this.DanSachBinhLuan.emit(res);
             this.resetComment.emit(true);

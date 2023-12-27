@@ -16,7 +16,7 @@
         <ul class="p-0">
             <li *ngFor="let comment of this.DanSachBinhLuan">
                 <div class="comment-item mb-1">
-                    <app-commenttemplate [hasLogin]="hasLogin" [comment]="comment" [User]="User" [IdChapter]="IdChapter" (DanSachBinhLuan)="return($event)"></app-commenttemplate>
+                    <app-commenttemplate [mangaId]="IdManga" [hasLogin]="hasLogin" [comment]="comment" [User]="User" [IdChapter]="IdChapter" (DanSachBinhLuan)="return($event)"></app-commenttemplate>
                     <div class="list-reply-comment">
                         <app-replycomment [comment]="comment" ></app-replycomment>
                     </div>

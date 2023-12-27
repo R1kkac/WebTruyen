@@ -112,8 +112,8 @@ export class UserService {
     console.log(fromdata);
     return this.http.post(url, fromdata);
   }
-  layDanhSachBinhLuan(IdChapter: string): Observable<any>{
-    const url=`${this.ApiUrlService}/GetListComment/${IdChapter}`;
+  layDanhSachBinhLuan(mangaId: string,IdChapter: string): Observable<any>{
+    const url=`${this.ApiUrlService}/GetListComment/${mangaId}/${IdChapter}`;
     return this.http.get(url);
   }
   phanHoiBinhLuan(idComment:string, idUserReply: string, data: string): Observable<any>
