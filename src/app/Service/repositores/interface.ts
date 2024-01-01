@@ -59,3 +59,8 @@ export interface UserChatRoom
     Avatar: string;
     Name: string;
 }
+export interface room_users
+{
+    roomId: string;
+    numberuser: string;
+}

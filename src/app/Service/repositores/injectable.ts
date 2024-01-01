@@ -173,3 +173,23 @@ import { cookie } from "./interface";
       this.isDisSubject.next(user);
     }
   }
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class isJoinChat{
+    private isJoinChatSubject= new BehaviorSubject<number>(0);
+    public isJoinChat$= this.isJoinChatSubject.asObservable();
+    public pushData(user: number){
+      this.isJoinChatSubject.next(user);
+    }
+  }
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class Cur_User_In_Room{
+    private curUserSubject= new Subject<any>();
+    public curUser$= this.curUserSubject.asObservable();
+    public pushData(data: any){
+      this.curUserSubject.next(data);
+    }
+  }

@@ -1,0 +1,78 @@
+.list-reply{
+    display: block;
+    ul{
+        li{
+            list-style-type: none;
+            display: block;
+            align-items: center;
+        }
+    }
+}
+
+.input-reply{
+    display: flex;
+    width: 100%;
+}
+.action-comment{
+    display: flex;
+}
+.data-comment{
+    display: flex;
+    margin-bottom: 1rem;
+    border-radius: .25rem;
+    align-items: start;
+    padding: 0;
+    margin: .5rem;
+    .content{
+        display: flex;
+    }
+    .content .avatar-user{
+        width: auto;
+        padding: .25rem;
+        img{
+            display: flex;
+            width: 3rem;
+            height: 3rem;
+            object-fit: cover;
+            align-items: center;
+        }
+    }
+    .content .user-comment{
+        width: auto;
+        display: grid;
+        margin-top: .25rem;
+        .comment-info{
+            margin-bottom: .5rem;
+            .comment-chapter{
+                padding: .5rem;
+                font-weight: 1000;
+            }
+            .comment-date{
+                font-style: italic;
+                margin-left: .25rem;
+            }
+            span:nth-child(1){
+                background: linear-gradient(to left, #3399ff 15%, #00ffff 100%);
+                border-radius: .25rem;
+                padding: .25rem;
+            }
+        }
+        .comment-content{
+            display: block;
+            overflow: hidden;
+            word-wrap: break-word;
+        }
+    }
+}
+@media (max-width: 768px) {
+    .data-comment {
+        flex-direction: row;
+    }
+    .user-comment{
+        max-width: 75%;
+    }
+    .avatar-user {
+        max-width: 25%;
+        margin-bottom: .5rem;
+    }
+}

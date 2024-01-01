@@ -14,7 +14,7 @@ import { MangadetailComponent } from './manga/mangadetail/mangadetail.component'
 import { ReadmangaComponent } from './manga/readmanga/readmanga.component';
 import { NotfoundComponent } from './Service/servicecomponent/notfound/notfound.component';
 import { SlidebarComponent } from './home/slidebar/slidebar.component';
-import { ImageErrorDirective } from './Service/image-error.directive';
+import { ImageErrorDirective } from './Layouts/image-error.directive';
 import { AdsearchComponent } from './Tool/adsearch/adsearch.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TopmangaComponent } from './manga/topmanga/topmanga.component';
@@ -41,7 +41,7 @@ import { InfouserReadhistoryComponent } from './user/infouser-readhistory/infous
 import { InfouserFollowingComponent } from './user/infouser-following/infouser-following.component';
 import { CommentComponent } from './manga/comment/comment.component';
 import { ReplycommentComponent } from './manga/replycomment/replycomment.component';
-import { AvatarErrorService } from './Service/avatar-error.service';
+import { AvatarErrorService } from './Layouts/avatar-error.service';
 import { InfouserNotificationsComponent } from './user/infouser-notifications/infouser-notifications.component';
 import { SearchComponent } from './Tool/search/search.component';
 import { CommenttemplateComponent } from './Tool/commenttemplate/commenttemplate.component';
