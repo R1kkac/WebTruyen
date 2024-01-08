@@ -115,7 +115,6 @@ export class WebsocketService implements OnInit{
         this.newChat.pushData(result);
       });
       this.connection.on('data_room_chat', result=>{
-        console.error(result);
         this.listData.pushData(result);
       });
       this.connection.on('close_room_chat', result=>{
@@ -130,8 +129,6 @@ export class WebsocketService implements OnInit{
         this.isDis_socket.pushData(result);
       });
       this.connection.on('is_join_room', result=>{
-        console.log(typeof result)
-        console.warn(result);
         this.isJoinChat.pushData(result);
       }); 
       this.connection.on('cur_user_in_room', result=>{
@@ -154,7 +151,7 @@ export class WebsocketService implements OnInit{
     this.connection.invoke('userLeaveChatRoom', userId, roomId).catch(err=>{ console.log(err)});
   }
   public ChatToRoom(userId: any, roomId: any, message: any){
-    this.connection.invoke('UserChatToRoom', userId, roomId, message).catch(err=>{console.log(err)});
+    this.connection.invoke('UserChatToRoom',this.connection.connectionId, userId, roomId, message).catch(err=>{console.log(err)});
   }
   public GetDataChat(roomId: any){
     this.connection.invoke('GetDataChat', roomId).catch(err=>{console.log(err)});

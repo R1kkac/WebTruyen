@@ -3,52 +3,52 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './home/header/header.component';
-import { FooterComponent } from './home/footer/footer.component';
-import { ContentComponent } from './home/content/content.component';
+import { HeaderComponent } from './component/home/header/header.component';
+import { FooterComponent } from './component/home/footer/footer.component';
+import { ContentComponent } from './component/home/content/content.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModulo } from './material.module';
-import { HotkeymenuComponent } from './home/hotkeymenu/hotkeymenu.component';
+import { HotkeymenuComponent } from './component/home/hotkeymenu/hotkeymenu.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { MangadetailComponent } from './manga/mangadetail/mangadetail.component';
-import { ReadmangaComponent } from './manga/readmanga/readmanga.component';
+import { MangadetailComponent } from './component/manga/mangadetail/mangadetail.component';
+import { ReadmangaComponent } from './component/manga/readmanga/readmanga.component';
 import { NotfoundComponent } from './Service/servicecomponent/notfound/notfound.component';
-import { SlidebarComponent } from './home/slidebar/slidebar.component';
-import { ImageErrorDirective } from './Layouts/image-error.directive';
+import { SlidebarComponent } from './component/home/slidebar/slidebar.component';
+import { ImageErrorDirective } from './Layout/image-error.directive';
 import { AdsearchComponent } from './Tool/adsearch/adsearch.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TopmangaComponent } from './manga/topmanga/topmanga.component';
-import { LoginComponent } from './user/login/login.component';
-import { RegisterComponent } from './user/register/register.component';
-import { ListmangaComponent } from './manga/listmanga/listmanga.component';
-import { ResulttoppmangaComponent } from './manga/resulttoppmanga/resulttoppmanga.component';
+import { TopmangaComponent } from './component/manga/topmanga/topmanga.component';
+import * as loginComponent from './component/user/login/login.component';
+import { RegisterComponent } from './component/user/register/register.component';
+import { ListmangaComponent } from './component/manga/listmanga/listmanga.component';
+import { ResulttoppmangaComponent } from './component/manga/resulttoppmanga/resulttoppmanga.component';
 import { ResultsearchComponent } from './Tool/resultsearch/resultsearch.component';
-import { MangabycategoryComponent } from './manga/mangabycategory/mangabycategory.component';
+import { MangabycategoryComponent } from './component/manga/mangabycategory/mangabycategory.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MangaService } from './Service/manga.service';
-import { HomeComponent } from './home/home/home.component';
-import { ForgotpasswordComponent } from './user/forgotpassword/forgotpassword.component';
-import { UserpageComponent } from './user/userpage/userpage.component';
+import { HomeComponent } from './component/home/home/home.component';
+import { ForgotpasswordComponent } from './component/user/forgotpassword/forgotpassword.component';
+import { UserpageComponent } from './component/user/userpage/userpage.component';
 import { ToastrModule } from 'ngx-toastr';
-import { ResetpasswordComponent } from './user/resetpassword/resetpassword.component';
-import { MangapageComponent } from './manga/mangapage/mangapage.component';
+import { ResetpasswordComponent } from './component/user/resetpassword/resetpassword.component';
+import { MangapageComponent } from './component/manga/mangapage/mangapage.component';
 import { WebsiteServiceService} from './Service/website-service.service';
-import { UserheaderComponent } from './user/userheader/userheader.component';
-import { InfouserComponent } from './user/infouser/infouser.component';
+import { UserheaderComponent } from './component/user/userheader/userheader.component';
+import { InfouserComponent } from './component/user/infouser/infouser.component';
 import { PopupmessageComponent } from './Tool/popupmessage/popupmessage.component';
-import { InfouserDetailsComponent } from './user/infouser-details/infouser-details.component';
-import { InfouserReadhistoryComponent } from './user/infouser-readhistory/infouser-readhistory.component';
-import { InfouserFollowingComponent } from './user/infouser-following/infouser-following.component';
-import { CommentComponent } from './manga/comment/comment.component';
-import { ReplycommentComponent } from './manga/replycomment/replycomment.component';
-import { AvatarErrorService } from './Layouts/avatar-error.service';
-import { InfouserNotificationsComponent } from './user/infouser-notifications/infouser-notifications.component';
+import { InfouserDetailsComponent } from './component/user/infouser-details/infouser-details.component';
+import { InfouserReadhistoryComponent } from './component/user/infouser-readhistory/infouser-readhistory.component';
+import { InfouserFollowingComponent } from './component/user/infouser-following/infouser-following.component';
+import { CommentComponent } from './component/manga/comment/comment.component';
+import { ReplycommentComponent } from './component/manga/replycomment/replycomment.component';
+import { AvatarErrorService } from './Layout/avatar-error.service';
+import { InfouserNotificationsComponent } from './component/user/infouser-notifications/infouser-notifications.component';
 import { SearchComponent } from './Tool/search/search.component';
 import { CommenttemplateComponent } from './Tool/commenttemplate/commenttemplate.component';
-import { ChatpageComponent } from './chat/chatpage/chatpage.component';
-import { ListroomchatComponent } from './chat/listroomchat/listroomchat.component';
-import { ListuseractiveComponent } from './chat/listuseractive/listuseractive.component';
-import { MainchatComponent } from './chat/mainchat/mainchat.component';
+import { ChatpageComponent } from './component/chat/chatpage/chatpage.component';
+import { ListroomchatComponent } from './component/chat/listroomchat/listroomchat.component';
+import { ListuseractiveComponent } from './component/chat/listuseractive/listuseractive.component';
+import { MainchatComponent } from './component/chat/mainchat/mainchat.component';
 import { PopupMessageService, UsersInRoom } from './Service/repositores/injectable';
 import { WebsocketService } from './Service/websocket.service';
 import { RowInChatComponent } from './Tool/row-in-chat/row-in-chat.component';
@@ -91,7 +91,7 @@ export function Topmanga(Manga: MangaService) {
     ImageErrorDirective,
     AdsearchComponent,
     TopmangaComponent,
-    LoginComponent,
+    loginComponent.LoginComponent,
     RegisterComponent,
     ListmangaComponent,
     ResulttoppmangaComponent,

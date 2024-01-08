@@ -50,6 +50,7 @@ export class MangadetailComponent implements OnInit, OnDestroy{
       })
       this.mangaService.GetMangaInfo(Id!).subscribe({
         next: (item:any)=>{
+          console.log(item);
           this.manga=item;
           this.title.setTitle(`${this.manga.mangaName}`);
         },
@@ -83,45 +84,6 @@ export class MangadetailComponent implements OnInit, OnDestroy{
           this.webService.addHistory(this.manga);
         }
       })
-      // this.mangaDefault.MangaData$.subscribe(item=>{
-      //   const index= item.findIndex(x=> x.mangaId == Id);
-      //   if(index != -1){
-      //      this.manga= item.find(x=> x.mangaId == Id);
-      //      this.mangaService.GetListChapterByManga(this.manga.mangaId).subscribe(item=>{
-      //       this.manga.listChaper = item;
-      //      });
-      //      if(this.manga.listChaper.length <=5){
-      //       this.chapterlistSubject.next(this.getListSort(0,this.manga.listChaper.length, this.manga.listChaper));
-      //       }
-      //       else{
-      //         this.chapterlistSubject.next(this.getListSort(0,5, this.manga.listChaper));
-      //       }
-      //      setTimeout(() => {
-      //       document.body.scrollIntoView({ behavior: 'instant', block: 'start'});
-      //     }, 0);
-      //     this.webService.addHistory(this.manga);
-      //   }else{
-      //     this.mangaService.GetMangaInfo(Id!).subscribe({
-      //       next: (item:any)=>{
-      //         this.manga=item;
-      //       },
-      //       complete: ()=>{
-      //         setTimeout(() => {
-      //           if(this.manga.listChaper.length <=5){
-      //             this.chapterlistSubject.next(this.getListSort(0,this.manga.listChaper.length, this.manga.listChaper));
-      //           }
-      //           else{
-      //             this.chapterlistSubject.next(this.getListSort(0,5, this.manga.listChaper));
-      //           }
-      //         }, 0);
-      //         setTimeout(() => {
-      //           document.body.scrollIntoView({ behavior: 'instant', block: 'start'});
-      //         }, 0);
-      //         this.webService.addHistory(this.manga);
-      //       }
-      //     })
-      //   }
-      // })
     });
   }
   formatview(input: any){
@@ -162,13 +124,6 @@ export class MangadetailComponent implements OnInit, OnDestroy{
       this.isLastChapter = true;
     }
   }
-  // extractChapterNumber = (chapterName: string): number => {
-  //   // Sử dụng regular expression để trích xuất số từ tên chương
-  //   const match = chapterName.match(/(\d+)/);
-  
-  //   // Nếu có một số được tìm thấy, trả về nó; ngược lại, trả về 0
-  //   return match ? parseInt(match[0], 10) : 0;
-  // };
   hidechapter()
   {
     let element= this.listchapter.nativeElement;
@@ -176,18 +131,11 @@ export class MangadetailComponent implements OnInit, OnDestroy{
       element.style.maxHeight ='';
       element.style.overflowY ='unset';
       const data = this.manga.listChaper.slice().sort((a: any, b: any) => {
-        // const xa = this.extractChapterNumber(a.chapterName);
-        // const xb = this.extractChapterNumber(b.chapterName);
         
         // Sắp xếp theo số chương
         return b.chapterIndex - a.chapterIndex;
       }).slice(0,3);
       this.chapterlistSubject.next(data);
-      // if(this.manga.listChaper.length <=5){
-      //   this.chapterlistSubject.next(this.getListSort(0,this.manga.listChaper.length, this.manga.listChaper));
-      // }else{
-      //   this.chapterlistSubject.next(this.getListSort(0,5, this.manga.listChaper));
-      // }
       this.isLastChapter = false;     
     }
   }

@@ -38,31 +38,14 @@ export class MainchatComponent implements OnInit, OnDestroy{
     });
     this.route.paramMap.subscribe(item=>{
       const roomId= item.get('roomId');
-      this.webSocket.listRoomChatActive();
-      if(roomId){
-        if(this.curRoomId){
-          this.webSocket.leaveChatRoom(this.curUser.Id, this.curRoomId);
-        }
-        this.webSocket.joinChatRoom(this.curUser, roomId);
-        setTimeout(() => {
-          this.refeshdata();
-        }, 0);
-        // this.isJoinChat.isJoinChat$.subscribe(item=>{
-        //   if(item !=null){
-        //     console.error('Đã vào từ  nơi khác')
-        //     this.pupUpmessage.showMessage('Bạn đã tham gia từ một nơi khác');
-        //   }else{
-        //     if(this.curRoomId){
-        //       this.webSocket.leaveChatRoom(this.curUser.Id, this.curRoomId);
-        //     }
-        //     this.webSocket.joinChatRoom(this.curUser, roomId);
-        //     setTimeout(() => {
-        //       this.refeshdata();
-        //     }, 0);
-        //   }
-        // })
+      if(!roomId){
+        this.hasRoom= true;
       }
-      this.hasRoom= true;
+      this.webSocket.listRoomChatActive();
+      this.webSocket.joinChatRoom(this.curUser, roomId);
+      setTimeout(() => {
+        this.refeshdata();
+      }, 0);
       this.curRoomId= roomId;
     });
     if(this.userjoin && this.userLeave){

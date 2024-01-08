@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router, RouterLinkActive } from '@angular/router';
 import { FaStackItemSizeDirective } from '@fortawesome/angular-fontawesome';
@@ -11,7 +11,7 @@ import { SearchbyCategories } from 'src/app/Service/repositores/injectable';
   templateUrl: './resultsearch.component.html',
   styleUrls: ['./resultsearch.component.scss']
 })
-export class ResultsearchComponent implements OnInit{
+export class ResultsearchComponent implements OnInit, OnDestroy{
 
   list:any[]=[];
   private sub!: Subscription;
@@ -79,5 +79,8 @@ export class ResultsearchComponent implements OnInit{
     }
     const url= `/Manga/${manga.mangaId || manga.MangaId}/${manganame}/${chapter.chapterId || chapter.ChapterId}/${chapter.chapterIndex || chapter.ChapterIndex}`;
     return url;
+  }
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 }

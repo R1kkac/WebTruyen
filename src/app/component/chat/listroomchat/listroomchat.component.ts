@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { Cur_User_In_Room, PopupMessageService, RoomChat, cur_room_chat, isHubConnected, isJoinChat, isLogin } from 'src/app/Service/repositores/injectable';
 import { UserChatRoom } from 'src/app/Service/repositores/interface';
 import { WebsocketService } from 'src/app/Service/websocket.service';
@@ -39,7 +39,6 @@ export class ListroomchatComponent implements OnInit{
     this.cur_number_user.curUser$.subscribe(result=>{
       console.log(result)
       this.list_count_user= result;
-      //console.error(result);
     });
     this.isJoinChat.isJoinChat$.subscribe(
       {next: (value)=>{
@@ -48,15 +47,8 @@ export class ListroomchatComponent implements OnInit{
     );
   }
   JoinRoomChat(room: any){
-    this.numberData$.subscribe(result=>{
-      if(result == 0){
-        const a= room.roomName.replace(/ /g, '-');
+    const a= room.roomName.replace(/ /g, '-');
         this.router.navigate([`c/room/${room.roomId}/${a}`]);
-      }
-      else{
-        this.popUpmessage.showMessage('Bạn đã tham gia chat từ nơi khác');
-      }
-    })
   }
   returnuser(roomId: any){
     if(this.list_count_user){
@@ -69,46 +61,4 @@ export class ListroomchatComponent implements OnInit{
     }
     return 0;
   }
-  // JoinRoomChat(room: any){
-  //   if(room.roomId != this.preRoomId && this.preRoomId.length ==0)
-  //   {
-  //    this.isJoinChat.isJoinChat$.subscribe(flag=>{
-  //     if(flag == true){
-  //       this.popUpMessage.showMessage('Bạn đã tham gia phòng chat từ nơi khác');
-  //     }else{
-  //       if(this.curUser){
-  //         this.webSocket.joinChatRoom(this.curUser, room.roomId)
-  //         this.preRoomId = room.roomId;
-  //       }
-  //       this.cur_room_chat.pushData(room.roomId);
-  //       setTimeout(() => {
-  //         const a= room.roomName.replace(/ /g, '-');
-  //         this.router.navigate([`c/room/${room.roomId}/${a}`]);
-  //       }, 0);
-  //     }
-  //    });
-  //   } 
-  //   else if( room.roomId != this.preRoomId && this.preRoomId.length !=0){
-  //     this.isJoinChat.isJoinChat$.subscribe(flag=>{
-  //       if(flag == true){
-  //         this.popUpMessage.showMessage('Bạn đã tham gia phòng chat từ nơi khác');
-  //       }else{
-  //         this.webSocket.leaveChatRoom(this.curUser.Id, this.preRoomId);
-  //         if(this.curUser)
-  //         {
-  //           this.webSocket.joinChatRoom(this.curUser, room.roomId)
-  //           this.preRoomId = room.roomId;
-  //         }
-  //         this.cur_room_chat.pushData(room.roomId);
-  //         setTimeout(() => {
-  //           const a= room.roomName.replace(/ /g, '-');
-  //           this.router.navigate([`c/room/${room.roomId}/${a}`]);
-  //         }, 0);
-  //       }
-  //     });
-  //   }
-  //   else{
-  //     this.popUpMessage.showMessage('Bạn đã ở phòng này rồi');
-  //   }
-  // }
 }

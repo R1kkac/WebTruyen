@@ -247,48 +247,7 @@ nav >ul>li>div >a:hover{
         overflow: hidden;
     }
 }
-
-// .user-avatar{
-//     display: grid;
-//     justify-content: center;
-// }
-// .user-avatar >img{
-//     width: 50px;
-//     height: 50px;
-//     padding: 0px;
-// }
-// .user-avatar >button{
-//     width: 50px;
-//     height: 20px;
-//     padding: 0px;
-//     font-size: .8rem;
-// }
-// .user-comment{
-//     display: grid;
-//     border: 1px solid rgb(154, 153, 153);
-//     padding: 0px;
-//     border-radius: .5rem;
-
-// }
-// .user-comment .user-info{
-//     max-height: 25px;
-// }
-// .user-comment .user-info >span{
-//     display: inline;
-//     margin: 5px;
-// }
-// .chat-data {
-//     margin: 0px;
-// }
-// .chat-data .data{
-//     max-width: 50rem;
-//     display: block;
-//     overflow: hidden;
-//     word-wrap: break-word;
-// }
-// .chat-data .data{
-//     display: -webkit-box;
-//     -webkit-line-clamp: 5;
-//     -webkit-box-orient: vertical;
-//     overflow: hidden;
-// }
+.author >span:not(:last-child)::after,
+.artist>span:not(:last-child)::after{
+    content: ' - ';
+}

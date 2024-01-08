@@ -37,15 +37,28 @@
                     <ul class="list-info-manga">
                         <li class="row author pt-2 pb-2 ms-1">
                             <p class="col-4 col-sm-4"><b>Tác giả</b></p>
-                            <p class="col-8 col-sm-8">{{manga?.mangaAuthor}}</p>
+                            <p class="col-8 col-sm-8 author">
+                                <ng-container *ngIf="manga?.listauthor.length == 0">
+                                    <span>Không xác định</span>
+                                </ng-container>
+                                <ng-container *ngIf="manga?.listauthor.length > 0">
+                                    <span *ngFor="let author of manga.listauthor">{{author.name}}</span>
+                                </ng-container>
+                            </p>
                         </li>
                         <li class="row author pt-2 pb-2 ms-1">
                             <p class="col-4 col-sm-4"><b>Họa sĩ</b></p>
-                            <p class="col-8 col-sm-8">{{manga?.mangaArtist}}</p>
+                            <p class="col-8 col-sm-8 artist">
+                                <ng-container *ngIf="manga?.listartist.length == 0">
+                                    <span>Không xác định</span>
+                                </ng-container>
+                                <ng-container *ngIf="manga?.listartist.length > 0">
+                                    <span *ngFor="let artist of manga.listartist">{{artist.name}}</span>
+                                </ng-container>
                         </li>
                         <li class="row status pt-2 pb-2 ms-1">
                             <p class="col-4 col-sm-4"><b>Tình trạng</b></p>
-                            <p class="col-8 col-sm-8">Chưa thêm vào !!!!</p>
+                            <p class="col-8 col-sm-8">{{manga?.status ? 'Đã hoàn thành' : 'Đang tiến hành'}}</p>
                         </li>
                         <li class="row categories pt-2 pb-2 ms-1">
                             <p class="col-4 col-sm-4"><b>Thể loại</b></p>

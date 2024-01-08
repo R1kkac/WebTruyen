@@ -69,10 +69,8 @@ export class ReadmangaComponent implements OnInit,OnDestroy{
     this.listurl=[];
     this.subscription= this.mangaService.GetdataChapter(mangaid, chapperid).subscribe({
       next:(item:any)=>{
-        this.listurl= item;
+        this.listurl= item.sort((a: any, b: any)=> a.index - b.index);
         if(this.cur_index_history_read){
-          console.log(this.cur_index_history_read.cur_index);
-          console.log(this.listurl.length);
           if(this.cur_index_history_read.cur_index+5 < this.listurl.length){
             this.listdataSubject.next(this.listurl.slice(0,this.cur_index_history_read.cur_index + 5 + 1));
             this.count=this.cur_index_history_read.cur_index + 5 + 1;
@@ -119,13 +117,11 @@ export class ReadmangaComponent implements OnInit,OnDestroy{
         }
         //processbar
         this.curindex= (index +1 === this.listurl.length) ? 100 : (index / this.listurl.length) *100 +10;
-        console.error(this.count)
         this.processBar.sendData(index,this.listurl.length);
         // Phần tử ở giữa màn hình
         if((index+1) == this.count && (index + 1)< this.listurl.length){
           const curdata= this.listdataSubject.getValue();
           if(this.listurl.length - this.count >=5){
-            console.log(this.listurl.length - this.count)
             this.count +=5;
             const data= this.updateimage(index + 1, 5);
             const updatedata= [...curdata, ...data];

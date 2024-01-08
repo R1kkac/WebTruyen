@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { PopupMessageService } from 'src/app/Service/repositores/injectable';
 
@@ -7,7 +7,7 @@ import { PopupMessageService } from 'src/app/Service/repositores/injectable';
   templateUrl: './popupmessage.component.html',
   styleUrls: ['./popupmessage.component.scss']
 })
-export class PopupmessageComponent implements OnInit{
+export class PopupmessageComponent implements OnInit, OnDestroy{
   message: string | null = null;
 
   private Subscription!: Subscription;
@@ -23,5 +23,8 @@ export class PopupmessageComponent implements OnInit{
         this.message = null;
       }, 3000); // Ẩn thông báo sau 3 giây
     });
+  }
+  ngOnDestroy(): void {
+    this.Subscription.unsubscribe();
   }
 }
