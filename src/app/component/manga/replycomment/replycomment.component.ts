@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { replycomment } from 'src/app/Service/repositores/interface';
 import { UserService } from 'src/app/Service/user.service';
 import { WebsiteServiceService } from 'src/app/Service/website-service.service';
 
@@ -12,12 +13,14 @@ export class ReplycommentComponent implements OnInit, OnChanges{
   @Input() comment!: any;
   @Input() isResetComment!: boolean;
   Danhsach :any;
+  report=false;
   constructor(private userService: UserService){}
   ngOnInit(): void {
     // console.error("Vào List Reply");
     //console.log(this.isResetComment)
     this.userService.layDanhSachPhanHoiBinhLuan(this.comment.idComment).subscribe((res: any[])=>{
       this.Danhsach= res;
+
       this.Danhsach = this.Danhsach.sort((a: any, b: any) => {
         const dateA = new Date(this.convertDateString(a.dateReply));
         const dateB = new Date(this.convertDateString(b.dateReply));
@@ -48,4 +51,5 @@ export class ReplycommentComponent implements OnInit, OnChanges{
     const formattedDateString = dateString.split(' ').reverse().join(' ');
     return formattedDateString;
   }
+  
 }

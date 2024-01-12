@@ -1,11 +1,12 @@
 <div class="container pe-0 p-0 m-0">
+    <ng-container *ngIf="hasRoom === true">
+        <div class="not-in-room">
+            <h1>Chưa vào phòng chat nào</h1>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="hasRoom === false">
         <div class="content">
             <ul #fielddata class="data m-0 p-0">
-                <ng-container *ngIf="hasRoom === false">
-                    <div class="not-in-room">
-                        <h1>Chưa vào phòng chat nào</h1>
-                    </div>
-                </ng-container>
                 <!-- <li>
                     <div class="item-chat m-2">
                         <div class="info">
@@ -26,7 +27,8 @@
                 </form>
             </div>
         </div>
-        <div class="user-active">
-            <router-outlet></router-outlet>
-        </div>
+    </ng-container>
+    <div class="user-active">
+        <router-outlet></router-outlet>
+    </div>
 </div>

@@ -1,6 +1,7 @@
 import { AfterContentInit, Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { CheckInputBadWord } from 'src/app/Extension/badword';
 import { ListDataChatRoom, NewChat, PopupMessageService, UserJustCreate, UserJustLeave, cur_room_chat, isJoinChat, isLogin } from 'src/app/Service/repositores/injectable';
 import { UserChatRoom } from 'src/app/Service/repositores/interface';
 import { UserService } from 'src/app/Service/user.service';
@@ -40,6 +41,8 @@ export class MainchatComponent implements OnInit, OnDestroy{
       const roomId= item.get('roomId');
       if(!roomId){
         this.hasRoom= true;
+      }else{
+        this.hasRoom= false;
       }
       this.webSocket.listRoomChatActive();
       this.webSocket.joinChatRoom(this.curUser, roomId);
@@ -95,7 +98,13 @@ export class MainchatComponent implements OnInit, OnDestroy{
   }
   chatToRoom(input: any){
     const message= input.target[0].value;
-    this.webSocket.ChatToRoom(this.curUser.Id, this.curRoomId, message);
+    var checkBadword= CheckInputBadWord.CheckExitsBadWord(message);
+    if(checkBadword){
+      this.webSocket.ChatToRoom(this.curUser.Id, this.curRoomId, `<i style="font-style: italic;color: rgb(212, 212, 212);">Nội dung đã bị xóa do có chứa từ ngữ không phù hợp<i>`);
+    }
+    else{
+      this.webSocket.ChatToRoom(this.curUser.Id, this.curRoomId, message);
+    }
     input.target[0].value = '';
   }
   refeshdata(){

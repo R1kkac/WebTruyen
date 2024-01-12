@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { cookie, index_history_read_chapter, manga_history } from './repositores/interface';
-import { isLogin } from './repositores/injectable';
+import { PopupMessageService, isLogin } from './repositores/injectable';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class WebsiteServiceService {
   public UserCookie='SSUSER'; //current user
 
   constructor(private cookie: CookieService, private http: HttpClient,private CookieService: CookieService,
-    private isLogin: isLogin) { }
+    private isLogin: isLogin, private router: Router, private popUpmessage: PopupMessageService) { }
   returnMangaUrl(idManga: any, nameManga:any){
     const name= nameManga.replace(/ /g, '-');
       return `/Manga/${idManga}/${name}`;
@@ -77,7 +77,18 @@ export class WebsiteServiceService {
       this.isLogin.sendData(cookievalue);
     }  
   }
-
+  checkLogin(){
+    const token=this.decrypt(this.cookie.get(this.JWTCookie));
+    const user=this.decrypt(this.cookie.get(this.UserCookie));
+    if(token && user){
+      return true;
+    }
+    else{
+      this.popUpmessage.showMessage('Vui lòng đăng nhập để sử dụng chức năng này');
+      this.router.navigate([]);
+      return false;
+    }
+  }
   //Tạo cookie chứa thông tin
   SetCookie(token: any, infouser: any){
     const cookieOptions = {

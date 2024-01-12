@@ -7,6 +7,12 @@
             <span class="comment-username">{{comment.name || comment.userName}}</span>
             <span *ngIf="comment.curChapter !== null" class="comment-chapter">{{comment.curChapter}}</span>
             <span class="comment-date">Thời gian: {{(comment.date | date:'h:mm dd-MM-yyyy') || (comment.dateComment | date:'h:mm dd-MM-yyyy')}}</span>
+            <div class="report">
+                <a (click)="report=!report"><i class="fa-solid fa-ellipsis-vertical"></i></a>
+                <ng-container *ngIf="report == true">
+                    <a class="btn-report">Báo cáo</a>
+                </ng-container>
+            </div>
         </div>
         <div class="comment-content">{{comment.commentData}}</div>
     </div>

@@ -28,8 +28,12 @@
         margin-top: .25rem;
         .comment-info{
             margin-bottom: .5rem;
+            display: flex;
+            justify-content: center;
+            align-items: end;
             .comment-chapter{
-                padding: .5rem;
+                padding-left: .5rem;
+                padding-right: .5rem;
                 font-weight: 1000;
             }
             .comment-date{
@@ -40,6 +44,33 @@
                 background: linear-gradient(to left, #3399ff 15%, #00ffff 100%);
                 border-radius: .25rem;
                 padding: .25rem;
+            }
+            .report{
+                position: relative;
+                margin-left: .5rem;
+                a:hover{
+                    color: rgb(255, 0, 0);
+                    cursor: pointer;
+                }
+                a{
+                    padding: .5rem;
+                    position: relative; 
+                }   
+                .btn-report{
+                    width: 100px;
+                    background-color: rgb(255, 255, 255);
+                    border-radius: .25rem;
+                    border: 1px solid gray;
+                    position: absolute;
+                    padding: .25rem;         
+                    z-index: 99999999; 
+                    bottom: 100;
+                    text-decoration: none;
+                } 
+                .btn-report:hover{
+                    background-color: rgb(234, 235, 235);
+                    color: rgb(255, 0, 0);
+                }  
             }
         }
         .comment-content{

@@ -96,6 +96,9 @@ export class MangabycategoryComponent implements OnInit{
   }
   getManga(id: any){
     this.router.navigate([`The-loai/${id}`]);
+    setTimeout(() => {
+      this.showandhidemenu();
+    }, 500);
   }
   readchapter(chapter: any, manga: any){
     let manganame= manga.mangaName.replace(/ /g, '-');
@@ -117,7 +120,7 @@ export class MangabycategoryComponent implements OnInit{
       this.listManga = items.listmanga;
     })
   }
-  showandhidemenu(input: any){
+  showandhidemenu(){
     this.menu = !this.menu;
     this.menuState = this.menu ? 'collapsed' : 'expanded';
     this.menuIconClass = this.menu ? 'fa-caret-down' : 'fa-caret-right';

@@ -26,33 +26,19 @@
         </li>
         <li><a class="adsearch nav-item" href="/Tim-kiem-nang-cao">Tìm nâng cao</a></li>
       </ul>
-
-      <!-- <form class="example-form search-field d-flex justify-content-center">
-        <mat-form-field class="example-full-width">
-          <mat-label>Manga Name</mat-label>
-          <input class="inputsearch" #inputElement [(ngModel)]="inputsearch" type="text"
-                 matInput
-                 [formControl]="searchControl"
-                 [matAutocomplete]="auto">
-          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
-            <mat-option *ngFor="let option of result " [value]="option">
-              <img [src]="option.mangaImage" class="img img-thumbnail w-25 h-25" alt="img">
-              <a #info (click)="timkiem(option.mangaId)">{{option.mangaName}}</a>
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
-      </form> -->
       <form class="search-field d-flex justify-content-center" (submit)="timkiem($event)">
         <div class="search-content">
           <input (keydown.enter)="enterevent()" autocomplete="off" name="search" [(ngModel)]="inputsearch" #inputElement class="searchfrom form-control me-1" type="search" placeholder="Tìm kiếm" aria-label="Search">
         <ng-container *ngIf="result?.length>0">
         <ul class="search-result p-0 m-0">
-          <li *ngFor="let item of result">
-            <div (click)="infomanga(item)" class="search-result-data m-0 p-0">
-              <img [src]="item?.mangaImage" [alt]="item.mangaName">
-              <a >{{item.mangaName}}</a>
-            </div>
-          </li>
+          <ng-container *ngIf="inputsearch.length >2">
+            <li *ngFor="let item of result">
+              <div (click)="infomanga(item)" class="search-result-data m-0 p-0">
+                <img [src]="item?.mangaImage" [alt]="item.mangaName">
+                <a >{{item.mangaName}}</a>
+              </div>
+            </li>
+          </ng-container>
         </ul>
       </ng-container>
         </div>

@@ -64,3 +64,28 @@ export interface room_users
     roomId: string;
     numberuser: string;
 }
+export class replycomment{
+  id: string='';
+  date: string='';
+  iduser: string='';
+  namereply: string='';
+  data: string='';
+  avatar: string='';
+  name: string='';
+  constructor(public Id: string, 
+    public Date: string,
+    public Iduser: string,
+    public Namereply: string,
+    public Data: string,
+    public Avatar: string,
+    public Name: string,) {
+      this.id = Id;
+      this.date = Date;
+      this.iduser = Iduser;
+      this.namereply = Namereply;
+      this.data= Data;
+      this.avatar= Avatar;
+      this.name= Name
+    }
+
+}

@@ -1,6 +1,6 @@
 <section class="result-category">
     <div class="tool-bav">
-        <h2 title="Mở danh sách thể loại" (click)="showandhidemenu($event)" class="title"><mat-icon>view_headline</mat-icon><span>Danh mục</span></h2>
+        <h2 title="Mở danh sách thể loại" (click)="showandhidemenu()" class="title"><mat-icon>view_headline</mat-icon><span>Danh mục</span></h2>
         <ol [@expandCollapse]="menuState" class="row p-0 m-0">
           <li *ngFor="let item of CategorysSource" [@stagger]  class="col-sm-2 col-4 bg-light row p-0 m-0">
             <a class="fs-6 col-12" (click)="getManga(item.genreId)" [title]="item.info">{{item.genresIdName}}</a>

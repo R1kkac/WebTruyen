@@ -31,6 +31,8 @@ import { ChatpageComponent } from './component/chat/chatpage/chatpage.component'
 import { ListroomchatComponent } from './component/chat/listroomchat/listroomchat.component';
 import { ListuseractiveComponent } from './component/chat/listuseractive/listuseractive.component';
 import { MainchatComponent } from './component/chat/mainchat/mainchat.component';
+import { guardGuard } from './guard/guard.guard';
+import { ContactComponent } from './Layout/contact/contact.component';
 
 const routes: Routes = [
   {path: '' , component: HomeComponent, children:[
@@ -60,19 +62,20 @@ const routes: Routes = [
     {path: 'Manga/:type' , component: ListmangaComponent,data: {type: 'A-Z'}, children: [
       {path: '', component: SlidebarComponent} 
     ]},
-    {path: 'user/:userid/:usernam', component: InfouserComponent, children: [
+    {path: 'user/:userid/:usernam', component: InfouserComponent,canActivate: [guardGuard] , children: [
       {path: '', component: InfouserDetailsComponent},
       {path: 'history', component: InfouserReadhistoryComponent},
       {path: 'following', component: InfouserFollowingComponent},
       {path: 'notificatios', component: InfouserNotificationsComponent},
     ]},
-    {path :'c', component: ChatpageComponent, children:[
+    {path :'c', component: ChatpageComponent, canActivate: [guardGuard] , children:[
       {path: '' , component: ListroomchatComponent, outlet: 'listroom'},
       {path: '' , component: MainchatComponent},
       {path: 'room/:roomId/:roomName' , component: MainchatComponent, children:[
         { path: '', component: ListuseractiveComponent}
       ]},
     ]},
+    {path: 'Contact', component: ContactComponent}
   ]},
   {path: 'oAuth', component: UserpageComponent, children:[
     {path: 'login' , component: LoginComponent},

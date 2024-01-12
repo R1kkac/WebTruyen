@@ -52,6 +52,8 @@ import { MainchatComponent } from './component/chat/mainchat/mainchat.component'
 import { PopupMessageService, UsersInRoom } from './Service/repositores/injectable';
 import { WebsocketService } from './Service/websocket.service';
 import { RowInChatComponent } from './Tool/row-in-chat/row-in-chat.component';
+import { ReplycommentdataComponent } from './Tool/replycommentdata/replycommentdata.component';
+import { ContactComponent } from './Layout/contact/contact.component';
 
 
 export function IsLogin(webSite: WebsiteServiceService) {
@@ -118,7 +120,9 @@ export function Topmanga(Manga: MangaService) {
     ListroomchatComponent,
     ListuseractiveComponent,
     MainchatComponent,
-    RowInChatComponent
+    RowInChatComponent,
+    ReplycommentdataComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,

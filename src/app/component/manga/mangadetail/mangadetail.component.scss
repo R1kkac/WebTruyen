@@ -133,7 +133,7 @@ nav >ul>li>div >a:hover{
         margin: 0;
     }
     .action-chat >a:hover{
-        color: red;
+        color: aqua;
     }
  
 }
@@ -151,17 +151,17 @@ nav >ul>li>div >a:hover{
 .status-off{
     display: inline-block;
     position: relative;
-    width: .75rem;
-    height: .75rem;
-    border-radius: .375rem;
+    width: 1rem;
+    height: 1rem;
+    border-radius: .5rem;
     background-color: red;
 }
 .status-on{
     display: inline-block;
     position: relative;
-    width: .75rem;
-    height: .75rem;
-    border-radius: .375rem;
+    width: 1rem;
+    height: 1rem;
+    border-radius: .5rem;
     background-color: green;
 }
 @media (max-width: 360px){

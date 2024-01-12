@@ -22,6 +22,7 @@ export class CommenttemplateComponent implements OnInit{
   dislikecomment=0;
   islike=false;
   isdislike=false;
+  report=false;
   constructor(private userService: UserService){
 
   }
