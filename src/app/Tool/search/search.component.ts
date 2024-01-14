@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { ResultSearchManga } from 'src/app/Service/manga.service';
+import { ResultSearchManga } from 'src/app/Service/repositores/injectable';
 
 @Component({
   selector: 'app-search',

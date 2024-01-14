@@ -3,7 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
-import { DataCategories, MangaService } from 'src/app/Service/manga.service';
+import { MangaService } from 'src/app/Service/manga.service';
+import { DataCategories } from 'src/app/Service/repositores/injectable';
 import { WebsiteServiceService } from 'src/app/Service/website-service.service';
 export interface Section {
   name: string;

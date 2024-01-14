@@ -2,9 +2,9 @@ import {AfterContentInit, AfterViewInit, Component, ElementRef, OnDestroy, OnIni
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Subject, Subscription } from 'rxjs';
-import { MangaService, ResultSearchManga } from 'src/app/Service/manga.service';
+import { MangaService } from 'src/app/Service/manga.service';
 import { UserService } from 'src/app/Service/user.service';
-import { PopupMessageService, isLogin } from 'src/app/Service/repositores/injectable';
+import { PopupMessageService, ResultSearchManga, isLogin } from 'src/app/Service/repositores/injectable';
 
 @Component({
   selector: 'app-header',

@@ -2,8 +2,8 @@ import { AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { faL } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
-import { MangaDefault, MangaService, PageNumber } from 'src/app/Service/manga.service';
-import { CurPage } from 'src/app/Service/repositores/injectable';
+import { MangaService } from 'src/app/Service/manga.service';
+import { CurPage, MangaDefault, PageNumber } from 'src/app/Service/repositores/injectable';
 
 @Component({
   selector: 'app-content',

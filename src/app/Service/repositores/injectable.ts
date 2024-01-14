@@ -193,3 +193,68 @@ import { cookie } from "./interface";
       this.curUserSubject.next(data);
     }
   }
+
+  /// Manga
+  
+
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ResultSearchManga {
+
+  private SearchmangatSubject= new BehaviorSubject<any[]>([]);
+  SearchMangaData$ = this.SearchmangatSubject.asObservable();
+
+    sendData(item: any[]){
+    this.SearchmangatSubject.next(item);
+  }
+}
+@Injectable({
+  providedIn: 'root'
+})
+export class MangaDefault {
+
+  private MangadefaultSubject= new BehaviorSubject<any[]>([]);
+  MangaData$ = this.MangadefaultSubject.asObservable();
+
+    sendData(item: any[]){
+    this.MangadefaultSubject.next(item);
+  }
+}
+@Injectable({
+  providedIn: 'root'
+})
+export class DataCategories {
+
+  private CategoriesSubject= new BehaviorSubject<any[]>([]);
+  CategoriesData$ = this.CategoriesSubject.asObservable();
+
+    sendData(item: any[]){
+    this.CategoriesSubject.next(item);
+  }
+}
+@Injectable({
+  providedIn: 'root'
+})
+export class PageNumber {
+
+  private PageNumberSubject= new BehaviorSubject<number>(0);
+  PageNumberData$ = this.PageNumberSubject.asObservable();
+
+    sendData(item: number){
+    this.PageNumberSubject.next(item);
+  }
+}
+@Injectable({
+  providedIn: 'root'
+})
+export class Topmangadefault {
+
+  private TopMangaSubject= new BehaviorSubject<number>(0);
+  TopmangaData$ = this.TopMangaSubject.asObservable();
+
+    sendData(item: number){
+    this.TopMangaSubject.next(item);
+  }
+}

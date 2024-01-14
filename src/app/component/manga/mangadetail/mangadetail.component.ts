@@ -4,7 +4,7 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, map } from 'rxjs';
-import { MangaDefault, MangaService } from 'src/app/Service/manga.service';
+import { MangaService } from 'src/app/Service/manga.service';
 import { UserService } from 'src/app/Service/user.service';
 import { WebsiteServiceService } from 'src/app/Service/website-service.service';
 import { PopupMessageService, RoomChat, isLogin } from 'src/app/Service/repositores/injectable';
@@ -223,6 +223,9 @@ export class MangadetailComponent implements OnInit, OnDestroy{
         next: (result: any)=>{
           if(result === true){
             this.toastr.success('Đã đánh giá thành công');
+            setTimeout(() => {
+              this.webService.showAndHideDisplayElement('.rate'); 
+            }, 1000);
           }
           else{
             this.toastr.error('Đánh giá tất bại');

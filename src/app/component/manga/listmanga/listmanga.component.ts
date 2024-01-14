@@ -22,6 +22,7 @@ export class ListmangaComponent implements OnInit{
   pagination:any[]=[];
   result: any[]=[];
   number=0;
+  Idtype: any;
   constructor(private webService: WebsiteServiceService, private route: ActivatedRoute, private title: Title, private mangaService: MangaService,
     private router:Router){
     this.title.setTitle('Danh sách truyện - Yahallo')
@@ -34,6 +35,7 @@ export class ListmangaComponent implements OnInit{
     this.route.paramMap.subscribe(param=>{
       const name= param.get('type') || 'A-Z';
       const Id= this.Categories.find(x=> x.name == name)?.type;
+      this.Idtype = Id;
       this.mangaService.GetAllMangaByTYpe(Id,10, 1).subscribe((result: any)=>{
         this.result= result;
       })
@@ -61,7 +63,7 @@ export class ListmangaComponent implements OnInit{
   }
   changepage(page: number){
     const pagenumber= Number(page);
-    this.mangaService.GetAllMangaByTYpe(0,10, pagenumber).subscribe((result: any)=>{
+    this.mangaService.GetAllMangaByTYpe(this.Idtype,10, pagenumber).subscribe((result: any)=>{
       this.result= result;
     })
   }

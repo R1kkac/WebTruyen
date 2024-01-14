@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { MangaDefault, MangaService, PageNumber } from 'src/app/Service/manga.service';
-import { CurPage } from 'src/app/Service/repositores/injectable';
+import { MangaService } from 'src/app/Service/manga.service';
+import { CurPage, MangaDefault, PageNumber } from 'src/app/Service/repositores/injectable';
 
 @Component({
   selector: 'app-mangapage',
