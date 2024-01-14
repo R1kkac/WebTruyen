@@ -23,8 +23,8 @@ import { PopupMessageService, isLogin } from 'src/app/Service/repositores/inject
 export class InfouserNotificationsComponent implements OnInit{
   private dataSourceSubject = new BehaviorSubject<Notifications[]>([]);
   dataSource$ = this.dataSourceSubject.asObservable();
-  // columnsToDisplay = ['Type', 'Message', 'Target', 'Date'];
-  columnsToDisplay = ['Loại', 'Nội dung', 'Đối tượng', 'Thời gian'];
+  columnsToDisplay = ['Type', 'Message', 'Target', 'Date'];
+  // columnsToDisplay = ['Loại', 'Nội dung', 'Đối tượng', 'Thời gian'];
   dataSource: Notifications[]=[];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
   expandedElement!: Notifications | null;

@@ -102,7 +102,15 @@ export class CommenttemplateComponent implements OnInit{
           this.isdislike = !this.isdislike;
         }
       })
-    }
-    
+    }   
+  }
+  reportcomment(idcomment: any){
+    setTimeout(() => {
+      this.report= !this.report;
+    }, 3000);
+    this.userService.reportcomment(idcomment).subscribe({
+      next: (result: any)=>{
+      }
+    })
   }
 }

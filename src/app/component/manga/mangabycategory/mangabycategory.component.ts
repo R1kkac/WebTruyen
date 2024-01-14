@@ -96,9 +96,9 @@ export class MangabycategoryComponent implements OnInit{
   }
   getManga(id: any){
     this.router.navigate([`The-loai/${id}`]);
-    setTimeout(() => {
-      this.showandhidemenu();
-    }, 500);
+    // setTimeout(() => {
+    //   this.showandhidemenu();
+    // }, 500);
   }
   readchapter(chapter: any, manga: any){
     let manganame= manga.mangaName.replace(/ /g, '-');

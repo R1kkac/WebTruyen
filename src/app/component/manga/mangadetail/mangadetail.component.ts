@@ -50,7 +50,7 @@ export class MangadetailComponent implements OnInit, OnDestroy{
       })
       this.mangaService.GetMangaInfo(Id!).subscribe({
         next: (item:any)=>{
-          console.log(item);
+          //console.log(item);
           this.manga=item;
           this.title.setTitle(`${this.manga.mangaName}`);
         },

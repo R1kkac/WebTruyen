@@ -37,20 +37,22 @@
         </mat-tab>
       </mat-tab-group>
     </div>
-    <div class="readhistory mt-1">
-      <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" class="border-top border-danger">
-        <mat-tab label="Lịch sử đọc">
-          <ul class="history list-group list-group-flush">
-            <li [routerLink]="urlHistory(item.id, item.name)" *ngFor="let item of readhistory" class="list-group-item">
-              <a>
-                <img [src]="item?.image"  [alt]="item?.name" appImageError>
-                <span>{{item?.name}}</span>
-              </a>
-            </li>
-          </ul>
-        </mat-tab>
-      </mat-tab-group>
-    </div>
+    <ng-container *ngIf="hasLogin === true">
+      <div class="readhistory mt-1">
+        <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" class="border-top border-danger">
+          <mat-tab label="Lịch sử đọc">
+            <ul class="history list-group list-group-flush">
+              <li [routerLink]="urlHistory(item.id, item.name)" *ngFor="let item of readhistory" class="list-group-item">
+                <a>
+                  <img [src]="item?.image"  [alt]="item?.name" appImageError>
+                  <span>{{item?.name}}</span>
+                </a>
+              </li>
+            </ul>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </ng-container>
     <ng-container *ngIf="hasLogin === true">
       <div class="following-manga mt-1">
         <h3 class="text-center border border-danger fw-bold">Truyện theo dõi</h3>

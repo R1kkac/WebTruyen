@@ -11,7 +11,7 @@
                 <div class="report">
                     <a (click)="report=!report"><i class="fa-solid fa-ellipsis-vertical"></i></a>
                     <ng-container *ngIf="report == true">
-                        <a class="btn-report">Báo cáo</a>
+                        <a  (click)="reportreplycomment(data.idReply)" class="btn-report">Báo cáo</a>
                     </ng-container>
                 </div>
             </div>

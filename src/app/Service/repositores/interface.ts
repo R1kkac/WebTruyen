@@ -89,3 +89,12 @@ export class replycomment{
     }
 
 }
+export interface userlogin{
+  username: string;
+  password: string;
+}
+export interface register{
+  UserName: string;
+  Password: string;
+  Email: string;
+}

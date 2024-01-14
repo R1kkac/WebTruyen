@@ -4,6 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Observable, Subject } from 'rxjs';
 import { WebsiteServiceService} from './website-service.service';
 import { isLogin} from './repositores/injectable';
+import { userlogin, register } from './repositores/interface';
 
 @Injectable({
   providedIn: 'root'
@@ -174,14 +175,17 @@ export class UserService {
     const url = `${this.ApiUrlService}/comment_count/${mangaid}`;
     return this.http.get(url);
   }
+  reportcomment(idcomment: any): Observable<any>{
+    const url = `${this.ApiUrlService}/comment/report`;
+    var fromdata= new FormData;
+    fromdata.append('idcomment', idcomment);
+    return this.http.post(url, fromdata);
+  }
+  reportreplycomment(idreply: any): Observable<any>{
+    const url = `${this.ApiUrlService}/comment/reportreply`;
+    var fromdata= new FormData;
+    fromdata.append('idreply', idreply);
+    return this.http.post(url, fromdata);
+  }
 }
 
-export interface userlogin{
-  username: string;
-  password: string;
-}
-export interface register{
-  UserName: string;
-  Password: string;
-  Email: string;
-}

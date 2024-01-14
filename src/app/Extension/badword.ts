@@ -56,7 +56,7 @@ export class CheckInputBadWord{
             console.log(pretreatment);
             for(var badword of this.badwords){
                 let word= badword.trim().replace(/[^a-zA-Zàáảãạâầấẩẫậăằắẳẵặèéẻẽẹêềếểễệđìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳýỷỹỵ\s]/g, "").toLowerCase();
-                if(pretreatment.includes(word)){
+                if(pretreatment == word){
                     return true;
                 }
             }

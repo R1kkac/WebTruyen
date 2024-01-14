@@ -71,21 +71,27 @@
                         </li>
                         <li>
                             <div class="chatroom p-2 d-flex ms-1">
-                                <div class="info-chat d-flex">
-                                    <span>Phòng chat hiện tại :</span>
-                                    <div class="ms-1 d-flex align-items-center">
-                                        <span [ngClass]="isChatRoom === false ? 'status-off': 'status-on' "></span>
-                                        <span class="p-1">{{isChatRoom == false ? 'đang đóng' : 'đã mở'}}</span>
+                                <ng-container *ngIf="hasLogin == false">
+                                    <span style="font-weight: 700;">Phòng trực chat tuyến :</span>
+                                    <a style="font-style: italic; color: rgb(199, 197, 197);">Vui lòng đăng nhập để sử dụng tính năng này</a>
+                                </ng-container>
+                                <ng-container *ngIf="hasLogin== true">
+                                    <div class="info-chat d-flex">
+                                        <span>Phòng chat hiện tại :</span>
+                                        <div class="ms-1 d-flex align-items-center">
+                                            <span [ngClass]="isChatRoom === false ? 'status-off': 'status-on' "></span>
+                                            <span class="p-1">{{isChatRoom == false ? 'đang đóng' : 'đã mở'}}</span>
+                                        </div>
+                                        <div class="action-chat">
+                                            <ng-container *ngIf="isChatRoom === true">
+                                                <a (click)="ChatRoom()" class="btn btn-success">Tham gia chat</a>
+                                            </ng-container>
+                                            <ng-container *ngIf="isChatRoom === false">
+                                                <a (click)="creatRoomChat(manga?.mangaId,manga?.mangaName,manga?.mangaImage)" class="btn btn-danger">Mở phòng chat</a>
+                                            </ng-container>
+                                        </div>
                                     </div>
-                                    <div class="action-chat">
-                                        <ng-container *ngIf="isChatRoom === true">
-                                            <a (click)="ChatRoom()" class="btn btn-success">Tham gia chat</a>
-                                        </ng-container>
-                                        <ng-container *ngIf="isChatRoom === false">
-                                            <a (click)="creatRoomChat(manga?.mangaId,manga?.mangaName,manga?.mangaImage)" class="btn btn-danger">Mở phòng chat</a>
-                                        </ng-container>
-                                    </div>
-                                </div>
+                                </ng-container>
                             </div>
                         </li>
                     </ul>
