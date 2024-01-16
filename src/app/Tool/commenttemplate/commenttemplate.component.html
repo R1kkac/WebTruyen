@@ -10,11 +10,12 @@
             <div class="report">
                 <a (click)="report=!report"><i class="fa-solid fa-ellipsis-vertical"></i></a>
                 <ng-container *ngIf="report == true">
-                    <a (click)="reportcomment(comment.idComment)" class="btn-report">Báo cáo</a>
+                    <a (click)="reportComment(comment.idComment)" class="btn-report">Báo cáo</a>
                 </ng-container>
             </div>
         </div>
-        <div class="comment-content">{{comment.commentData}}</div>
+        <div class="comment-content" *ngIf="!comment.isContentHidden"> {{comment.commentData}} </div>
+        <div class="comment-content comment-warning" *ngIf="comment.isContentHidden"> <em>Bình luận này đã bị cảnh cáo!</em> </div>
     </div>
 </div>
 <div class="action-comment">

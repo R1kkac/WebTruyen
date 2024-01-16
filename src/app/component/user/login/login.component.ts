@@ -48,11 +48,18 @@ export class LoginComponent {
         }
       },
       error:(err: any)=> {
-        if(err && err.status === 401){
+        if (err.error && err.error.message) {
+          // Hiển thị thông báo dựa trên message trả về từ API
+          this.toastr.error(err.error.message, 'Tài khoản này đã bị khóa');
+        }
+        else if(err && err.status === 401){
           this.toastr.error("Đăng nhập thất bại");
         }
-        if(err && err.status === 0){
+        else if(err && err.status === 0){
           this.toastr.warning("Kết nối đén máy chủ bị gián đoạn");
+        }
+        else {
+          this.toastr.error("Đã có lỗi xảy ra");
         }
       },
     });

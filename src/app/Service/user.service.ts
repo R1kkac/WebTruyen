@@ -15,6 +15,7 @@ export class UserService {
     ) { }
   private ApiUrlUser='https://localhost:7132/Authentication';
   private ApiUrlService= 'https://localhost:7132/Services';
+  private ApiComment='https://localhost:7132/Binh_Luan';
 
   login(username: any, password: any): Observable<any>{
     const url= `${this.ApiUrlUser}/Login`;
@@ -187,5 +188,14 @@ export class UserService {
     fromdata.append('idreply', idreply);
     return this.http.post(url, fromdata);
   }
+  
+  reportComment(idComment: string): Observable<any> {
+    return this.http.get(`${this.ApiComment}/ReportComment`, { params: { idComment } });
+  }
+
+  reportRepComment(IdReply: string): Observable<any> {
+    return this.http.get(`${this.ApiComment}/ReportRepComment`, { params: { IdReply } });
+  }
+
 }
 

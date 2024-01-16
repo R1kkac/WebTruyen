@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/Service/user.service';
 
 @Component({
@@ -23,7 +24,7 @@ export class CommenttemplateComponent implements OnInit{
   islike=false;
   isdislike=false;
   report=false;
-  constructor(private userService: UserService){
+  constructor(private userService: UserService,private toastr: ToastrService){
 
   }
   ngOnInit(): void {
@@ -104,13 +105,16 @@ export class CommenttemplateComponent implements OnInit{
       })
     }   
   }
-  reportcomment(idcomment: any){
-    setTimeout(() => {
-      this.report= !this.report;
-    }, 3000);
-    this.userService.reportcomment(idcomment).subscribe({
-      next: (result: any)=>{
+  reportComment(IdComment: string) {
+    this.userService.reportComment(IdComment).subscribe({
+      next: (response) => {
+        console.log('Bình luận đã được báo cáo');
+        this.toastr.success('Bình luận đã được báo cáo thành công', 'Báo cáo');
+      },
+      error: (error) => {
+        console.error('Lỗi khi báo cáo bình luận', error);
+        this.toastr.error('Có lỗi xảy ra khi báo cáo bình luận', 'Lỗi');
       }
-    })
+    });
   }
 }
